@@ -31,6 +31,10 @@ Route::get('/gestParc', 'GestParcController@index')->name('gestParc.index');
     //==========================route chef de garage
 
 Route::get('/chefGarage', 'ChefGarageController@index')->name('chefGarage.index');
+Route::get('/chefGarage/historique', 'InterventionController@index')->name('intervention.index');
+Route::post('/chefGarage', 'InterventionController@store')->name('intervention.store');
+Route::get('/chefGarage/liste_vehicules', 'ChefGarageController@listeVehicules')->name('chefGarage.liste_vehicules');
+
 
 
     //===========================route imputation

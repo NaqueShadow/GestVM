@@ -82,9 +82,8 @@
 
                         </div>
                         <div class="list-group list-group-flush mt-5">
-                            <a href="{{ route('chefGarage.index') }}" class="list-group-item list-group-item-action h5 text-success">Véhicules</a>
-                            <a href="{{ route('intervention.index') }}" class="list-group-item list-group-item-action h5 text-success">Chauffeurs</a>
-                            <a href="{{ route('chefGarage.index') }}" class="list-group-item list-group-item-action h5 text-success">Pools</a>
+                            <a href="{{ route('chefGarage.index') }}" class="list-group-item list-group-item-action h5 text-success">Comptes</a>
+                            <a href="{{ route('intervention.index') }}" class="list-group-item list-group-item-action h5 text-success">Agents</a>
                             <a href="#" class="list-group-item list-group-item-action h6 text-success"></a>
                         </div>
                     </div>

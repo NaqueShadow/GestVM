@@ -3,26 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Intervention;
-use App\Models\Vehicule;
 use Illuminate\Http\Request;
 
-class ChefGarageController extends Controller
+class InterventionController extends Controller
 {
 
     public function index()
     {
-        $interventions = Intervention::enCours();
-        $vehicules = Vehicule::all();
+        $interventions = Intervention::all();
 
-        return view('chefGarage/chefGarage', compact('interventions', 'vehicules'));
-    }
-
-    public function listeVehicules()
-    {
-        $vehicules = Vehicule::all();
-        $vehicules->load('chauffeur');
-
-        return view('chefGarage/vehicule', compact('vehicules'));
+        return view('chefGarage/historique', compact('interventions'));
     }
 
 
@@ -34,7 +24,17 @@ class ChefGarageController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $validate = $request->validate([
+
+            'idVehicule'=>'required|min:3',
+            'debut'=>'required|date',
+            'finPrev'=>'required|date',
+            'type'=>'required'
+        ]);
+
+        Intervention::create($validate);
+
+        return back();
     }
 
     /**

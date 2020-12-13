@@ -53,7 +53,7 @@ class LoginController extends Controller
                 return redirect()->route('agentMiss.index');
             }
             elseif (auth()->user()->role == 2) {
-                return redirect()->route('chefgarage.index');
+                return redirect()->route('chefGarage.index');
             }
             elseif (auth()->user()->role == 3) {
                 return redirect()->route('chargeImp.index');

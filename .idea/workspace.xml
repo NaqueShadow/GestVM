@@ -142,15 +142,17 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/respPool" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/layouts" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\laragon\www\GestVM\resources\views\respPool" />
+      <recent name="C:\laragon\www\GestVM\resources\views\layouts" />
       <recent name="C:\laragon\www\GestVM\resources\views" />
+      <recent name="C:\laragon\www\GestVM\resources\views\chefGarage" />
+      <recent name="C:\laragon\www\GestVM\resources\views\respPool" />
     </key>
   </component>
   <component name="RunManager">
@@ -178,6 +180,7 @@
       <workItem from="1607596513345" duration="17440000" />
       <workItem from="1607680483317" duration="20861000" />
       <workItem from="1607728353093" duration="8448000" />
+      <workItem from="1607872235627" duration="16504000" />
     </task>
     <servers />
   </component>

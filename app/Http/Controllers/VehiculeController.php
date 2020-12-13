@@ -2,36 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Intervention;
-use App\Models\Vehicule;
 use Illuminate\Http\Request;
 
-class ChefGarageController extends Controller
+class VehiculeController extends Controller
 {
-
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        $interventions = Intervention::enCours();
-        $vehicules = Vehicule::all();
-
-        return view('chefGarage/chefGarage', compact('interventions', 'vehicules'));
+        //
     }
 
-    public function listeVehicules()
-    {
-        $vehicules = Vehicule::all();
-        $vehicules->load('chauffeur');
-
-        return view('chefGarage/vehicule', compact('vehicules'));
-    }
-
-
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
         //
     }
 
-
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         //

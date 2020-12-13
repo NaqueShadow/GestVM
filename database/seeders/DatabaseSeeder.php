@@ -37,6 +37,17 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        \App\Models\Agent::create(
+            [
+                'matricule' => '3',
+                'nom' => 'OUEDRAOGO',
+                'prenom' => 'Ouibila',
+                'telephone' => '55555555',
+                'poste' => 'Chef de garage VL',
+                'codePool' => '1',
+            ]
+        );
+
 
 
         \App\Models\User::create(
@@ -54,6 +65,15 @@ class DatabaseSeeder extends Seeder
                 'email' => 'rp@gmail.com',
                 'password' => bcrypt('rp@gmail.com'),
                 'role' => '4',
+            ]
+        );
+
+        \App\Models\User::create(
+            [
+                'matricule' => '3',
+                'email' => 'cg@gmail.com',
+                'password' => bcrypt('cg@gmail.com'),
+                'role' => '2',
             ]
         );
 
