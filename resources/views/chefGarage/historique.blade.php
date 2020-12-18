@@ -31,7 +31,7 @@
                             <td>{{ $intervention->type }}</td>
                             <td>{{ $intervention->debut }}</td>
                             <td>{{ $intervention->finPrev }}</td>
-                            <td>{{ $intervention->updated_at }}</td>
+                            <td>{{ $intervention->updated_at->format('d-m-Y') }}</td>
                         </tr>
                     @endforeach
                     </tbody>

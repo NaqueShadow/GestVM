@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Intervention;
+use App\Models\Vehicule;
 use Illuminate\Http\Request;
 
 class InterventionController extends Controller
@@ -32,53 +33,53 @@ class InterventionController extends Controller
             'type'=>'required'
         ]);
 
+        $vehicule = Vehicule::find($request->idVehicule);
+        $vehicule->statut = 0;
+        $vehicule->save();
+
         Intervention::create($validate);
 
         return back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
-        //
+
+        return route('chefGarage.index');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function terminerInt(Intervention $intervention)
+    {
+        $intervention->statut = 0;
+        $intervention->save();
+
+        $vehicule = Vehicule::find($intervention->idVehicule);
+        $vehicule->statut = 1;
+        $vehicule->save();
+
+        return back();
+    }
+
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+
+    public function destroy( Intervention $intervention )
     {
-        //
+        $vehicule = Vehicule::find($intervention->idVehicule);
+        $vehicule->statut = 1;
+        $vehicule->save();
+
+        $intervention->delete();
+        return back();
     }
 }

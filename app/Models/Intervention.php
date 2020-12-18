@@ -13,6 +13,16 @@ class Intervention extends Model
 
     public function scopeEnCours ($query) {
 
-        return $query->where('etat', 1)->get();
+        return $query->where('statut', 1)->get();
+    }
+
+    public function vehicule()
+    {
+        return $this->belongsTo('App\Models\Vehicule', 'idVehicule', 'code');
+    }
+
+    public function chauffeur()
+    {
+        return $this->belongsTo('App\Models\Vehicule', 'matricule', 'code');
     }
 }

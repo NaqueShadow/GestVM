@@ -11,7 +11,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <title>GestVM | Responsable de pool</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -85,8 +85,8 @@
                             <div class="h5 text-center" style="color: #284563;"></div>
                             <a href="{{route('respPool.index')}}" class="list-group-item list-group-item-action h5 text-success" >Tableau de bord</a>
                             <a href="{{route('respPool.requetes')}}" class="list-group-item list-group-item-action h5 text-success" >Requêtes</a>
-                            <a href="#" class="list-group-item list-group-item-action h5 text-success">Véhicules</a>
-                            <a href="#" class="list-group-item list-group-item-action h5 text-success">Chauffeurs</a>
+                            <a href="{{route('respPool.vehicules')}}" class="list-group-item list-group-item-action h5 text-success">Véhicules</a>
+                            <a href="{{route('respPool.chauffeurs')}}" class="list-group-item list-group-item-action h5 text-success">Chauffeurs</a>
                             <a href="#" class="list-group-item list-group-item-action h5 text-success"></a>
                         </div>
                     </div>
@@ -100,7 +100,7 @@
                 <section class="wrapper">
                     <div class="">
 
-                        <div class="ml-3" style="height: 1000px">
+                        <div class="ml-3" style="min-height: 1000px">
                             @yield('content')
                         </div>
 

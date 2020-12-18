@@ -11,11 +11,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+
     protected $fillable = [
         'matricule',
         'email',
@@ -42,6 +38,28 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $with = ['agent'];
+
+    public function getStatutAttribute($attributes) {
+
+        return [
+            '0' => 'inactif',
+            '1' => 'actif',
+        ][$attributes];
+    }
+
+    /*
+    public function getRoleAttribute($attributes) {
+
+        return [
+            '1' => 'missionnaire',
+            '2' => 'chef de garage',
+            '3' => 'chargé des imputation',
+            '4' => 'responsable de pool',
+        ][$attributes];
+    }
+    */
+
     public function agent()
     {
         return $this->hasOne('App\Models\Agent', 'matricule');
@@ -49,6 +67,6 @@ class User extends Authenticatable
 
     public function missions()
     {
-        return $this->hasMany('App\Models\Mission');
+        return $this->hasMany('App\Models\Mission', 'demandeur');
     }
 }

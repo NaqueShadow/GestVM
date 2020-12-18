@@ -28,8 +28,8 @@
                             <th scope="row"></th>
                             <td>{{ $vehicule->code }}</td>
                             <td>{{ $vehicule->modele }}</td>
-                            <td>{{ $vehicule->code }}</td>
-                            <td>{{ $vehicule->code }}</td>
+                            <td> @if(isset($vehicule->chauffeur->nom)) {{ $vehicule->chauffeur->nom }} {{ $vehicule->chauffeur->prenom }} @endif</td>
+                            <td> @if(isset($vehicule->chauffeur->telephone)) {{ $vehicule->chauffeur->telephone }} @endif</td>
                         </tr>
                     @endforeach
                     </tbody>

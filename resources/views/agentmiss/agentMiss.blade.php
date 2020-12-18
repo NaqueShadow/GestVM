@@ -27,7 +27,7 @@
                 <div class="ml-3 mt-2">   [ {{ $agent->matricule }} ] ... {{ $agent->nom }} {{ $agent->prenom }}</div>
                 @endforeach
             </div>
-            <div class="col-12"> {{ $agent->commentaire }} </div>
+            <div class="col-12"> {{ $mission->commentaire }} </div>
 
         </div>
 

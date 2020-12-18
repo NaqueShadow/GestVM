@@ -19,7 +19,6 @@ class CreateAgentsTable extends Migration
             $table->string('prenom');
             $table->string('telephone')->unique();
             $table->string('poste');
-            $table->unsignedBigInteger('codePool');
             $table->timestamps();
         });
     }

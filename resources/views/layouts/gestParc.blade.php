@@ -100,7 +100,7 @@
 
                         <!-- /col-lg-3 -->
 
-                        <div class="ml-3" style="height: 1000px">
+                        <div class="ml-3" style="min-height: 1000px">
                             @yield('content')
                         </div>
 

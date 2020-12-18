@@ -65,7 +65,7 @@ class LoginController extends Controller
                 return redirect()->route('gestParc.index');
             }
 
-            return redirect()->route('login');
+            return redirect()->route('login')->with('error','le compte est inactif.');
         }
         else {
             return redirect()->route('login')->with('error','le mail et le mot de passe ne sont pas correcte.');

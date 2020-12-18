@@ -11,14 +11,28 @@ class Mission extends Model
 
     protected $guarded = [];
 
+    protected $dateFormat = 'd-m-Y H:i:s';
+
+    protected $dates = [
+        'dateDepart',
+        'dateRetour',
+    ];
+
+    protected $with = ['villeDesti', 'dmdeur'];
+
     /*public function scopeDemandeur($query)
     {
         return $query->where('status', 1);
     }*/
 
-    public function demandeur()
+    public function scopeDuPool ($query) {
+
+        return $query->where('dmdeur.idPool', auth()->user()->idPool )->get();
+    }
+
+    public function dmdeur()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\User', 'demandeur');
     }
 
     public function agents()
@@ -35,6 +49,11 @@ class Mission extends Model
     public function villeDep()
     {
         return $this->belongsTo('App\Models\Ville', 'villeDepart', 'id');
+    }
+
+    public function attribution()
+    {
+        return $this->hasOne('App\Models\Attribution', 'idMission' );
     }
 
 }

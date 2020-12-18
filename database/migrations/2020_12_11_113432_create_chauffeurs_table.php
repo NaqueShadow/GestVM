@@ -18,8 +18,8 @@ class CreateChauffeursTable extends Migration
             $table->string('nom');
             $table->string('prenom');
             $table->string('telephone')->unique();
-            $table->boolean('disponibilite');
-            $table->unsignedBigInteger('idPool');
+            $table->boolean('statut')->default('1');
+            $table->unsignedBigInteger('idPool')->default('1');
             $table->timestamps();
 
             $table->foreign('idPool')->references('id')->on('pools');
