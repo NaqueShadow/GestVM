@@ -9,7 +9,7 @@
 
         <div class="card-body row" style="">
 
-            <table class="table">
+            <table class="table table-success table-hover table-striped">
                 <thead>
                 <tr>
                     <th scope="col">Code</th>

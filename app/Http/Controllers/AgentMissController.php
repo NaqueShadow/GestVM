@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Session;
 class AgentMissController extends Controller
 {
 
+    public function __construct()
+    {
+       //
+    }
+
     protected $guarded = [];
 
     public function index()

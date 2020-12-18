@@ -8,9 +8,15 @@ use App\Models\Intervention;
 use App\Models\Mission;
 use App\Models\Vehicule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Jenssegers\Date\Date;
 
 class RespPoolController extends Controller
 {
+    public function __construct()
+    {
+        //
+    }
 
     public function index()
     {
@@ -33,6 +39,30 @@ class RespPoolController extends Controller
             ->get();
 
         return view('respPool/requetes', compact('attributions', 'missions'));
+    }
+
+    public function detailsRequete( Mission $mission)
+    {
+        $mission->load('agents:nom,prenom,poste', 'villeDesti', 'villeDep', 'dmdeur');
+        $tab = array($mission->dateDepart, $mission->dateRetour);
+        Session::put('tab', $tab);
+
+        $vehicules = Vehicule::where('idPool', auth()->user()->idPool )
+            ->whereDoesntHave('interventions', function ($query) {
+                $query->whereBetween('debut', session('tab' ))
+                    ->whereBetween('finPrev', session('tab' ));
+            })
+            ->whereDoesntHave('attributions', function ($query) {
+                $query->whereHas('mission', function ($query) {
+                    $query->whereBetween('dateDepart', session('tab' ))
+                        ->whereBetween('dateRetour', session('tab' ));
+                });
+            })
+            ->get();
+
+        Session::forget('tab');
+
+        return view('respPool/detailsRequete', compact('vehicules', 'mission'));
     }
 
     public function historique()

@@ -47,6 +47,21 @@ class Vehicule extends Model
                 }])->get();
     }
 
+    public function scopeSelection($query, $tab) {
+        $tab1 = $tab;
+        return $query->where('idPool', auth()->user()->idPool )
+            ->whereDoesntHave('interventions', function ($query, $tab1) {
+                $query->whereBeetween('debut', $tab1)
+                    ->whereBeetween('finPrev', $tab1);
+            })
+            ->whereDoesntHave('attribution', function ($query, $tab) {
+                $query->with('mission')
+                    ->whereBeetween('dateDepart', $tab)
+                    ->whereBeetween('dateRetour', $tab);
+            })
+            ->get();
+    }
+
 
     public function interventions()
     {

@@ -9,6 +9,8 @@ class Attribution extends Model
 {
     use HasFactory;
 
+    protected $with = ['mission', 'vehicule', 'chauffeur'];
+
     public function scopeEnCours ($query) {
 
         return $query->where('statut', 1)

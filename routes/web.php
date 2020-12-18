@@ -12,6 +12,10 @@ Auth::routes();
 Route::get('/', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
+Route::group(['middleware' => 'auth'], function () {
+
+
     //=========================route responsable de pool
 
 Route::get('/respPool', 'RespPoolController@index')->name('respPool.index');
@@ -19,8 +23,8 @@ Route::get('/respPool/vehicules', 'RespPoolController@vehicules')->name('respPoo
 Route::get('/respPool/chauffeurs', 'RespPoolController@chauffeurs')->name('respPool.chauffeurs');
 
 Route::get('/respPool/requetes', 'RespPoolController@requetes')->name('respPool.requetes');
-Route::get('/respPool/detailsRequete', 'RespPoolController@index')->name('respPool.detailsRequete');
-Route::get('/respPool/attribution', 'AttributionController@store')->name('attribution.store');
+Route::get('/attribution/{mission}', 'RespPoolController@detailsRequete')->name('respPool.detailsRequete');
+Route::post('/attribution', 'AttributionController@store')->name('attribution.store');
 Route::get('/respPool/historique', 'RespPoolController@historique')->name('respPool.historique');
 
 
@@ -29,6 +33,8 @@ Route::get('/respPool/historique', 'RespPoolController@historique')->name('respP
     //=========================route gestionnaire de parc
 
 Route::get('/gestParc', 'GestParcController@index')->name('gestParc.index');
+
+
 
     //==========================route chef de garage
 
@@ -43,9 +49,12 @@ Route::get('interventions/{intervention}/delete', 'InterventionController@destro
 
 
 
+
     //===========================route imputation
 
 Route::get('/chargeImp', 'ChargeImpController@index')->name('chargeImp.index');
+
+
 
 
     //===========================route missionnaire
@@ -56,3 +65,5 @@ Route::post('/mission/participant', 'AgentMissController@initDemanderVehicule')-
 Route::post('/mission/store', 'AgentMissController@demanderVehicule')->name('mission.store');
 
 
+
+});

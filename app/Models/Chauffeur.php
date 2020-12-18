@@ -41,7 +41,7 @@ class Chauffeur extends Model
                     $a = Date::now()->firstOfMonth();
                     $b = Date::now()->lastOfMonth();
                     return $query->whereBetween('attributions.created_at',[$a, $b]);
-        }])->get();;
+        }])->get();
     }
 
     public function vehicule()
