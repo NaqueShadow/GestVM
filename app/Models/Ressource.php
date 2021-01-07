@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Ressource extends Model
 {
     use HasFactory;
+
+    public function attributions()
+    {
+        return $this->hasMany('App\Models\Attribution', 'idRessource');
+    }
 }

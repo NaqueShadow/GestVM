@@ -11,9 +11,14 @@ class Intervention extends Model
 
     protected $guarded = [];
 
+    protected $dates = [
+        'debut',
+        'finPrev',
+    ];
+
     public function scopeEnCours ($query) {
 
-        return $query->where('statut', 1)->get();
+        return $query->where('statut', 1);
     }
 
     public function vehicule()

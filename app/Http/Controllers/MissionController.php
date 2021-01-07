@@ -2,83 +2,80 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agent;
+use App\Models\Mission;
+use App\Models\Ville;
 use Illuminate\Http\Request;
 
 class MissionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+
+    public function show( Mission $mission )
     {
-        //
+        return view('agentMiss/detailsMission', compact('mission'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+
+    public function edit(Mission $mission)
     {
-        //
+        foreach ($mission->agents as $agent)
+        {
+            $tab[] = $agent->matricule;
+        }
+
+        $villes = Ville::All();
+        $agents = Agent::all();
+        return view('agentMiss/editMiss', compact('mission','villes', 'agents', 'tab'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+
+    public function update(Request $request, Mission $mission)
     {
-        //
+        $validate = $request->validate([
+            'demandeur'=>'required',
+            'objet'=>'min:3',
+            'nbr'=>'required',
+            'dateDepart' => 'required|date',
+            'dateRetour' => 'required|date|after_or_equal:dateDepart',
+            'villeDepart' => 'required',
+            'villeDest' => 'required|different:villeDepart',
+            'commentaire'=> 'min:0',
+        ]);
+
+        $mission->update($validate);
+
+        $mission->agents()->detach();
+
+        foreach ($request->agent as $agent)
+        {
+            $mission->agents()->attach($agent);
+        }
+
+        return redirect()->route('agentMiss.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+
+    public function destroy(Mission $mission)
     {
-        //
+        $mission->delete();
+        return back();
     }
 }

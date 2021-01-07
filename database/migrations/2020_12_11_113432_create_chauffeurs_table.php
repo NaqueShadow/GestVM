@@ -14,15 +14,15 @@ class CreateChauffeursTable extends Migration
     public function up()
     {
         Schema::create('chauffeurs', function (Blueprint $table) {
-            $table->unsignedBigInteger('matricule')->primary();
+            $table->string('matricule')->primary();
             $table->string('nom');
             $table->string('prenom');
             $table->string('telephone')->unique();
             $table->boolean('statut')->default('1');
-            $table->unsignedBigInteger('idPool')->default('1');
+            $table->unsignedBigInteger('idPool')->nullable();
             $table->timestamps();
 
-            $table->foreign('idPool')->references('id')->on('pools');
+            $table->foreign('idPool')->references('id')->on('pools')->nullOnDelete();
         });
     }
 

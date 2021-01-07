@@ -25,6 +25,7 @@
     <link href="{{ asset('css/simple-sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style-responsive.css') }}" rel="stylesheet">
+    <link href="{{ asset('lib/chosen/chosen.css') }}" rel="stylesheet">
 </head>
 
 <body class="" style="background-color: rgb(17,176,17);">
@@ -57,6 +58,21 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                @if(Auth::user()->role == 2)
+                                    <a class="dropdown-item text-info" href="{{ route('chefGarage.index') }}">
+                                        {{ __('chef de garage') }}
+                                    </a>
+                                @endif
+                                @if(Auth::user()->role == 3)
+                                    <a class="dropdown-item text-info" href="{{ route('chargeImp.index') }}">
+                                        {{ __('chargé des imputation') }}
+                                    </a>
+                                @endif
+                                @if(Auth::user()->role == 4)
+                                    <a class="dropdown-item text-info" href="{{ route('respPool.attrEnCours') }}">
+                                        {{ __('responsable de pool') }}
+                                    </a>
+                                @endif
                                 <a class="dropdown-item text-danger" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
@@ -82,10 +98,29 @@
 
                         </div>
                         <div class="list-group list-group-flush mt-5">
-                            <a href="{{route('agentMiss.index')}}" class="list-group-item list-group-item-action h5 text-success" >Requêtes</a>
-                            <a href="{{route('agentMiss.index')}}" class="list-group-item list-group-item-action h5 text-success">Réponses</a>
-                            <a href="#" class="list-group-item list-group-item-action h5 text-success">Nouvel Agent</a>
+                            <a href="{{route('agentMiss.index')}}" id="demandes" class="list-group-item list-group-item-action h5 text-success" >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="indianred" class="bi bi-journal-arrow-up" viewBox="0 0 16 16">
+                                    <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+                                    <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+                                    <path fill-rule="evenodd" d="M8 11a.5.5 0 0 0 .5-.5V6.707l1.146 1.147a.5.5 0 0 0 .708-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L7.5 6.707V10.5a.5.5 0 0 0 .5.5z"/>
+                                </svg>
+                                Demandes
+                            </a>
+                            <a href="{{route('agentMiss.reponse')}}" id="reponses" class="list-group-item list-group-item-action h5 text-success">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="indianred" class="bi bi-journal-arrow-down" viewBox="0 0 16 16">
+                                    <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+                                    <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+                                    <path fill-rule="evenodd" d="M8 5a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5A.5.5 0 0 1 8 5z"/>
+                                </svg>
+                                Réponses
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action h5 text-success"></a>
                         </div>
+
+                        <div class="align-content-center mt-5" style="">
+                            <img style="width: 180px; height: 7%; border-radius: 49%;" src="{{ asset('img/logoSofitex.jpg') }}" alt="">
+                        </div>
+                        <div class="text-dark text-center">&copy Copyright_Sofitex 2020</div>
                     </div>
                     <!-- sidebar menu end-->
                 </div>
@@ -110,16 +145,11 @@
 
             <!--footer start-->
             <footer class="site-footer">
-
+                <div class="text-dark text-center">&copy Copyright_Sofitex 2020</div>
             </footer>
             <!--footer end-->
         </section>
     </div>
-
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- Menu Toggle Script -->
     <script src="lib/common-scripts.js"></script>
@@ -129,7 +159,10 @@
             $("#wrapper").toggleClass("toggled");
         });
     </script>
+    <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ asset('lib/chosen/chosen.jquery.js') }}" type="text/javascript"></script>
 
+    @yield('chosen')
 </div>
 </body>
 

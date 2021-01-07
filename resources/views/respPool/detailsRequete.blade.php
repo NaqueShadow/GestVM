@@ -2,6 +2,10 @@
 
 @section('content')
 
+    <script>
+        document.getElementById("demandes").style.backgroundColor = "white";
+    </script>
+
     <div class="mt-5 ml-5 mr-5 align-content-center text-dark" style="padding: 2%; margin-bottom: auto; border: 1px solid mediumseagreen; border-radius: 15px; color: #284563;" >
 
         <table class="table-sm text-info" style="min-width: 75%;">
@@ -38,7 +42,7 @@
             <tr class="mt-3"></tr>
             <tr class="pt-3">
                 <th scope="row"></th>
-                <th scope="row" class="text-black-50">Participant (s) :</th>
+                <th scope="row" class="text-black-50">Participant (s) : {{ $mission->nbr }}</th>
                 <td></td>
                 <td></td>
             </tr>
@@ -60,91 +64,189 @@
             </tr>
         @endisset
 
+        @if( session()->get('info') )
+            <div class="alert alert-success text-center text-success">
+                {{ session()->get('info') }}
+            </div>
+        @endif
+
         <hr class="mt-3">
 
-        <form class="mt-3" method="post" action="{{route('attribution.store', '')}}" id="form">
+        <section class="ac-container">
+            <div>
+                <input id="ac-2" name="accordion-1" type="checkbox" />
+                <label class="text-dark" for="ac-2">Attribuer un véhicule ayant un chauffeur disponible</label>
+                <article class="ac-large">
+                    <form class="mt-3" method="post" action="{{ route('attribution.store') }}" id="form">
 
-            @csrf
-            <div class="align-items-center">
+                        @csrf
+                        <div class="align-items-center">
 
-                <div class="form-row" >
+                            <div class="form-row ml-1 mr-1" >
+                                <input type="hidden" name="idMission" value="{{ $mission->id }}">
 
-                    <div class="col-3"></div>
-                    <div  class="form-group col-6">
+                                <div  class="form-group col-7">
+                                    <div class="">
+                                        <div for="idEntite" class="text-black-50">Imputation :</div>
+                                        <select name="idEntite" required data-placeholder="choisir une entité..." id="idEntite" class="text-info agentChosen custom-select">
+                                            <option value=""></option>
+                                            @foreach($entites as $entite)
+                                                <option value="{{$entite->id}}" {{$entite->id == old('idEntite') ? 'selected' : ''}}>{{$entite->designation}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-7"></div>
 
-                        <input type="hidden" name="idMission" value="{{ $mission->id }}">
+                                <div  class="form-group col-7">
+                                    <div class="">
+                                        <div for="idVehicule" class="text-black-50">Véhicule :</div>
+                                        <select name="idVehicule" data-placeholder="choisir un véhicule..." required id="idVehicule" class="agentChosen text-info custom-select">
+                                            <option value=""></option>
+                                            @foreach($vehicules as $vehicule)
+                                                <option value="{{ $vehicule->code }}" {{ $vehicule->code == old('idVehicule') ? 'selected' : '' }}>{{ $vehicule->code }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div  class="form-group col-7">
+                                    <input type="hidden" name="idChauf" value="0">
+                                </div>
 
-                        <div class="">
-                            <label for="idVehicule" class="text-black-50">Véhicule :</label>
-                            <select name="idVehicule" required id="idVehicule" class="text-info custom-select @error('idVehicule') is-invalid @enderror">
+                            </div>
 
-                                <option value="">__choisir__</option>
+                            <button type="submit" id="submitForm" class="btn btn-success ml-1" style="width: 20%" >Valider</button>
 
-                                @foreach($vehicules as $vehicule)
-                                    <option value="{{ $vehicule->code }}">{{ $vehicule->code }}</option>
-                                @endforeach
-
-                            </select>
                         </div>
-                        @error('idVehicule')
-                        <div class="invalide-feedBack()">
-                            {{ $errors->first('idVehicule') }}
-                        </div>
-                        @enderror
-                    </div>
-                    <div class="col-3"></div>
-
-                    <div class="col-12"></div>
-
-                    <div class="col-3"></div>
-                    <div  class="form-group col-6">
-
-                        <div class="">
-                            <label for="idChauffeur" class="text-black-50">Chauffeur :</label>
-                            <select name="idChauffeur" id="idChauffeur" class="text-info custom-select @error('idChauffeur') is-invalid @enderror">
-                                <option value="">__choisir__</option>
-                                <option value="preventive">Maintenance préventive</option>
-                                <option value="curative">Maintenance curative</option>
-                            </select>
-                        </div>
-                        @error('idChauffeur')
-                        <div class="invalide-feedBack()">
-                            {{ $errors->first('idChauffeur') }}
-                        </div>
-                        @enderror
-                        <div class="text-warning">* Optionnel pour les véhicules ayant un chauffeur affecté</div>
-                    </div>
-                    <div class="col-3"></div>
-
-                    <div class="col-12"></div>
-
-                    <div class="col-3"></div>
-                    <div  class="form-group col-6">
-
-                        <div class="">
-                            <label for="idEntite" class="text-black-50">Imputation :</label>
-                            <select name="idEntite" required id="idEntite" class="text-info custom-select @error('idEntite') is-invalid @enderror">
-                                <option value="">__choisir__</option>
-                                <option value="preventive">DSI</option>
-                                <option value="curative">BTM</option>
-                                <option value="curative">Projet AIC</option>
-                            </select>
-                        </div>
-                        @error('idEntite')
-                        <div class="invalide-feedBack()">
-                            {{ $errors->first('idEntite') }}
-                        </div>
-                        @enderror
-                    </div>
-                    <div class="col-3"></div>
-
-                </div>
-
-                <button type="submit" id="submitForm" class="btn btn-success mt-1" style="margin-left: 25%;">Valider</button>
-
+                    </form>
+                </article>
             </div>
-        </form>
+            <div>
+                <input id="ac-3" name="accordion-1" type="checkbox" />
+                <label for="ac-3" class="text-dark">Attribuer un véhicule plus un chauffeur du pool</label>
+                <article class="ac-large">
+                    <form class="mt-3" method="post" action="{{ route('attribution.store2') }}" id="form">
+
+                        @csrf
+                        <div class="align-items-center">
+
+                            <div class="form-row ml-1 mr-1" >
+                                <input type="hidden" name="idMission" value="{{ $mission->id }}">
+
+                                <div  class="form-group col-5">
+                                    <div class="">
+                                        <div for="idEntite" class="text-black-50">Imputation :</div>
+                                        <select name="idEntite" data-placeholder="choisir une entité..." required id="idEntite" class="agentChosen text-info custom-select">
+                                            <option value=""></option>
+                                            @foreach($entites as $entite)
+                                                <option value="{{$entite->id}}" {{$entite->id == old('idEntite') ? 'selected' : ''}}>{{$entite->designation}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-7"></div>
+
+                                <div  class="form-group col-5">
+                                    <div class="">
+                                        <div for="idVehicule" class="text-black-50">Véhicule :</div>
+                                        <select name="idVehicule" data-placeholder="choisir un véhicule..." required id="idVehicule" class="agentChosen text-info custom-select">
+                                            <option value=""></option>
+
+                                            @foreach($vehicules23 as $vehicule)
+                                                <option value="{{ $vehicule->code }}" {{ $vehicule->code == old('idVehicule') ? 'selected' : '' }}>{{ $vehicule->code }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div  class="form-group col-7">
+                                    <div class="">
+                                        <div for="idEntite" class="text-black-50">Chauffeur :</div>
+                                        <select name="idChauf" data-placeholder="choisir un chauffeur..." id="idChauf" required class="agentChosen text-info custom-select @error('idChauf') is-invalid @enderror">
+                                            <option value=""></option>
+                                            @foreach($chauffeurs2 as $chauffeur)
+                                                <option value="{{ $chauffeur->matricule }}" {{ $chauffeur->matricule == old('idChauf') ? 'selected' : '' }}>{{ $chauffeur->nom }} {{ $chauffeur->prenom }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" id="submitForm" class="btn btn-success ml-1" style="width: 20%" >Valider</button>
+
+                        </div>
+                    </form>
+                </article>
+            </div>
+            <div>
+                <input id="ac-4" name="accordion-1" type="checkbox" />
+                <label for="ac-4" class="text-dark">Attribuer un véhicule plus un chauffeur d'un autre pool</label>
+                <article class="ac-large">
+                    <form class="mt-3" method="post" action="{{ route('attribution.store2') }}" id="form">
+
+                        @csrf
+                        <div class="align-items-center">
+
+                            <div class="form-row ml-1 mr-1" >
+                                <input type="hidden" name="idMission" value="{{ $mission->id }}">
+
+                                <div  class="form-group col-5">
+                                    <div class="">
+                                        <div for="idEntite" class="text-black-50">Imputation :</div>
+                                        <select name="idEntite" data-placeholder="choisir une entité..." required id="idEntite" class="agentChosen text-info custom-select">
+                                            <option value=""></option>
+                                            @foreach($entites as $entite)
+                                                <option value="{{$entite->id}}" {{$entite->id == old('idEntite') ? 'selected' : ''}}>{{$entite->designation}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-7"></div>
+
+                                <div  class="form-group col-5">
+                                    <div class="">
+                                        <div for="idVehicule" class="text-black-50">Véhicule :</div>
+                                        <select name="idVehicule" data-placeholder="choisir un véhicule..." required id="idVehicule" class="agentChosen text-info custom-select">
+                                            <option value=""></option>
+
+                                            @foreach($vehicules23 as $vehicule)
+                                                <option value="{{ $vehicule->code }}" {{ $vehicule->code == old('idVehicule') ? 'selected' : '' }}>{{ $vehicule->code }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div  class="form-group col-7">
+                                    <div class="">
+                                        <div for="idChauf" class="text-black-50">Chauffeur :</div>
+                                        <select name="idChauf" data-placeholder="choisir un chauffeur..." id="idChauf" class="agentChosen text-info custom-select @error('idChauf') is-invalid @enderror">
+                                            <option value=""></option>
+                                            @foreach($chauffeurs3 as $chauffeur)
+                                                <option value="{{ $chauffeur->matricule }}" {{ $chauffeur->matricule == old('idChauf') ? 'selected' : '' }}>{{ $chauffeur->nom }} {{ $chauffeur->prenom }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" id="submitForm" class="btn btn-success ml-1" style="width: 20%" >Valider</button>
+
+                        </div>
+                    </form>
+                </article>
+            </div>
+        </section>
+
+        <a href="{{ route('respPool.requetes') }}">
+        <button type="submit" id="submitForm" class="btn btn-danger mt-1" style="">Terminer</button>
+        </a>
 
     </div>
 
+@endsection
+
+@section('chosen')
+    <script>
+        //$(".agentChosen").chosen();
+    </script>
 @endsection

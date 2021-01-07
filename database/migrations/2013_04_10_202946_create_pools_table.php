@@ -17,8 +17,11 @@ class CreatePoolsTable extends Migration
             $table->id();
             $table->string('designation');
             $table->string('abbreviation')->nullable();
-            $table->string('region')->default('Bobo Dioulasso')->nullable();
+            $table->unsignedBigInteger('regionId')->default('1')->nullable();
             $table->timestamps();
+
+            $table->foreign('regionId')->references('id')->on('regions')->nullOnDelete();
+
         });
     }
 

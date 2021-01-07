@@ -78,7 +78,7 @@
                 <div id="sidebar" class="nav-collapse  pl-2" style="background-color: rgb(220,220,220);">
                     <!-- sidebar menu start-->
                     <div class="border-right sidebar" id="sidebar-wrapper">
-                        <div class="sidebar-heading mb-5">
+                        <div class="sidebar-heading">
 
                         </div>
                         <div class="list-group list-group-flush mt-5">
@@ -86,6 +86,11 @@
                             <a href="{{ route('intervention.index') }}" class="list-group-item list-group-item-action h5 text-success">Agents</a>
                             <a href="#" class="list-group-item list-group-item-action h6 text-success"></a>
                         </div>
+
+                        <div class="align-content-center mt-5" style="">
+                            <img style="width: 180px; height: 7%; border-radius: 49%;" src="{{ asset('img/logoSofitex.jpg') }}" alt="">
+                        </div>
+                        <div class="text-dark text-center">&copy Copyright_Sofitex 2020</div>
                     </div>
                     <!-- sidebar menu end-->
                 </div>
@@ -112,7 +117,7 @@
 
             <!--footer start-->
             <footer class="site-footer">
-
+                <div class="text-dark text-center">&copy Copyright_Sofitex 2020</div>
             </footer>
             <!--footer end-->
         </section>

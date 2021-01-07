@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attribution;
 use App\Models\Intervention;
 use App\Models\Vehicule;
 use Illuminate\Http\Request;
@@ -16,10 +17,37 @@ class ChefGarageController extends Controller
 
     public function index()
     {
-        $interventions = Intervention::enCours();
+        $filtre = ['categorie' => '', 'periode' => '', 'date' => null];
         $vehicules = Vehicule::all();
+        $interventions = Intervention::enCours()
+            ->orderBy('created_at', 'DESC')
+            ->get();
 
-        return view('chefGarage/chefGarage', compact('interventions', 'vehicules'));
+        return view('chefGarage/chefGarage', compact('interventions', 'vehicules', 'filtre'));
+    }
+
+    public function filtreIntervention(Request $request)
+    {
+        $filtre = $request->all();
+        $vehicules = Vehicule::all();
+        $p = $filtre['periode'] == 'avant' ? '<' : ($filtre['periode'] == 'apres' ? '>=' : '=');
+
+        $interventions = Intervention::enCours()->get();
+
+        if ( $filtre['categorie'] == 'enCours' )
+            $interventions = Intervention::enCours()
+                ->orderBy('created_at', 'DESC')
+                ->get();
+
+        if ( $filtre['categorie'] == 'termine' )
+            $interventions =Intervention::where('statut', 0)
+                ->orderBy('created_at', 'DESC')
+                ->get();
+
+        if ( $filtre['periode'] != 'tous' )
+            $interventions = $interventions->where('created_at', $p, $filtre['date']); //->format('Y-m-d')
+
+        return view('chefGarage/chefGarage', compact('interventions', 'vehicules', 'filtre'));
     }
 
     public function listeVehicules()
@@ -28,6 +56,23 @@ class ChefGarageController extends Controller
         $vehicules->load('chauffeur');
 
         return view('chefGarage/vehicule', compact('vehicules'));
+    }
+
+    public function voirVehicule(Vehicule $vehicule)
+    {
+        $vehicule->load('chauffeur');
+        return view('chefGarage/detailsVehicule', compact('vehicule'));
+    }
+
+    public function rechercheVehicule(Request $request)
+    {
+        $text = $request->text;
+        $vehicules = Vehicule::where('code', 'like', '%'.$request->text.'%')
+            ->orWhere('modele', 'like', '%'.$request->text.'%')
+            ->with('chauffeur')
+            ->get();
+
+        return view('chefGarage/vehicule', compact('vehicules', 'text'));
     }
 
 

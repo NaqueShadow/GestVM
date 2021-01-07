@@ -2,6 +2,10 @@
 
 @section('content')
 
+    <script>
+        document.getElementById("historique").style.backgroundColor = "white";
+    </script>
+
     <div class="col-12" style="">
 
 

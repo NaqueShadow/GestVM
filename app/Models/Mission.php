@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Jenssegers\Date\Date;
 
 class Mission extends Model
 {
@@ -11,14 +12,14 @@ class Mission extends Model
 
     protected $guarded = [];
 
-    protected $dateFormat = 'd-m-Y H:i:s';
+    //protected $dateFormat = 'd-m-Y H:i:s';
 
     protected $dates = [
         'dateDepart',
         'dateRetour',
     ];
 
-    protected $with = ['villeDesti', 'dmdeur'];
+    protected $with = ['villeDesti', 'dmdeur', 'agents'];
 
     /*public function scopeDemandeur($query)
     {
@@ -28,6 +29,17 @@ class Mission extends Model
     public function scopeDuPool ($query) {
 
         return $query->where('dmdeur.idPool', auth()->user()->idPool )->get();
+    }
+
+    public function scopeNew($query) {
+
+        return $query->doesntHave('attributions')
+            ->whereHas('dmdeur', function ($query) {
+                $query->where('idPool', auth()->user()->idPool );
+            })
+            ->where('dateRetour', '>', today())
+            ->orWhere('dateRetour', '=', today())
+            ->count();
     }
 
     public function dmdeur()
@@ -51,9 +63,9 @@ class Mission extends Model
         return $this->belongsTo('App\Models\Ville', 'villeDepart', 'id');
     }
 
-    public function attribution()
+    public function attributions()
     {
-        return $this->hasOne('App\Models\Attribution', 'idMission' );
+        return $this->hasMany('App\Models\Attribution', 'idMission');
     }
 
 }

@@ -14,6 +14,11 @@ class Vehicule extends Model
     protected $guarded = [];
     public $incrementing = false;
 
+    protected $dates = [
+        'dernierRetour',
+        'acquisition',
+    ];
+
 
     public function getStatutAttribute($attributes) {
 
@@ -38,28 +43,27 @@ class Vehicule extends Model
     public function scopeNbrMiss($query) {
 
         return $query->where('idPool', auth()->user()->idPool )
-            ->with('attributions')
             ->withCount(['attributions'
             => function ($query) {
                     $a = Date::now()->firstOfMonth();
                     $b = Date::now()->lastOfMonth();
                     return $query->whereBetween('attributions.created_at',[$a, $b]);
-                }])->get();
+                }]);
     }
 
-    public function scopeSelection($query, $tab) {
-        $tab1 = $tab;
+    public function scopeSelection($query) {
+
         return $query->where('idPool', auth()->user()->idPool )
-            ->whereDoesntHave('interventions', function ($query, $tab1) {
-                $query->whereBeetween('debut', $tab1)
-                    ->whereBeetween('finPrev', $tab1);
+            ->whereDoesntHave('interventions', function ($query) {
+                $query->whereBetween('debut', session('tab' ))
+                    ->orWhereBetween('finPrev', session('tab' ));
             })
-            ->whereDoesntHave('attribution', function ($query, $tab) {
-                $query->with('mission')
-                    ->whereBeetween('dateDepart', $tab)
-                    ->whereBeetween('dateRetour', $tab);
-            })
-            ->get();
+            ->whereDoesntHave('attributions', function ($query) {
+                $query->whereHas('mission', function ($query) {
+                    $query->whereBetween('dateDepart', session('tab' ))
+                        ->orWhereBetween('dateRetour', session('tab' ));
+                });
+            });
     }
 
 
@@ -82,5 +86,10 @@ class Vehicule extends Model
     public function attributions()
     {
         return $this->hasMany('App\Models\Attribution', 'idVehicule', 'code');
+    }
+
+    public function docBord()
+    {
+        return $this->hasMany('App\Models\DocBord', 'idVehicule', 'code');
     }
 }

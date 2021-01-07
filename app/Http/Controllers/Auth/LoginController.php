@@ -44,7 +44,7 @@ class LoginController extends Controller
         $input = $request->all();
         $this->validate($request, [
             'email' => 'required|email',
-            'password' => 'required',
+            'password' => 'required|min:8',
         ]);
 
         if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
@@ -59,16 +59,16 @@ class LoginController extends Controller
                 return redirect()->route('chargeImp.index');
             }
             elseif (auth()->user()->role == 4) {
-                return redirect()->route('respPool.index');
+                return redirect()->route('respPool.attrEnCours');
             }
             elseif (auth()->user()->role == 5) {
                 return redirect()->route('gestParc.index');
             }
 
-            return redirect()->route('login')->with('error','le compte est inactif.');
+            return redirect()->route('login')->with('error','compte inactif');
         }
         else {
-            return redirect()->route('login')->with('error','le mail et le mot de passe ne sont pas correcte.');
+            return redirect()->route('login')->with('error','identifiants incorrectes');
         }
     }
 }

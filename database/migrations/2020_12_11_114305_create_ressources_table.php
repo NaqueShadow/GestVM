@@ -21,7 +21,10 @@ class CreateRessourcesTable extends Migration
 
             $table->unsignedBigInteger('idAttr');
 
-            $table->foreign('idAttr')->references('id')->on('Attributions');
+            $table->foreign('idAttr')
+                ->references('id')
+                ->on('Attributions')
+                ->onDelete('cascade');
         });
     }
 

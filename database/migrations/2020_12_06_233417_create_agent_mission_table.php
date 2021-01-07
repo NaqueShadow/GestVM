@@ -14,11 +14,11 @@ class CreateAgentMissionTable extends Migration
     public function up()
     {
         Schema::create('missionnaires', function (Blueprint $table) {
-            $table->unsignedBigInteger('agentId');
+            $table->string('agentId');
             $table->unsignedBigInteger('missionId');
             $table->primary(['agentId', 'missionId']);
-            $table->foreign('agentId')->references('matricule')->on('agents');
-            $table->foreign('missionId')->references('id')->on('missions');
+            $table->foreign('agentId')->references('matricule')->on('agents')->cascadeOnDelete();
+            $table->foreign('missionId')->references('id')->on('missions')->cascadeOnDelete();
 
             $table->timestamps();
         });

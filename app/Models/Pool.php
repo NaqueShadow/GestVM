@@ -9,8 +9,15 @@ class Pool extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function vehicules()
     {
         return $this->hasMany('App\Models\Vehicule', 'idPool');
+    }
+
+    public function chauffeurs()
+    {
+        return $this->hasMany('App\Models\Chauffeur', 'idPool');
     }
 }

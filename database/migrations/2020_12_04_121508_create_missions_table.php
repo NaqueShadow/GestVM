@@ -16,6 +16,7 @@ class CreateMissionsTable extends Migration
         Schema::create('missions', function (Blueprint $table) {
             $table->id();
             $table->string('objet');
+            $table->integer('nbr')->default('1');
             $table->string('commentaire')->nullable();
             $table->timestamp('dateDepart');
             $table->timestamp('dateRetour');

@@ -11,7 +11,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <title>{{ config('app.name') }} | Gestion du parc</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -25,6 +25,7 @@
     <link href="{{ asset('css/simple-sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style-responsive.css') }}" rel="stylesheet">
+    <link href="{{ asset('lib/chosen/chosen.css') }}" rel="stylesheet">
 </head>
 
 <body class="" style="background-color: rgb(17,176,17);">
@@ -57,6 +58,17 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                @if(Auth::user()->role == 2)
+                                    <a class="dropdown-item text-info" href="{{ route('chefGarage.index') }}">
+                                        {{ __('chef de garage') }}
+                                    </a>
+                                @endif
+
+                                @if(Auth::user()->role == 4)
+                                    <a class="dropdown-item text-info" href="{{ route('respPool.attrEnCours') }}">
+                                        {{ __('responsable de pool') }}
+                                    </a>
+                                @endif
                                 <a class="dropdown-item text-danger" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
@@ -82,11 +94,17 @@
 
                         </div>
                         <div class="list-group list-group-flush mt-5">
-                            <a href="{{ route('chefGarage.index') }}" class="list-group-item list-group-item-action h5 text-success">Véhicules</a>
-                            <a href="{{ route('intervention.index') }}" class="list-group-item list-group-item-action h5 text-success">Chauffeurs</a>
-                            <a href="{{ route('chefGarage.index') }}" class="list-group-item list-group-item-action h5 text-success">Pools</a>
+                            <a href="{{ route('gestParc.index') }}" id="vehicules" class="list-group-item list-group-item-action h5 text-success">Véhicules</a>
+                            <a href="{{ route('gestParc.indexChauffeurs') }}" id="chauffeurs" class="list-group-item list-group-item-action h5 text-success">Chauffeurs</a>
+                            <a href="{{ route('gestParc.indexPools') }}" id="pools" class="list-group-item list-group-item-action h5 text-success">Pools</a>
                             <a href="#" class="list-group-item list-group-item-action h6 text-success"></a>
                         </div>
+
+                        <div class="align-content-center mt-5" style="">
+                            <img style="width: 180px; height: 7%; border-radius: 49%;" src="{{ asset('img/logoSofitex.jpg') }}" alt="">
+                        </div>
+
+                        <div class="text-dark text-center">&copy Copyright_Sofitex 2020</div>
                     </div>
                     <!-- sidebar menu end-->
                 </div>
@@ -113,16 +131,11 @@
 
             <!--footer start-->
             <footer class="site-footer">
-
+                <div class="text-dark text-center">&copy Copyright_Sofitex 2020</div>
             </footer>
             <!--footer end-->
         </section>
     </div>
-
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- Menu Toggle Script -->
     <script src="lib/common-scripts.js"></script>
@@ -132,6 +145,11 @@
             $("#wrapper").toggleClass("toggled");
         });
     </script>
+
+    <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ asset('lib/chosen/chosen.jquery.js') }}" type="text/javascript"></script>
+
+    @yield('chosen')
 
 </div>
 </body>

@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Entite extends Model
 {
     use HasFactory;
+
+    public function attributions()
+    {
+        return $this->hasMany('App\Models\Attribution', 'idEntite');
+    }
 }

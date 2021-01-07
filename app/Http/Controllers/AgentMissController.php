@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attribution;
 use Illuminate\Http\Request;
 use App\Models\Ville;
 use App\Models\Agent;
 use App\Models\Mission;
 use Illuminate\Support\Facades\Session;
+use Jenssegers\Date\Date;
 
 class AgentMissController extends Controller
 {
@@ -20,65 +22,130 @@ class AgentMissController extends Controller
 
     public function index()
     {
-        $missions = Mission::where( 'demandeur', '=', auth()->user()->id )->get();
-        $missions->load('agents');
-        $missions->load('villeDesti');
-        $missions->load('villeDep');
+        $filtre = ['categorie' => '', 'periode' => '', 'date' => null];
 
-        return view('agentMiss/agentMiss', compact('missions'));
+        $missions = Mission::doesntHave('attributions')
+            ->where( 'demandeur', '=', auth()->user()->id )
+            ->where('dateRetour', '>=', now())
+            ->orderBy('updated_at', 'DESC')
+            ->get();
+
+        return view('agentMiss/agentMiss', compact('missions', 'filtre'));
     }
 
-    public function createMission()
+    public function filtreDemande( Request $request )
+    {
+        $filtre = $request->all();
+        $p = $filtre['periode'] == 'avant' ? '<' : ($filtre['periode'] == 'apres' ? '>=' : '=');
+
+        $missions = Mission::where( 'demandeur', '=', auth()->user()->id )
+            ->get();
+
+        if ( $filtre['categorie'] == 'enAttente' )
+            $missions = Mission::doesntHave('attributions')
+                ->where( 'demandeur', '=', auth()->user()->id )
+                ->where('dateRetour', '>', today())
+                ->orWhere('dateRetour', '=', today())
+                ->orderBy('updated_at', 'DESC')
+                ->get();
+        if ( $filtre['categorie'] == 'nonTraite' )
+            $missions = Mission::doesntHave('attributions')
+                ->where( 'demandeur', '=', auth()->user()->id )
+                ->where('dateRetour', '<', today())
+                ->orderBy('updated_at', 'DESC')
+                ->get();
+        if ( $filtre['categorie'] == 'traite' )
+            $missions = Mission::has('attributions')
+                ->where( 'demandeur', '=', auth()->user()->id )
+                ->orderBy('updated_at', 'DESC')
+                ->get();
+
+        if ( $filtre['periode'] != 'tous' )
+            $missions = $missions
+                ->where('updated_at', $p, $filtre['date']); //->format('Y-m-d')
+
+        return view('agentMiss/agentMiss', compact('missions', 'filtre'));
+    }
+
+    public function filtreReponse(Request $request)
+    {
+        $filtre = $request->all();
+        $p = $filtre['periode'] == 'avant' ? '<' : ($filtre['periode'] == 'apres' ? '>=' : '=');
+
+        $attributions = Attribution::whereHas('mission', function ($query) {
+            $query->where( 'demandeur', '=', auth()->user()->id );
+        })->get();
+
+
+        if ( $filtre['categorie'] == 'enCours' )
+            $attributions =Attribution::whereHas('mission', function ($query) {
+                $query->where( 'demandeur', '=', auth()->user()->id );
+            })
+                ->where('statut', 1)
+                ->orderBy('updated_at', 'DESC')
+                ->get();
+        if ( $filtre['categorie'] == 'termine' )
+            $attributions =Attribution::whereHas('mission', function ($query) {
+                $query->where( 'demandeur', '=', auth()->user()->id );
+            })->where('statut', 0)
+                ->orderBy('updated_at', 'DESC')
+                ->get();
+
+        if ( $filtre['periode'] != 'tous' )
+            $attributions = $attributions
+                ->where('updated_at', $p, $filtre['date']); //->format('Y-m-d')
+
+        return view('agentMiss/reponse', compact('attributions', 'filtre'));
+    }
+
+    public function newDemande()
     {
         $villes = Ville::All();
+        $agents = Agent::all();
+        $mission = new Mission();
+        return view('agentMiss/demandeVehicule', compact('villes', 'agents', 'mission'));
+    }
 
-        return view('agentMiss/demandeVehicule', compact('villes'));
+    public function reponse()
+    {
+        $filtre = ['categorie' => '', 'periode' => '', 'date' => null];
+
+        $attributions = Attribution::whereHas('mission', function ($query) {
+            $query->where( 'demandeur', '=', auth()->user()->id );
+        })->where('statut', 1)
+            ->get();
+
+        return view('agentMiss/reponse', compact('attributions', 'filtre'));
+    }
+
+    public function showReponse( Attribution $attribution)
+    {
+        return view('agentMiss/detailsReponse', compact('attribution'));
     }
 
 
-    public function initDemanderVehicule(Request $request)
+    public function storeDemande(Request $request)
     {
-        $dmd = $request->validate([
+        $d = Date::now()->format('d/m/Y');
+        $mission = $request->validate([
+            'demandeur'=>'required',
             'objet'=>'min:3',
+            'nbr'=>'required',
+            'dateDepart' => 'required|date|after_or_equal:tomorrow',
+            'dateRetour' => 'required|date|after_or_equal:dateDepart',
+            'villeDepart' => 'required',
+            'villeDest' => 'required|different:villeDepart',
+            'commentaire'=>'min:0',
         ]);
 
-        //session
-        Session::put('mission.demandeur', $request->demandeur);
-        Session::put('mission.objet', $request->objet);
-        Session::put('mission.dateDepart', $request->dateDepart);
-        Session::put('mission.dateRetour', $request->dateRetour);
-        Session::put('mission.villeDepart', $request->villeDepart);
-        Session::put('mission.villeDest', $request->villeDest);
-        Session::put('mission.commentaire', $request->commentaire);
+        $agents = $request->get('agent');
 
-        $agents = Agent::All();
+        $mission = Mission::create( $mission );
 
-        return view('agentMiss/participant', compact('agents'));
-    }
-
-    public function demanderVehicule(Request $request)
-    {
-        $mission = new Mission;
-        $mission->demandeur = session('mission.demandeur' );
-        $mission->objet = session('mission.objet');
-        $mission->dateDepart = session('mission.dateDepart');
-        $mission->dateRetour = session('mission.dateRetour');
-        $mission->villeDepart = session('mission.villeDepart');
-        $mission->villeDest = session('mission.villeDest');
-        $mission->save();
-
-        $mission->agents()->attach($request->ag1);
-
-        if ($request->ag2)
-            $mission->agents()->attach($request->ag2);
-        if ($request->ag3)
-            $mission->agents()->attach($request->ag3);
-        if ($request->ag4)
-            $mission->agents()->attach($request->ag4);
-        if ($request->ag5)
-            $mission->agents()->attach($request->ag5);
-
-        $request->session()->forget(['demandeur', 'objet','dateDebut','dateRetour','villeDepart','villeDest','commentaire']);
+        foreach ($request->agent as $agent)
+        {
+            $mission->agents()->attach($agent);
+        }
 
         return redirect()->route('agentMiss.index');
     }
@@ -89,46 +156,25 @@ class AgentMissController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         //

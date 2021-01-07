@@ -83,13 +83,7 @@
                         <div class="sidebar-heading mb-5">
 
                         </div>
-                        <div class="list-group list-group-flush mt-5">
-                            <div class="h5 text-center" style="color: #284563;">POOL COMMUN</div>
-                            <a href="#" class="list-group-item list-group-item-action h6 text-success" >Missions</a>
-                            <a href="#" class="list-group-item list-group-item-action h6 text-success">Véhicules</a>
-                            <a href="#" class="list-group-item list-group-item-action h6 text-success">Chauffeurs</a>
-                            <a href="#" class="list-group-item list-group-item-action h6 text-success"></a>
-                        </div>
+
                         <div class="list-group list-group-flush mt-5">
                             <div class="h5 text-center" style="color: #284563;">PARC SOFITEX</div>
                             <a href="#" class="list-group-item list-group-item-action h5 text-success ">Imputations</a>
@@ -98,6 +92,11 @@
                             <a href="#" class="list-group-item list-group-item-action h5 text-success">Pools</a>
                             <a href="#" class="list-group-item list-group-item-action h5 text-success"></a>
                         </div>
+
+                        <div class="align-content-center mt-5" style="">
+                            <img style="width: 180px; height: 7%; border-radius: 49%;" src="{{ asset('img/logoSofitex.jpg') }}" alt="">
+                        </div>
+                        <div class="text-dark text-center">&copy Copyright_Sofitex 2020</div>
                     </div>
                     <!-- sidebar menu end-->
                 </div>
@@ -124,7 +123,7 @@
 
             <!--footer start-->
             <footer class="site-footer">
-
+                <div class="text-dark text-center">&copy Copyright_Sofitex 2020</div>
             </footer>
             <!--footer end-->
         </section>

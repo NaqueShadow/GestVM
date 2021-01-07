@@ -29,7 +29,7 @@ class InterventionController extends Controller
 
             'idVehicule'=>'required|min:3',
             'debut'=>'required|date',
-            'finPrev'=>'required|date',
+            'finPrev'=>'required|date|after_or_equal:debut',
             'type'=>'required'
         ]);
 

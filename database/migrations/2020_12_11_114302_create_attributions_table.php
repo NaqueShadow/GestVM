@@ -15,18 +15,19 @@ class CreateAttributionsTable extends Migration
     {
         Schema::create('attributions', function (Blueprint $table) {
             $table->id();
-            $table->boolean('statut');
+            $table->boolean('statut')->default('1');
             $table->timestamps();
 
-            $table->unsignedBigInteger('idChauf');
+            $table->string('idChauf');
             $table->string('idVehicule');
             $table->unsignedBigInteger('idMission');
             $table->unsignedBigInteger('idEntite');
 
-            $table->foreign('idVehicule')->references('code')->on('vehicules');
+            $table->unique(['idVehicule','idMission']);
+            $table->foreign('idVehicule')->references('code')->on('vehicules')->cascadeOnDelete();
             $table->foreign('idChauf')->references('matricule')->on('chauffeurs');
-            $table->foreign('idMission')->references('id')->on('missions');
-            $table->foreign('idEntite')->references('id')->on('entites');
+            $table->foreign('idMission')->references('id')->on('missions')->cascadeOnDelete();
+            $table->foreign('idEntite')->references('id')->on('entites')->cascadeOnDelete();
         });
     }
 

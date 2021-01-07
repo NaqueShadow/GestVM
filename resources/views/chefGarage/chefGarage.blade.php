@@ -2,12 +2,38 @@
 
 @section('content')
 
+    <script>
+        document.getElementById("intervention").style.backgroundColor = "white";
+    </script>
+
     <div class="col-12" style="">
 
 
         <div class="card mt-5 align-content-center text-dark" style="margin: auto; box-shadow: 1px 1px 2px mediumseagreen; border-radius: 15px; width: 100%; height: auto">
-            <div class="card-header bg-light text-success h4">
-                <h5 class="text-success text-center">Besoins d'intervention</h5>
+            <div class="card-header bg-light pt-0 pb-0">
+                <div class="">
+                    <form class="" method="post" action="{{route('chefGarage.filtreIntervention')}}" id="form">
+                        @csrf
+                        <div  class="form-group form-row mb-0">
+                            <select name="categorie" required class="text-info custom-select col-3">
+                                <option value="enCours" {{ $filtre['categorie'] == 'enCours' ? 'selected' : '' }}>en cours</option>
+                                <option value="termine" {{ $filtre['categorie'] == 'termine' ? 'selected' : '' }}>terminées</option>
+                            </select>
+                            <select name="periode" required class="text-info custom-select col-4">
+                                <option value="tous" {{ $filtre['periode'] == 'tous' ? 'selected' : '' }}>tous</option>
+                                <option value="avant" {{ $filtre['periode'] == 'avant' ? 'selected' : '' }}>fait avant le</option>
+                                <option value="le" {{ $filtre['periode'] == 'le' ? 'selected' : '' }}> fait le</option>
+                                <option value="apres" {{ $filtre['periode'] == 'apres' ? 'selected' : '' }}>fait après le</option>
+                            </select>
+                            <input type="date" name="date" required value="{{ $filtre['date'] ?? today()->format('Y-m-d') }}" class="col-4 form-control">
+                            <button type="submit" id="submitForm" class="btn btn-outline-info col-1" >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="indianred" class="bi bi-funnel-fill" viewBox="0 0 16 16">
+                                    <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
 
             <div class="card-body row" style="color: #284563;">
@@ -19,7 +45,7 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
+                            <th scope="col">Date</th>
                             <th scope="col">Vehicule</th>
                             <th scope="col">Motif</th>
                             <th scope="col">Début</th>
@@ -30,11 +56,11 @@
                     <tbody id="">
                     @foreach($interventions as $intervention)
                     <tr>
-                        <th scope="row"></th>
+                        <th scope="row">{{$intervention->created_at->format('d/m/Y')}}</th>
                         <td>{{ $intervention->idVehicule }}</td>
                         <td>Maintenance {{ $intervention->type }}</td>
-                        <td>{{ $intervention->debut }}</td>
-                        <td>{{ $intervention->finPrev }}</td>
+                        <td>{{ $intervention->debut->format('d/m/Y') }}</td>
+                        <td>{{ $intervention->finPrev->format('d/m/Y') }}</td>
                         <td>
                             <a href="interventions/{{ $intervention->id }}/delete">
                                 <button class="btn btn-danger pl-1 pr-1" title="supprimer">
@@ -51,6 +77,7 @@
                                     </svg>
                                 </button>
                             </a>
+                            @if( $intervention->statut )
                             <a href="interventions/{{ $intervention->id }}">
                                 <button class="btn btn-success " title="terminer l'intervention">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-truck-flatbed" viewBox="0 0 16 16">
@@ -58,6 +85,7 @@
                                     </svg>
                                 </button>
                             </a>
+                            @endif
                         </td>
                     </tr>
                     @endforeach
@@ -97,7 +125,7 @@
                                                 <option value="">selectionner un véhicule</option>
 
                                                 @foreach($vehicules as $vehicule)
-                                                    <option value="{{ $vehicule->code }}">{{ $vehicule->code }}</option>
+                                                    <option value="{{ $vehicule->code }}" {{$vehicule->code == old('idVehicule') ? 'selected':''}}>{{ $vehicule->code }}</option>
                                                 @endforeach
 
                                             </select>
@@ -110,26 +138,30 @@
                                     </div>
                                     <div class="col-3"></div>
 
-                                    <div  class="form-group input-group col-6">
+                                    <div  class="form-group col-6">
+                                        <div class="input-group">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">Début</div>
                                         </div>
                                         <input type="date" name="debut" required id="debut" value="{{ old('debut') }}" class="form-control @error('dateDepart') is-invalid @enderror">
+                                        </div>
                                         @error('debut')
-                                        <div class="invalide-feedBack()">
-                                            {{ $errors->first('debut') }}
+                                        <div class="invalide-feedBack() text-danger">
+                                            date invalide
                                         </div>
                                         @enderror
                                     </div>
 
-                                    <div  class="form-group input-group col-6">
+                                    <div  class="form-group col-6">
+                                        <div class="input-group">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">Fin</div>
                                         </div>
                                         <input type="date" name="finPrev" required id="finPrev" value="{{ old('finPrev') }}" class="form-control @error('dateRetour') is-invalid @enderror">
+                                        </div>
                                         @error('finPrev')
-                                        <div class="invalide-feedBack()">
-                                            {{ $errors->first('finPrev') }}
+                                        <div class="invalide-feedBack() text-danger">
+                                            date invalide
                                         </div>
                                         @enderror
                                     </div>
@@ -140,12 +172,12 @@
                                         <div class="">
                                             <select name="type" required id="type" class="custom-select @error('type') is-invalid @enderror">
                                                 <option value="">selectionner le motif</option>
-                                                <option value="preventive">Maintenance préventive</option>
-                                                <option value="curative">Maintenance curative</option>
+                                                <option value="preventive" {{'preventive' == old('type') ? 'selected':''}}>Maintenance préventive</option>
+                                                <option value="curative" {{'curative' == old('type') ? 'selected':''}}>Maintenance curative</option>
                                             </select>
                                         </div>
                                         @error('type')
-                                        <div class="invalide-feedBack()">
+                                        <div class="invalide-feedBack() text-danger">
                                             {{ $errors->first('type') }}
                                         </div>
                                         @enderror
@@ -168,6 +200,14 @@
             </div>
         </div>
     </div>
+
+    @if($errors->any())
+        <script>
+            $(document).ready(function () {
+                $('#fenetre').modal('show');
+            });
+        </script>
+    @endif
 
 
 @endsection

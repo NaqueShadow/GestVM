@@ -2,83 +2,76 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Chauffeur;
+use App\Models\Vehicule;
 use Illuminate\Http\Request;
 
 class VehiculeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        //
+        $vehicule = $request->validate([
+            'code'=>'required|min:3',
+            'immatriculation'=>'required|min:3',
+            'modele'=>'required|min:3',
+            'acquisition' => 'required|date|before:tomorrow',
+        ]);
+        Vehicule::create($vehicule);
+        return redirect()->route('gestParc.index')->with('info', $request->code.' enregistré avec succès');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+
+    public function show(Vehicule $vehicule)
+    {
+        $vehicule->load('chauffeur');
+        return view('respPool/detailsVehicule', compact('vehicule'));
+    }
+
+    public function fullShow(Vehicule $vehicule)
+    {
+        $vehicule->load('chauffeur');
+        $chauffeurs = Chauffeur::doesntHave('vehicule')
+            ->where('idPool', $vehicule->idPool)
+            ->get();
+        return view('gestParc/vehicules/detailsVehicule', compact('vehicule', 'chauffeurs'));
+    }
+
+
+    public function edit(Vehicule $vehicule)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+
+    public function update(Request $request, Vehicule $vehicule)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+
+    public function destroy(Vehicule $vehicule)
     {
-        //
+        $vehicule->delete();
+        return redirect()->route('gestParc.index')->with('info', $vehicule->code.' supprimé avec succès');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function updateChauffeur(Request $request, Vehicule $vehicule)
     {
-        //
+        $vehicule->idChauf = $request->idChauf;
+        $vehicule->save();
+        return redirect()->route('vehicule.fullShow', ['vehicule' => $vehicule->code])->with('info', ' Opération réussie');
     }
 }

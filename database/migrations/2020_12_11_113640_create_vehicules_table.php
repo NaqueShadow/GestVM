@@ -17,12 +17,13 @@ class CreateVehiculesTable extends Migration
             $table->string('code')->primary();
             $table->string('immatriculation')->unique();
             $table->string('modele');
+            $table->timestamp('acquisition')->nullable();
             $table->integer('statut')->default('1');
             $table->timestamp('dernierRetour')->nullable();
             $table->timestamps();
 
-            $table->unsignedBigInteger('idChauf')->nullable();
-            $table->unsignedBigInteger('idPool')->default('1');
+            $table->string('idChauf')->nullable();
+            $table->unsignedBigInteger('idPool')->nullable();
 
             $table->foreign('idPool')->references('id')->on('pools');
             $table->foreign('idChauf')->references('matricule')->on('chauffeurs');
