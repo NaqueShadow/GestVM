@@ -20,4 +20,9 @@ class Pool extends Model
     {
         return $this->hasMany('App\Models\Chauffeur', 'idPool');
     }
+
+    public function users()
+    {
+        return $this->hasMany('App\Models\User', 'idPool');
+    }
 }

@@ -132,7 +132,7 @@
                 <section class="wrapper">
                     <div>
 
-                        <div class="ml-3 navbar-nav ml-auto" style="min-height: 900px; ">
+                        <div class="ml-3 navbar-nav ml-auto" style="min-height: 650px; ">
                             @yield('content')
                         </div>
 

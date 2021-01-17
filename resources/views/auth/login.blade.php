@@ -34,6 +34,10 @@
 
                         <div class="card-body">
 
+                            <div class="w-75 m-auto mt-3 h4 text-info">
+                                <marquee behavior="" direction="">Bienvenu sur la plateforme de gestion des véhicules de mission !!</marquee>
+                            </div>
+                            <div class="mt-2">.</div>
                             @if( session()->get('error') )
                                 <div class="alert alert-danger text-center text-danger">
                                     {{ session()->get('error') }}
@@ -44,12 +48,12 @@
                                 @csrf
 
                                 <div class="form-group row">
-                                    <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Adresse Mail ') }}</label>
+                                    <label for="login" class="col-md-4 col-form-label text-md-right">{{ __('Nom d\'utilisateur ') }}</label>
 
                                     <div class="col-md-6">
-                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                        <input id="login" type="text" class="form-control @error('login') is-invalid @enderror" name="login" value="{{ old('login') }}" required autocomplete="login" autofocus>
 
-                                        @error('email')
+                                        @error('login')
                                         <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                         </span>
@@ -61,7 +65,7 @@
                                     <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Mot de passe') }}</label>
 
                                     <div class="col-md-6">
-                                        <small class="text-black-50">* 8 caractères au moins</small>
+                                        <small class="text-black-50"></small>
                                         <input id="password" minlength="8" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                                         @error('password')

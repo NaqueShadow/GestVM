@@ -9,8 +9,10 @@ class Ressource extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function attributions()
     {
-        return $this->hasMany('App\Models\Attribution', 'idRessource');
+        return $this->belongsTo('App\Models\Attribution', 'idAttr');
     }
 }

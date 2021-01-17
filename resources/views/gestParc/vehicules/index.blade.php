@@ -66,7 +66,7 @@
                         <td>
                             {{ isset($vehicul->chauffeur->nom) ? $vehicul->chauffeur->nom.' '.$vehicul->chauffeur->prenom : '--' }}
                         </td>
-                        <td>{{ $vehicul->pool->abbreviation }}</td>
+                        <td>{{ isset($vehicul->pool->abbreviation) ? $vehicul->pool->abbreviation:'' }}</td>
                         <td>
                             <a href="{{route('vehicule.fullShow', ['vehicule' => $vehicul->code])}}">
                                 <button class="btn btn-info p-1">

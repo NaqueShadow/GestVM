@@ -43,12 +43,22 @@ class LoginController extends Controller
 
         $input = $request->all();
         $this->validate($request, [
-            'email' => 'required|email',
+            'login' => 'required|min:4',
             'password' => 'required|min:8',
         ]);
 
-        if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
+        if(auth()->attempt(array('login' => $input['login'], 'password' => $input['password']))) {
 
+            if (auth()->user()->statut == 1) {
+                return redirect()->route('agentMiss.index');
+            }
+            else {
+                Auth::setUser(auth()->user()->id);
+                Auth::logout();
+                return redirect()->route('login')->with('error','compte inactif');
+            }
+
+            /*
             if (auth()->user()->role == 1) {
                 return redirect()->route('agentMiss.index');
             }
@@ -64,9 +74,10 @@ class LoginController extends Controller
             elseif (auth()->user()->role == 5) {
                 return redirect()->route('gestParc.index');
             }
+            */
 
-            return redirect()->route('login')->with('error','compte inactif');
         }
+
         else {
             return redirect()->route('login')->with('error','identifiants incorrectes');
         }

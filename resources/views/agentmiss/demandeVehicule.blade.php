@@ -29,10 +29,12 @@
                         </div>
 
                         <div  class="form-group input-group col-4">
+                            {{--
                             <div class="input-group-prepend">
                                 <div class="input-group-text" title="nombre de participant">Nb. Participant</div>
                             </div>
                             <input type="number" min="1" max="15" required name="nbr" value="{{ old('nbr') ?? $mission->nbr }}" required id="nbr" value="{{ old('nbr') }}" class="form-control ">
+                            --}}
                         </div>
 
                         <input type="hidden" name="demandeur" value="{{ Auth::user()->id }}">
@@ -56,7 +58,7 @@
                             <div class="">
                                 <select name="villeDepart" required id="villeDepart" class="custom-select @error('villeDepart') is-invalid @enderror">
 
-                                    <option value="">--selectionner la ville de depart--</option>
+                                    <option value="">Ville de depart..</option>
 
                                     @foreach($villes as $ville)
                                         <option value="{{$ville->id}}" {{$ville->id == old('villeDepart') ? 'selected' : '' }}>
@@ -92,7 +94,7 @@
                             <div class="">
                                 <select name="villeDest" required id="villeDest" class="custom-select form-control @error('villeDest') is-invalid @enderror">
 
-                                    <option value="">--selectionner la destination--</option>
+                                    <option value="">Ville destination..</option>
 
                                     @foreach($villes as $ville)
                                         <option value="{{$ville->id}}" {{$ville->id == old('villeDest') ? 'selected' : '' }}>
@@ -112,7 +114,7 @@
                         <div  class="form-group col-12 ">
                             <select name="agent[]" id="agentChosen" required class="custom-select chosen-select" multiple="" >
                                 @foreach($agents as $agent)
-                                    <option value="{{$agent->matricule}}" {{$agent->matricule == old('agent[]') ? 'selected' : ''}}>{{$agent->nom}} {{$agent->prenom}} ({{$agent->matricule}})</option>
+                                    <option value="{{$agent->matricule}}" {{ empty(old('agent[]')) ? '':(in_array($agent->matricule, old('agent')) ? 'selected' : '')}}>{{$agent->nom}} {{$agent->prenom}} ({{$agent->matricule}})</option>
                                 @endforeach
                             </select>
                         </div>

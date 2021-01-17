@@ -14,20 +14,13 @@
     <link rel="stylesheet" href="{{asset('bootstrap-4.5.2/css/bootstrap.min.css')}}">
 </head>
 
-<body class="bg-warning">
+<body class="" style="background-color: rgb(200,236,185);">
     <div>
-        <div class="card mt-5 align-content-center text-dark" style="margin: auto; box-shadow: 1px 1px 2px mediumseagreen; border-radius: 15px;">
-            <div class="card-header bg-light text-success h4">
-
-            </div>
-
             <div class="card-body row">
 
-                <h1 class="text-warning text-center">Un problème a été rencontré !!!</h1>
+                <h1 class="text-warning text-center col-12">Un problème a été rencontré !!!</h1>
 
             </div>
-
-        </div>
     </div>
 </body>
 </html>

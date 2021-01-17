@@ -1,16 +1,16 @@
-@extends('layouts.respPool')
+@extends('layouts.chargeImp')
 
 @section('content')
 
     <script>
-        document.getElementById("vehicules").style.backgroundColor = "white";
+        document.getElementById("enregistrement").style.backgroundColor = "white";
     </script>
 
     <div class="card mt-5 align-content-center text-dark" style="height: 500px; color: #284563; margin: auto; box-shadow: 1px 1px 2px mediumseagreen; border-radius: 15px; width: 100%; height: auto">
 
         <div class="card-header bg-light pt-0 pb-0">
             <div class="">
-                <form class="" method="post" action="{{route('respPool.rechercheVehicule')}}" id="form">
+                <form class="" method="post" action="{{route('chargeImp.rechercheVehicule')}}" id="form">
                     @csrf
                     <div  class="form-group form-row mb-0">
                         <div class="col"></div>
@@ -30,29 +30,25 @@
             <table class="table table-success table-hover table-striped">
                 <thead>
                 <tr>
+                    <th>#</th>
                     <th scope="col">Code</th>
                     <th scope="col">Modèle</th>
-                    <th scope="col">Chauffeur</th>
-                    <th scope="col">Dernier retour</th>
-                    <th scope="col">Mission du mois</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody id="">
+                @php
+                    $i = 0;
+                @endphp
                 @foreach( $vehicules as $vehicule )
                     <tr>
+                        <td>{{ ++$i }}</td>
                         <th>{{ $vehicule->code }}</th>
                         <td>{{ $vehicule->modele }}</td>
                         <td>
-                            @isset($vehicule->chauffeur->nom)
-                                {{ $vehicule->chauffeur->nom }} {{ $vehicule->chauffeur->prenom }}
-                            @endisset</td>
-                        <td>{{ isset($vehicule->dernierRetour) ? $vehicule->dernierRetour->format('d/m/Y'):'' }}</td>
-                        <td>{{ $vehicule->attributions_count }}</td>
-                        <td>
-                            <a href="{{route('vehicule.show', ['vehicule' => $vehicule->code])}}">
+                            <a href="{{route('chargeImp.indexEnregistrement', ['vehicule' => $vehicule->code])}}">
                                 <button class="btn btn-info p-1">
-                                    detail
+                                    ouvrir
                                 </button>
                             </a>
                         </td>
@@ -67,3 +63,4 @@
     </div>
 
 @endsection
+

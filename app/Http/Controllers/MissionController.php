@@ -41,7 +41,7 @@ class MissionController extends Controller
             $tab[] = $agent->matricule;
         }
 
-        $villes = Ville::All();
+        $villes = Ville::all();
         $agents = Agent::all();
         return view('agentMiss/editMiss', compact('mission','villes', 'agents', 'tab'));
     }
@@ -56,7 +56,7 @@ class MissionController extends Controller
             'dateDepart' => 'required|date',
             'dateRetour' => 'required|date|after_or_equal:dateDepart',
             'villeDepart' => 'required',
-            'villeDest' => 'required|different:villeDepart',
+            'villeDest' => 'required',
             'commentaire'=> 'min:0',
         ]);
 

@@ -17,10 +17,9 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('matricule')->index();
             $table->unsignedBigInteger('idPool');
-            $table->foreign('idPool')->references('id')->on('pools');
-            $table->foreign('matricule')->references('matricule')->on('agents');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->foreign('idPool')->references('id')->on('pools')->cascadeOnDelete();
+            $table->foreign('matricule')->references('matricule')->on('agents')->cascadeOnDelete();
+            $table->string('login')->unique();
             $table->string('password');
             $table->integer('role')->default(1);
             $table->integer('statut')->default(0);

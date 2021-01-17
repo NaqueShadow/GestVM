@@ -16,10 +16,18 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
 
+        \App\Models\Region::create(
+            [
+                'id' => '1',
+                'nom' => 'Bobo Dioulasso',
+            ]
+        );
+
         \App\Models\Pool::create(
             [
                 'designation' => 'Direction du transport et de la Logistique',
                 'abbreviation' => 'DTL',
+                'regionId' => '1',
             ]
         );
 
@@ -126,13 +134,56 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        \App\Models\Role::create(
+            [
+                'id' => '1',
+                'role' => 'Demandeur',
+            ]
+        );
+
+        \App\Models\Role::create(
+            [
+                'id' => '2',
+                'role' => 'Garagiste',
+            ]
+        );
+
+        \App\Models\Role::create(
+            [
+                'id' => '3',
+                'role' => 'Chargé des imputations',
+            ]
+        );
+
+        \App\Models\Role::create(
+            [
+                'id' => '4',
+                'role' => 'Responsable de pool',
+            ]
+        );
+
+        \App\Models\Role::create(
+            [
+                'id' => '5',
+                'role' => 'gestionnaire du parc',
+            ]
+        );
+
+        \App\Models\Role::create(
+            [
+                'id' => '5',
+                'role' => 'Administrateur',
+            ]
+        );
+
 
         \App\Models\User::create(
             [
                 'matricule' => '1',
-                'email' => 'miss@gmail.com',
-                'password' => bcrypt('miss@gmail.com'),
+                'login' => 'missLogin',
+                'password' => bcrypt('missLogin'),
                 'role' => '1',
+                'statut' => '1',
                 'idPool' => '1',
             ]
         );
@@ -140,9 +191,10 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::create(
             [
                 'matricule' => '2',
-                'email' => 'rp@gmail.com',
-                'password' => bcrypt('rp@gmail.com'),
+                'login' => 'rpLogin',
+                'password' => bcrypt('rpLogin'),
                 'role' => '4',
+                'statut' => '1',
                 'idPool' => '1',
             ]
         );
@@ -150,9 +202,10 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::create(
             [
                 'matricule' => '3',
-                'email' => 'cg@gmail.com',
-                'password' => bcrypt('cg@gmail.com'),
+                'login' => 'cgLogin',
+                'password' => bcrypt('cgLogin'),
                 'role' => '2',
+                'statut' => '1',
                 'idPool' => '1',
             ]
         );
@@ -160,9 +213,10 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::create(
             [
                 'matricule' => '4',
-                'email' => 'ci@gmail.com',
-                'password' => bcrypt('ci@gmail.com'),
+                'login' => 'ciLogin',
+                'password' => bcrypt('ciLogin'),
                 'role' => '3',
+                'statut' => '1',
                 'idPool' => '1',
             ]
         );
@@ -170,9 +224,10 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::create(
             [
                 'matricule' => '5',
-                'email' => 'gp@gmail.com',
-                'password' => bcrypt('gp@gmail.com'),
+                'login' => 'gpLogin',
+                'password' => bcrypt('gpLogin'),
                 'role' => '5',
+                'statut' => '1',
                 'idPool' => '1',
             ]
         );

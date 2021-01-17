@@ -19,7 +19,7 @@ class Mission extends Model
         'dateRetour',
     ];
 
-    protected $with = ['villeDesti', 'dmdeur', 'agents'];
+    protected $with = ['villeDesti', 'dmdeur',];
 
     /*public function scopeDemandeur($query)
     {

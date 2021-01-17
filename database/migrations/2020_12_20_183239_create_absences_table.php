@@ -19,7 +19,7 @@ class CreateAbsencesTable extends Migration
             $table->timestamp('debutAbs');
             $table->timestamp('finAbs');
             $table->timestamps();
-            $table->unsignedBigInteger('idChauf');
+            $table->string('idChauf');
             $table->foreign('idChauf')->references('matricule')->on('chauffeurs');
         });
     }

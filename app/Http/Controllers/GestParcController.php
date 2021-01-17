@@ -17,7 +17,7 @@ class GestParcController extends Controller
 
     public function index()
     {
-        $vehicules = Vehicule::all();
+        $vehicules = Vehicule::all()->load('pool', 'chauffeur');
         $vehicule = new Vehicule();
 
         return view('gestParc/vehicules/index', compact('vehicules', 'vehicule'));
@@ -71,6 +71,14 @@ class GestParcController extends Controller
             ->get();
 
         return view('gestParc/pools/index', compact('chauffeurs', 'text'));
+    }
+
+    public function indexEntites()
+    {
+        $pools = Pool::withCount('vehicules', 'chauffeurs')->get();
+        $pool = new Pool();
+        $regions = Region::all();
+        return view('gestParc/pools/index', compact('pools', 'pool', 'regions'));
     }
 
 

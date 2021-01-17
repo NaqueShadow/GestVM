@@ -126,19 +126,16 @@ class AgentMissController extends Controller
 
     public function storeDemande(Request $request)
     {
-        $d = Date::now()->format('d/m/Y');
+        //$d = Date::now()->format('d/m/Y');
         $mission = $request->validate([
             'demandeur'=>'required',
             'objet'=>'min:3',
-            'nbr'=>'required',
-            'dateDepart' => 'required|date|after_or_equal:tomorrow',
+            'dateDepart' => 'required|date',
             'dateRetour' => 'required|date|after_or_equal:dateDepart',
             'villeDepart' => 'required',
-            'villeDest' => 'required|different:villeDepart',
+            'villeDest' => 'required',
             'commentaire'=>'min:0',
         ]);
-
-        $agents = $request->get('agent');
 
         $mission = Mission::create( $mission );
 

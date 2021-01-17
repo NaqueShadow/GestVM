@@ -11,7 +11,7 @@ class Attribution extends Model
 
     protected $guarded = [];
 
-    protected $with = ['mission', 'vehicule', 'chauffeur'];
+    protected $with = ['vehicule', 'chauffeur'];
 
     public function scopeEnCours ($query) {
         return $query->where('statut', 1)
@@ -41,8 +41,9 @@ class Attribution extends Model
         return $this->belongsTo('App\Models\Entite', 'idEntite');
     }
 
-    public function ressourve()
+    public function ressource()
     {
-        return $this->belongsTo('App\Models\Ressource', 'idRessource');
+        return $this->hasOne('App\Models\Ressource', 'idAttr');
     }
+
 }

@@ -97,7 +97,9 @@
                             <a href="{{ route('gestParc.index') }}" id="vehicules" class="list-group-item list-group-item-action h5 text-success">Véhicules</a>
                             <a href="{{ route('gestParc.indexChauffeurs') }}" id="chauffeurs" class="list-group-item list-group-item-action h5 text-success">Chauffeurs</a>
                             <a href="{{ route('gestParc.indexPools') }}" id="pools" class="list-group-item list-group-item-action h5 text-success">Pools</a>
-                            <a href="#" class="list-group-item list-group-item-action h6 text-success"></a>
+                            {{--<a href="{{ route('gestParc.indexPools') }}" id="documents" class="list-group-item list-group-item-action h5 text-success">Documents</a>
+                            <a href="{{ route('gestParc.indexPools') }}" id="documents" class="list-group-item list-group-item-action h5 text-success">Utilisateurs</a>
+                            --}}<a href="#" class="list-group-item list-group-item-action h6 text-success"></a>
                         </div>
 
                         <div class="align-content-center mt-5" style="">
@@ -118,7 +120,7 @@
 
                         <!-- /col-lg-3 -->
 
-                        <div class="ml-3" style="min-height: 1000px">
+                        <div class="ml-3" style="min-height: 650px">
                             @yield('content')
                         </div>
 

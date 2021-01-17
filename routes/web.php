@@ -87,6 +87,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/gestParc/pool/chauffeur/{chauffeur}', 'PoolController@retraitChauffeur')->name('pool.retraitChauffeur');
     Route::post('/gestParc/pool/{pool}/chauffeur', 'PoolController@ajoutChauffeur')->name('pool.ajoutChauffeur');
 
+    Route::get('/gestParc/entites', 'GestParcController@indexEntites')->name('gestParc.indexEntites');
+    Route::get('/gestParc/entites', 'EntiteController@indexEntites')->name('gestParc.create');
 
 
 
@@ -114,7 +116,17 @@ Route::group(['middleware' => 'auth'], function () {
     //===========================route imputation
 
     Route::get('/chargeImp', 'ChargeImpController@index')->name('chargeImp.index');
+    Route::post('/chargeImp', 'ChargeImpController@filtreMois')->name('chargeImp.filtreMois');
+    Route::get('/chargeImp/vehicules', 'ChargeImpController@indexVehicules')->name('chargeImp.indexVehicules');
+    Route::post('/chargeImp/vehicules', 'ChargeImpController@rechercheVehicule')->name('chargeImp.rechercheVehicule');
+    Route::get('/chargeImp/consommation/{vehicule}', 'ChargeImpController@indexEnregistrement')->name('chargeImp.indexEnregistrement');
+    Route::post('/chargeImp/consommation/{vehicule}', 'ChargeImpController@storeRessource')->name('chargeImp.storeRessource');
+    Route::get('/chargeImp/consomm/{vehicule}', 'ChargeImpController@indexConsommation');
+    Route::post('/chargeImp/consomm/{vehicule}', 'ChargeImpController@filtreMoisVehicule')->name('chargeImp.filtreMoisVehicule');
+    //Route::patch('/chargeImp/consomm/{vehicule}', 'ChargeImpController@storeRessource')->name('chargeImp.storeRessource');
 
+    Route::get('/chargeImp/imputation', 'ChargeImpController@index')->name('chargeImp.index');
+    Route::get('/chargeImp/imputation', 'ChargeImpController@rapport')->name('chargeImp.rapport');
 
 
 
@@ -141,4 +153,28 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/agentMiss/filtreReponse', 'AgentMissController@reponse');
 
 
+
+    //===========================route admin
+
+    Route::get('/admin/utilisateurs', 'AdminController@index')->name('admin.index');
+    Route::post('/admin/utilisateurs', 'AdminController@store')->name('admin.store');
+    Route::delete('/admin/utilisateurs/{user}', 'AdminController@destroy')->name('admin.destroy');
+    Route::get('/admin/utilisateurs/{user}', 'AdminController@show')->name('admin.show');
+    Route::patch('/admin/utilisateurs/{user}', 'AdminController@update')->name('admin.update');
+    Route::Post('/admin/utilisateurs/{user}', 'AdminController@storeRole')->name('admin.storeRole');
+    Route::get('/admin/users/{user}', 'AdminController@index');
+    Route::delete('/admin/users/{user}', 'AdminController@destroyRole')->name('admin.destroyRole');
+
+    Route::get('/admin/compte/{user}', 'AdminController@index');
+    Route::post('/admin/compte/{user}', 'AdminController@activer')->name('admin.activer');
+    Route::patch('/admin/compte/{user}', 'AdminController@desactiver')->name('admin.desactiver');
+
+    Route::get('/admin/agents', 'AdminController@indexAgent')->name('admin.indexAgent');
+    Route::post('/admin/agents', 'AdminController@storeAgent')->name('admin.storeAgent');
+    Route::get('/admin/agents/{agent}', 'AdminController@editAgent')->name('admin.editAgent');
+    Route::patch('/admin/agents/{agent}', 'AdminController@updateAgent')->name('admin.updateAgent');
+    Route::delete('/admin/agents/{agent}', 'AdminController@destroyAgent')->name('admin.destroyAgent');
+
+    Route::get('/admin/agent', 'AdminController@indexAgent')->name('admin.indexAgent');
+    Route::post('/admin/agent', 'AdminController@rechercheAgent')->name('admin.rechercheAgent');
 });

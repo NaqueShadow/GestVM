@@ -16,12 +16,7 @@ class InterventionController extends Controller
         return view('chefGarage/historique', compact('interventions'));
     }
 
-
-    public function create()
-    {
-        //
-    }
-
+    public function create() {  }
 
     public function store(Request $request)
     {
@@ -32,26 +27,16 @@ class InterventionController extends Controller
             'finPrev'=>'required|date|after_or_equal:debut',
             'type'=>'required'
         ]);
-
-        $vehicule = Vehicule::find($request->idVehicule);
-        $vehicule->statut = 0;
-        $vehicule->save();
-
         Intervention::create($validate);
 
         return back();
     }
 
 
-    public function show($id)
-    {
-        //
-    }
-
+    public function show($id) {  }
 
     public function edit($id)
     {
-
         return route('chefGarage.index');
     }
 
@@ -60,25 +45,14 @@ class InterventionController extends Controller
         $intervention->statut = 0;
         $intervention->save();
 
-        $vehicule = Vehicule::find($intervention->idVehicule);
-        $vehicule->statut = 1;
-        $vehicule->save();
-
         return back();
     }
 
-    public function update(Request $request, $id)
-    {
-        //
-    }
+    public function update(Request $request, $id) {  }
 
 
     public function destroy( Intervention $intervention )
     {
-        $vehicule = Vehicule::find($intervention->idVehicule);
-        $vehicule->statut = 1;
-        $vehicule->save();
-
         $intervention->delete();
         return back();
     }

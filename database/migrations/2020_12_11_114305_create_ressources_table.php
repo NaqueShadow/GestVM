@@ -15,8 +15,9 @@ class CreateRessourcesTable extends Migration
     {
         Schema::create('ressources', function (Blueprint $table) {
             $table->id();
-            $table->decimal('carburant');
-            $table->decimal('distance');
+            $table->decimal('carburant')->default('0');
+            $table->decimal('comptDepart')->default('0');
+            $table->decimal('comptRetour')->default('0');
             $table->timestamps();
 
             $table->unsignedBigInteger('idAttr');

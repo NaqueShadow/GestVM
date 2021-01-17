@@ -64,10 +64,10 @@
                         <th>{{ $chauffeur->nom }} {{ $chauffeur->prenom }}</th>
                         <td>{{ $chauffeur->telephone }}</td>
                         <td>{{ isset($chauffeur->vehicule->code) ? $chauffeur->vehicule->code : '' }} </td>
-                        <td>{{ $chauffeur->pool->abbreviation }}</td>
+                        <td>{{ isset($chauffeur->pool->abbreviation) ? $chauffeur->pool->abbreviation : '' }}</td>
                         <td>
                             <a href="{{ route('chauffeur.edit', ['chauffeur' => $chauffeur->matricule]) }}">
-                                <button class="btn btn-info " title="éditer">
+                                <button class="btn btn-info " disabled title="éditer">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
                                     </svg>
@@ -162,10 +162,10 @@
                                     <div class="form-group input-group col-12 row">
                                         <label class="col-3">Contact</label>
                                         <div class="col-9">
-                                            <small class="text-info">* huit chiffres commencant par 0,5,6 ou 7 suivi de 4,5,6 ou 7</small>
+                                            <small class="text-info">* huit chiffres</small>
                                             <input type="tel" name="telephone" id="telephone"
                                                    value="{{ old('telephone') ?? $chauf->telephone }}" required
-                                                   placeholder="..." pattern="(0|7|6|5)[4-7]{1}[0-9]{6}"
+                                                   placeholder="..."
                                                    class="form-control @error('telephone') is-invalid @enderror">
                                             @error('telephone')
                                             <div class="invalide-feedBack() text-danger">

@@ -91,7 +91,7 @@ class RespPoolController extends Controller
                 $query->whereHas('dmdeur', function ($query) {
                     $query->where('idPool', auth()->user()->idPool );
                 }); })->where('statut', 0)
-                ->orderBy('updated_at', 'DESC')
+                ->orderBy('created_at', 'DESC')
                 ->get();
 
         if ( $filtre['periode'] != 'tous' )
@@ -108,7 +108,7 @@ class RespPoolController extends Controller
                 $query->where('idPool', auth()->user()->idPool );
             })->where('dateRetour', '>', today())
             ->orWhere('dateRetour', '=', today())
-            ->orderBy('updated_at', 'DESC')
+            ->orderBy('created_at', 'DESC')
             ->get();
 
         return view('respPool/requetes', compact('filtre', 'missions'));
@@ -121,7 +121,7 @@ class RespPoolController extends Controller
             $query->whereHas('dmdeur', function ($query) {
                 $query->where('idPool', auth()->user()->idPool );
             }); })->where('statut', 1)
-            ->orderBy('updated_at', 'DESC')
+            ->orderBy('created_at', 'DESC')
             ->get();
 
         return view('respPool/attrEnCours', compact('attributions', 'filtre'));
@@ -141,14 +141,15 @@ class RespPoolController extends Controller
                 })->get();
 
             //Véhicules et chauffeur dispo du pool
-            $vehicules23 = Vehicule::selection()->get();;
+            $vehicules2 = Vehicule::selection()->get();
             $chauffeurs2 = Chauffeur::selection()->where('idPool', auth()->user()->idPool )->get();
 
             //Véhicules dispo du pool et chauffeur d'ailleurs
-            $chauffeurs3 = Chauffeur::selection()->where('idPool','!=', auth()->user()->idPool )->get();
+            $vehicules3 = new Vehicule();
+            //$chauffeurs3 = Chauffeur::selection()->where('idPool','!=', auth()->user()->idPool )->get();
         Session::forget('tab');
 
-        return view('respPool/detailsRequete', compact('entites','vehicules', 'vehicules23', 'mission', 'chauffeurs2', 'chauffeurs3'));
+        return view('respPool/detailsRequete', compact('entites','vehicules', 'vehicules2', 'vehicules3', 'mission', 'chauffeurs2'));
     }
 
     public function historique()
@@ -201,47 +202,5 @@ class RespPoolController extends Controller
             ->get();
 
         return view('respPool/chauffeurPool', compact('chauffeurs', 'text'));
-    }
-
-    public function filtreChauffeur(Request $request)
-    {
-        //
-    }
-
-    //===================================
-
-    public function create()
-    {
-        //
-    }
-
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-
-    public function show($id)
-    {
-        //
-    }
-
-
-    public function edit($id)
-    {
-        //
-    }
-
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-
-    public function destroy($id)
-    {
-        //
     }
 }

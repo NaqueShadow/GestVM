@@ -50,7 +50,7 @@
                 @endif
             </div>
 
-            <div class="col-12 " style="">
+            <div class="col-12 " style=""> {{--
                 <table class="table ">
                     <tr>
                         <td></td> <td class="">code</td> <td class="">établit le</td> <td class="">expire le</td>
@@ -73,7 +73,7 @@
                         <td class="text-dark h5">{{$vehicule->modele}}</td>
                         <td class="text-dark h5">{{$vehicule->modele}}</td>
                     </tr>
-                </table>
+                </table> --}}
             </div>
 
         </div>
@@ -115,9 +115,8 @@
                                 <div class="form-row"
                                      style="padding: 2%; margin-bottom: auto; border: 1px solid mediumseagreen; border-radius: 15px;">
                                     <div class="col-12">
-                                        <select name="idChauf" id="idChauf" required class="col-12 form-control @error('idChauf') is-invalid @enderror">
-                                            <option value=""></option>
-                                            <option value="null">laisser sans chauffeur</option>
+                                        <select name="idChauf" id="idChauf" class="col-12 form-control @error('idChauf') is-invalid @enderror">
+                                            <option value="">laisser sans chauffeur</option>
                                             @foreach($chauffeurs as $chauffeur)
                                                 <option value="{{ $chauffeur->matricule }}">{{ $chauffeur->nom }} {{ $chauffeur->prenom }}</option>
                                             @endforeach
@@ -138,6 +137,4 @@
             </div>
         </div>
     </div>
-
-
 @endsection

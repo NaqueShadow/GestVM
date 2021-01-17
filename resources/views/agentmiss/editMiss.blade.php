@@ -30,10 +30,6 @@
                     </div>
 
                     <div  class="form-group input-group col-4">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text" title="nombre de participant">Nb. Participant</div>
-                        </div>
-                        <input type="number" min="1" max="15" required name="nbr" value="{{ old('nbr') ?? $mission->nbr }}" required id="nbr" value="{{ old('nbr') }}" class="form-control ">
                     </div>
 
                     <input type="hidden" name="demandeur" value="{{ Auth::user()->id }}">

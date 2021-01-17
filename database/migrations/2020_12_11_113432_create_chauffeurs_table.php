@@ -18,6 +18,7 @@ class CreateChauffeursTable extends Migration
             $table->string('nom');
             $table->string('prenom');
             $table->string('telephone')->unique();
+            $table->string('email')->unique()->nullable();
             $table->boolean('statut')->default('1');
             $table->unsignedBigInteger('idPool')->nullable();
             $table->timestamps();

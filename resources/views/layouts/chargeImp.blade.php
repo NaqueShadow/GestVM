@@ -11,7 +11,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <title>{{ config('app.name') }} | Gestion des imputations</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -35,10 +35,8 @@
             <!--header start-->
             <header class="container header navbar navbar-expand-lg border-bottom" style="background-color: rgb(220,220,220);">
                 <div class="fa-bars">
-                    <button class="btn btn-success fa fa-bars tooltips" data-placement="right" id="menu-toggle">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-list-nested" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M4.5 11.5A.5.5 0 0 1 5 11h10a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 1 3h10a.5.5 0 0 1 0 1H1a.5.5 0 0 1-.5-.5z"/>
-                        </svg>
+                    <button class="btn btn-success btn-round ml-4 tooltips" data-placement="right" id="menu-toggle">
+                        <h3>{{ config('app.name', 'Laravel') }}</h3>
                     </button>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,11 +83,11 @@
                         </div>
 
                         <div class="list-group list-group-flush mt-5">
-                            <div class="h5 text-center" style="color: #284563;">PARC SOFITEX</div>
-                            <a href="#" class="list-group-item list-group-item-action h5 text-success ">Imputations</a>
-                            <a href="#" class="list-group-item list-group-item-action h5 text-success">Chauffeurs</a>
-                            <a href="#" class="list-group-item list-group-item-action h5 text-success">Véhicules</a>
-                            <a href="#" class="list-group-item list-group-item-action h5 text-success">Pools</a>
+                            <div class="h5 text-center" style="color: #284563;"></div>
+                            <a href="{{ route('chargeImp.index') }}" id="consommation" class="list-group-item list-group-item-action h5 text-success ">Imputation</a>
+                            <a href="{{ route('chargeImp.indexVehicules') }}" id="enregistrement" class="list-group-item list-group-item-action h5 text-success">Saisie</a>
+                            {{--<a href="#" id="consommation" data-toggle="modal" data-target="#fenetre"
+                                class="list-group-item list-group-item-action h5 text-success ">Rapport</a>--}}
                             <a href="#" class="list-group-item list-group-item-action h5 text-success"></a>
                         </div>
 
@@ -106,16 +104,11 @@
             <!--main content start-->
             <section id="main-content" style="background-color: white;">
                 <section class="wrapper">
-                    <div class="row">
 
-                        <!-- /col-lg-3 -->
-
-                        <div class="ml-3" style="min-height: 1000px">
-                            @yield('content')
-                        </div>
-
+                    <div class="ml-3" style="min-height: 650px">
+                        @yield('content')
                     </div>
-                    <!-- /row -->
+
                 </section>
             </section>
             <!--main content end-->
@@ -129,10 +122,6 @@
         </section>
     </div>
 
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- Menu Toggle Script -->
     <script src="lib/common-scripts.js"></script>

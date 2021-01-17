@@ -14,9 +14,11 @@ class User extends Authenticatable
 
     protected $fillable = [
         'matricule',
-        'email',
+        'login',
         'password',
         'role',
+        'statut',
+        'idPool',
     ];
 
     /**
@@ -48,25 +50,23 @@ class User extends Authenticatable
         ][$attributes];
     }
 
-    /*
-    public function getRoleAttribute($attributes) {
-
-        return [
-            '1' => 'missionnaire',
-            '2' => 'chef de garage',
-            '3' => 'chargé des imputation',
-            '4' => 'responsable de pool',
-        ][$attributes];
-    }
-    */
-
     public function agent()
     {
-        return $this->hasOne('App\Models\Agent', 'matricule');
+        return $this->hasOne('App\Models\Agent', 'matricule', 'matricule');
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Models\Role', 'roles_users', 'idUser', 'idRole');
     }
 
     public function missions()
     {
         return $this->hasMany('App\Models\Mission', 'demandeur');
+    }
+
+    public function pool()
+    {
+        return $this->belongsTo('App\Models\Pool', 'idPool', 'id');
     }
 }

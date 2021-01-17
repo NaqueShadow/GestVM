@@ -42,7 +42,7 @@
             <tr class="mt-3"></tr>
             <tr class="pt-3">
                 <th scope="row"></th>
-                <th scope="row" class="text-black-50">Participant (s) : {{ $mission->nbr }}</th>
+                <th scope="row" class="text-black-50">Participant (s) : </th>
                 <td></td>
                 <td></td>
             </tr>
@@ -123,7 +123,7 @@
             </div>
             <div>
                 <input id="ac-3" name="accordion-1" type="checkbox" />
-                <label for="ac-3" class="text-dark">Attribuer un véhicule plus un chauffeur du pool</label>
+                <label for="ac-3" class="text-dark">Attribuer un véhicule plus un chauffeur au choix</label>
                 <article class="ac-large">
                     <form class="mt-3" method="post" action="{{ route('attribution.store2') }}" id="form">
 
@@ -152,7 +152,7 @@
                                         <select name="idVehicule" data-placeholder="choisir un véhicule..." required id="idVehicule" class="agentChosen text-info custom-select">
                                             <option value=""></option>
 
-                                            @foreach($vehicules23 as $vehicule)
+                                            @foreach($vehicules2 as $vehicule)
                                                 <option value="{{ $vehicule->code }}" {{ $vehicule->code == old('idVehicule') ? 'selected' : '' }}>{{ $vehicule->code }}</option>
                                             @endforeach
                                         </select>
@@ -178,9 +178,9 @@
                     </form>
                 </article>
             </div>
-            <div>
+            {{--<div>
                 <input id="ac-4" name="accordion-1" type="checkbox" />
-                <label for="ac-4" class="text-dark">Attribuer un véhicule plus un chauffeur d'un autre pool</label>
+                <label for="ac-4" class="text-dark">Attribuer un véhicule disponibilisé</label>
                 <article class="ac-large">
                     <form class="mt-3" method="post" action="{{ route('attribution.store2') }}" id="form">
 
@@ -209,7 +209,7 @@
                                         <select name="idVehicule" data-placeholder="choisir un véhicule..." required id="idVehicule" class="agentChosen text-info custom-select">
                                             <option value=""></option>
 
-                                            @foreach($vehicules23 as $vehicule)
+                                            @foreach($vehicules3 as $vehicule)
                                                 <option value="{{ $vehicule->code }}" {{ $vehicule->code == old('idVehicule') ? 'selected' : '' }}>{{ $vehicule->code }}</option>
                                             @endforeach
                                         </select>
@@ -221,7 +221,7 @@
                                         <div for="idChauf" class="text-black-50">Chauffeur :</div>
                                         <select name="idChauf" data-placeholder="choisir un chauffeur..." id="idChauf" class="agentChosen text-info custom-select @error('idChauf') is-invalid @enderror">
                                             <option value=""></option>
-                                            @foreach($chauffeurs3 as $chauffeur)
+                                            @foreach($chauffeurs2 as $chauffeur)
                                                 <option value="{{ $chauffeur->matricule }}" {{ $chauffeur->matricule == old('idChauf') ? 'selected' : '' }}>{{ $chauffeur->nom }} {{ $chauffeur->prenom }}</option>
                                             @endforeach
                                         </select>
@@ -234,7 +234,7 @@
                         </div>
                     </form>
                 </article>
-            </div>
+            </div>--}}
         </section>
 
         <a href="{{ route('respPool.requetes') }}">

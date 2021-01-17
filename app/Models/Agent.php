@@ -8,10 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Agent extends Model
 {
     use HasFactory;
+    public $primaryKey = 'matricule';
+
+    protected $guarded = [];
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User', 'matricule');
+        return $this->belongsTo('App\Models\User', 'matricule', 'matricule');
     }
 
     public function missions()

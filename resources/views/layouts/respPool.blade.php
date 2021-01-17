@@ -69,9 +69,14 @@
                                     {{ __('missionnaire') }}
                                 </a>
 
+                                {{--@include('include.role')--}}
+
                                 @if(Auth::user()->role == 4 and Auth::user()->idPool == 1)
                                     <a class="dropdown-item text-info" href="{{ route('gestParc.index') }}">
                                         {{ __('gestionnaire du parc') }}
+                                    </a>
+                                    <a class="dropdown-item text-info" href="{{ route('admin.index') }}">
+                                        {{ __('Administrateur') }}
                                     </a>
                                 @endif
 
@@ -151,7 +156,7 @@
                 <section class="wrapper">
                     <div class="">
 
-                        <div class="ml-3" style="min-height: 1000px">
+                        <div class="ml-3" style="min-height: 650px">
                             @yield('content')
                         </div>
 

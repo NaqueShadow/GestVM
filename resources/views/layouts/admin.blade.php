@@ -11,7 +11,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <title>{{ config('app.name') }} | Administrateur</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -49,7 +49,7 @@
                             <a class="nav-link" href="#"><span class="sr-only">(current)</span></a>
                         </li>
                         <div class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle h5 text-success" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle h6 text-success" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->agent->nom }} {{ Auth::user()->agent->prenom }}
                                 <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
@@ -57,6 +57,11 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                @if(Auth::user()->role == 4)
+                                    <a class="dropdown-item text-info" href="{{ route('respPool.attrEnCours') }}">
+                                        {{ __('responsable de pool') }}
+                                    </a>
+                                @endif
                                 <a class="dropdown-item text-danger" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
@@ -78,13 +83,15 @@
                 <div id="sidebar" class="nav-collapse  pl-2" style="background-color: rgb(220,220,220);">
                     <!-- sidebar menu start-->
                     <div class="border-right sidebar" id="sidebar-wrapper">
-                        <div class="sidebar-heading">
+                        <div class="sidebar-heading mb-5">
 
                         </div>
+
                         <div class="list-group list-group-flush mt-5">
-                            <a href="{{ route('chefGarage.index') }}" class="list-group-item list-group-item-action h5 text-success">Comptes</a>
-                            <a href="{{ route('intervention.index') }}" class="list-group-item list-group-item-action h5 text-success">Agents</a>
-                            <a href="#" class="list-group-item list-group-item-action h6 text-success"></a>
+                            <div class="h5 text-center" style="color: #284563;"></div>
+                            <a href="{{ route('admin.index') }}" id="users" class="list-group-item list-group-item-action h5 text-success ">Comptes</a>
+                            <a href="{{ route('admin.indexAgent') }}" id="agents" class="list-group-item list-group-item-action h5 text-success">Agents</a>
+                            <a href="#" class="list-group-item list-group-item-action h5 text-success"></a>
                         </div>
 
                         <div class="align-content-center mt-5" style="">
@@ -100,16 +107,11 @@
             <!--main content start-->
             <section id="main-content" style="background-color: white;">
                 <section class="wrapper">
-                    <div class="">
 
-                        <!-- /col-lg-3 -->
-
-                        <div class="ml-3" style="min-height: 1000px">
-                            @yield('content')
-                        </div>
-
+                    <div class="ml-3" style="min-height: 650px">
+                        @yield('content')
                     </div>
-                    <!-- /row -->
+
                 </section>
             </section>
             <!--main content end-->
@@ -123,10 +125,6 @@
         </section>
     </div>
 
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- Menu Toggle Script -->
     <script src="lib/common-scripts.js"></script>
