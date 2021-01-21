@@ -76,7 +76,7 @@
             <div>
                 <input id="ac-2" name="accordion-1" type="checkbox" />
                 <label class="text-dark" for="ac-2">Attribuer un véhicule ayant un chauffeur disponible</label>
-                <article class="ac-large">
+                <article class="ac-large" style="overflow-y: scroll">
                     <form class="mt-3" method="post" action="{{ route('attribution.store') }}" id="form">
 
                         @csrf
@@ -88,7 +88,7 @@
                                 <div  class="form-group col-7">
                                     <div class="">
                                         <div for="idEntite" class="text-black-50">Imputation :</div>
-                                        <select name="idEntite" required data-placeholder="choisir une entité..." id="idEntite" class="text-info agentChosen custom-select">
+                                        <select name="idEntite" required @include('include.selectOption') id="idEntite" class="selectpicker text-info">
                                             <option value=""></option>
                                             @foreach($entites as $entite)
                                                 <option value="{{$entite->id}}" {{$entite->id == old('idEntite') ? 'selected' : ''}}>{{$entite->designation}}</option>
@@ -98,10 +98,10 @@
                                 </div>
                                 <div class="col-7"></div>
 
-                                <div  class="form-group col-7">
+                                <div  class="form-group col-8">
                                     <div class="">
                                         <div for="idVehicule" class="text-black-50">Véhicule :</div>
-                                        <select name="idVehicule" data-placeholder="choisir un véhicule..." required id="idVehicule" class="agentChosen text-info custom-select">
+                                        <select name="idVehicule"  required id="idVehicule" class="selectpicker text-info" @include('include.selectOption')>
                                             <option value=""></option>
                                             @foreach($vehicules as $vehicule)
                                                 <option value="{{ $vehicule->code }}" {{ $vehicule->code == old('idVehicule') ? 'selected' : '' }}>{{ $vehicule->code }}</option>
@@ -109,7 +109,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div  class="form-group col-7">
+                                <div  class="form-group col-">
                                     <input type="hidden" name="idChauf" value="0">
                                 </div>
 
@@ -124,7 +124,7 @@
             <div>
                 <input id="ac-3" name="accordion-1" type="checkbox" />
                 <label for="ac-3" class="text-dark">Attribuer un véhicule plus un chauffeur au choix</label>
-                <article class="ac-large">
+                <article class="ac-large" style="overflow-y: scroll">
                     <form class="mt-3" method="post" action="{{ route('attribution.store2') }}" id="form">
 
                         @csrf
@@ -136,7 +136,7 @@
                                 <div  class="form-group col-5">
                                     <div class="">
                                         <div for="idEntite" class="text-black-50">Imputation :</div>
-                                        <select name="idEntite" data-placeholder="choisir une entité..." required id="idEntite" class="agentChosen text-info custom-select">
+                                        <select name="idEntite" @include('include.selectOption') required id="idEntite" class="selectpicker text-info">
                                             <option value=""></option>
                                             @foreach($entites as $entite)
                                                 <option value="{{$entite->id}}" {{$entite->id == old('idEntite') ? 'selected' : ''}}>{{$entite->designation}}</option>
@@ -149,9 +149,8 @@
                                 <div  class="form-group col-5">
                                     <div class="">
                                         <div for="idVehicule" class="text-black-50">Véhicule :</div>
-                                        <select name="idVehicule" data-placeholder="choisir un véhicule..." required id="idVehicule" class="agentChosen text-info custom-select">
+                                        <select name="idVehicule" @include('include.selectOption') required id="idVehicule" class="selectpicker text-info">
                                             <option value=""></option>
-
                                             @foreach($vehicules2 as $vehicule)
                                                 <option value="{{ $vehicule->code }}" {{ $vehicule->code == old('idVehicule') ? 'selected' : '' }}>{{ $vehicule->code }}</option>
                                             @endforeach
@@ -162,7 +161,7 @@
                                 <div  class="form-group col-7">
                                     <div class="">
                                         <div for="idEntite" class="text-black-50">Chauffeur :</div>
-                                        <select name="idChauf" data-placeholder="choisir un chauffeur..." id="idChauf" required class="agentChosen text-info custom-select @error('idChauf') is-invalid @enderror">
+                                        <select name="idChauf" @include('include.selectOption') id="idChauf" required class="selectpicker text-info @error('idChauf') is-invalid @enderror">
                                             <option value=""></option>
                                             @foreach($chauffeurs2 as $chauffeur)
                                                 <option value="{{ $chauffeur->matricule }}" {{ $chauffeur->matricule == old('idChauf') ? 'selected' : '' }}>{{ $chauffeur->nom }} {{ $chauffeur->prenom }}</option>
@@ -181,7 +180,7 @@
             {{--<div>
                 <input id="ac-4" name="accordion-1" type="checkbox" />
                 <label for="ac-4" class="text-dark">Attribuer un véhicule disponibilisé</label>
-                <article class="ac-large">
+                <article class="ac-large" style="overflow-y: scroll">
                     <form class="mt-3" method="post" action="{{ route('attribution.store2') }}" id="form">
 
                         @csrf
@@ -206,9 +205,8 @@
                                 <div  class="form-group col-5">
                                     <div class="">
                                         <div for="idVehicule" class="text-black-50">Véhicule :</div>
-                                        <select name="idVehicule" data-placeholder="choisir un véhicule..." required id="idVehicule" class="agentChosen text-info custom-select">
+                                        <select name="idVehicule" @include('include.selectOption') required id="idVehicule" class="selectpicker text-info custom-select">
                                             <option value=""></option>
-
                                             @foreach($vehicules3 as $vehicule)
                                                 <option value="{{ $vehicule->code }}" {{ $vehicule->code == old('idVehicule') ? 'selected' : '' }}>{{ $vehicule->code }}</option>
                                             @endforeach
@@ -219,7 +217,7 @@
                                 <div  class="form-group col-7">
                                     <div class="">
                                         <div for="idChauf" class="text-black-50">Chauffeur :</div>
-                                        <select name="idChauf" data-placeholder="choisir un chauffeur..." id="idChauf" class="agentChosen text-info custom-select @error('idChauf') is-invalid @enderror">
+                                        <select name="idChauf" @include('include.selectOption') id="idChauf" class="selectpicker text-info custom-select @error('idChauf') is-invalid @enderror">
                                             <option value=""></option>
                                             @foreach($chauffeurs2 as $chauffeur)
                                                 <option value="{{ $chauffeur->matricule }}" {{ $chauffeur->matricule == old('idChauf') ? 'selected' : '' }}>{{ $chauffeur->nom }} {{ $chauffeur->prenom }}</option>
@@ -245,8 +243,3 @@
 
 @endsection
 
-@section('chosen')
-    <script>
-        //$(".agentChosen").chosen();
-    </script>
-@endsection

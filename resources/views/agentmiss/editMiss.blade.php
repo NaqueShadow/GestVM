@@ -141,10 +141,8 @@
 
 @section('chosen')
     <script>
-        $var = document.getElementById("nbr").value;
         $("#agentChosen").chosen({
             placeholder_text_multiple: "Selectionner les participants",
-            max_selected_options: $var,
             no_results_text: "aucun resultat trouvé"
         });
     </script>

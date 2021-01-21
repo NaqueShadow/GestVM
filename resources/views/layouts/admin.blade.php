@@ -14,12 +14,8 @@
     <title>{{ config('app.name') }} | Administrateur</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-    <script type="text/javascript" src="{{asset('bootstrap-4.5.2/css/bootstrap.min.js')}}"></script>
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <link rel="stylesheet" href="{{asset('bootstrap-4.5.2/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('bootstrap-4.5.2/css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{asset('bootstrap-4.5.2/css/bootstrap-select.min.css')}}">
 
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/simple-sidebar.css') }}" rel="stylesheet">
@@ -49,7 +45,7 @@
                             <a class="nav-link" href="#"><span class="sr-only">(current)</span></a>
                         </li>
                         <div class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle h6 text-success" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle h5 text-success" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->agent->nom }} {{ Auth::user()->agent->prenom }}
                                 <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
@@ -57,15 +53,17 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                @if(Auth::user()->role == 4)
-                                    <a class="dropdown-item text-info" href="{{ route('respPool.attrEnCours') }}">
-                                        {{ __('responsable de pool') }}
-                                    </a>
-                                @endif
+                                <a class="dropdown-item text-info" href="{{ route('agentMiss.index') }}">
+                                    {{ __('Demandeur') }}
+                                </a>
+                                @include('include.role')
                                 <a class="dropdown-item text-danger" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
                                     {{ __('Se deconnecter') }}
+                                </a>
+                                <a class="dropdown-item text-warning" data-toggle="modal" data-target="#passwd">
+                                    {{ __('Mot de passe') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -112,6 +110,8 @@
                         @yield('content')
                     </div>
 
+                    @include('include.password')
+
                 </section>
             </section>
             <!--main content end-->
@@ -124,6 +124,15 @@
             <!--footer end-->
         </section>
     </div>
+
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script type="text/javascript" src="{{asset('bootstrap-4.5.2/js/bootstrap-select.min.js')}}"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.selectpicker').selectpicker();
+        });
+    </script>
 
 
     <!-- Menu Toggle Script -->

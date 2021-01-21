@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -44,37 +45,37 @@ class LoginController extends Controller
         $input = $request->all();
         $this->validate($request, [
             'login' => 'required|min:4',
-            'password' => 'required|min:8',
+            'password' => 'required',
+            'role' => 'required'
         ]);
 
         if(auth()->attempt(array('login' => $input['login'], 'password' => $input['password']))) {
 
-            if (auth()->user()->statut == 1) {
+            if (auth()->user()->statut == 'actif') {
+
+                if ($input['role'] == 2) {
+                    return redirect()->route('chefGarage.index');
+                }
+                elseif ($input['role'] == 3) {
+                    return redirect()->route('chargeImp.index');
+                }
+                elseif ($input['role'] == 4) {
+                    return redirect()->route('respPool.attrEnCours');
+                }
+                elseif ($input['role'] == 5) {
+                    return redirect()->route('gestParc.index');
+                }
+                elseif ($input['role'] == 6) {
+                    return redirect()->route('admin.index');
+                }
                 return redirect()->route('agentMiss.index');
             }
             else {
-                Auth::setUser(auth()->user()->id);
-                Auth::logout();
+                $request->session()->flush();
+                $request->session()->regenerate();
                 return redirect()->route('login')->with('error','compte inactif');
             }
 
-            /*
-            if (auth()->user()->role == 1) {
-                return redirect()->route('agentMiss.index');
-            }
-            elseif (auth()->user()->role == 2) {
-                return redirect()->route('chefGarage.index');
-            }
-            elseif (auth()->user()->role == 3) {
-                return redirect()->route('chargeImp.index');
-            }
-            elseif (auth()->user()->role == 4) {
-                return redirect()->route('respPool.attrEnCours');
-            }
-            elseif (auth()->user()->role == 5) {
-                return redirect()->route('gestParc.index');
-            }
-            */
 
         }
 

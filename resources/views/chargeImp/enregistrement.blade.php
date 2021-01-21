@@ -15,7 +15,12 @@
                     @csrf
                     <div  class="form-group form-row mb-0">
                         <div class="col"></div>
-                        <input type="month" name="mois" required {{ isset($mois) ? 'value='.$mois : '' }} placeholder="mois" class="col-4 form-control">
+                        <select name="mois" id="mois" required class="col-2 form-control">
+                            @for($i=1; $i<=12; $i++)
+                                <option value="{{$i}}" {{$i == $mois ? 'selected':''}}>{{Date::create(2021, $i)->format('F')}}</option>
+                            @endfor
+                        </select>
+                        <input type="text" name="annee" required {{ isset($annee) ? 'value='.$annee : '' }} placeholder="annee" class="col-1 form-control">
                         <button type="submit" id="submitForm" class="btn btn-outline-info col-1" >
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="indianred" class="bi bi-search" viewBox="0 0 16 16">
                                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>

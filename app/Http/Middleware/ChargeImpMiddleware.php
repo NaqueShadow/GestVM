@@ -16,9 +16,10 @@ class ChargeImpMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user()->role != 3) {
-            return back()->with('error', 'Chemin non authorisé');
-        }
-        return $next($request);
+        foreach(auth()->user()->roles as $role)
+            if ($role->id == 3) {
+                return $next($request);
+            }
+        return redirect()->route('agentMiss.index');
     }
 }

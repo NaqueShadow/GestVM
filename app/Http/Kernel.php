@@ -63,7 +63,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'gestParc' => \App\Http\Middleware\GestParcMiddleware::class,
-        'agentMiss' => \App\Http\Middleware\AgentMissMiddleware::class,
+        'admin' => \App\Http\Middleware\AdminMiddleware::class,
         'chefGarage' => \App\Http\Middleware\ChefGarageMiddleware::class,
         'chargeImp' => \App\Http\Middleware\ChargeImpMiddleware::class,
         'respPool' => \App\Http\Middleware\RespPoolMiddleware::class,

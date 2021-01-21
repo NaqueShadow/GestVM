@@ -16,7 +16,12 @@
                         @csrf
                         <div  class="form-group form-row mb-0">
                             <div class="col"></div>
-                            <input type="month" name="mois" required {{ isset($mois) ? 'value='.$mois : '' }} placeholder="mois" class="col-3 form-control">
+                            <select name="mois" id="mois" required class="col-2 form-control">
+                                @for($i=1; $i<=12; $i++)
+                                    <option value="{{$i}}" {{$i == $mois ? 'selected':''}}>{{Date::create(2021, $i)->format('F')}}</option>
+                                @endfor
+                            </select>
+                            <input type="text" name="annee" required {{ isset($annee) ? 'value='.$annee : '' }} placeholder="annee" class="col-1 form-control">
                             <button type="submit" id="submitForm" class="btn btn-outline-info col-1" >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="indianred" class="bi bi-search" viewBox="0 0 16 16">
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -36,7 +41,7 @@
                     <div  class="form-group form-row mb-0">
                         <div class="col"></div>
                         <input type="hidden" name="mois" required {{ isset($mois) ? 'value='.$mois : '' }}>
-                        <button type="button" title="exporter" class="btn btn-outline-primary  mt-1 mb-1" data-toggle="modal" data-target="#fenetre">
+                        <button type="submit" title="exporter" class="btn btn-outline-primary  mt-1 mb-1" >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16">
                                 <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z"/>
                                 <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
@@ -65,7 +70,7 @@
                 @foreach( $attributions as $attribution )
                     <tr>
                         <td>{{ ++$i }}</td>
-                        <td>{{ $attribution->mission->dateDepart->format('d/m') }} - {{ $attribution->mission->dateRetour->format('d/m/Y') }}</td>
+                        <td>{{ $attribution->mission->dateDepart->format('d M') }} - {{ $attribution->mission->dateRetour->format('d M Y') }}</td>
                         <th>{{ $attribution->entite->designation }}</th>
                         <td>{{ $attribution->idVehicule }}</td>
                         <td>{{ $attribution->chauffeur->nom }} {{ $attribution->chauffeur->prenom }}</td>
@@ -86,23 +91,7 @@
 
     </div>
 
-    <div>
-        <div class="modal fade" id="fenetre" tabindex="-1" aria-labelledby="fenetre" aria-hidden="true">
-            <div class="modal-dialog modal-md">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <form class="mt-5" method="post" action="{{route('chargeImp.storeRessource', ['vehicule' => $attribution->idVehicule])}}" id="form">
-                            @csrf
 
-                            <div class="col-12 ">
-                                <button type="submit" id="submitForm" class="ml-auto btn btn-success mt-2" >Valider</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
 @endsection
 

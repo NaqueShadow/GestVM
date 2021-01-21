@@ -1,0 +1,1 @@
+data-style="form-control" data-size="5" data-none-selected-text="" data-none-results-text="Aucun résultat correspondant" data-live-search-style="contains" data-live-search="true" data-style-base="form-control"

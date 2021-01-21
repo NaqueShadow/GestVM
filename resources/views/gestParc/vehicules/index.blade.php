@@ -43,7 +43,7 @@
 
             <table class="table table-success table-hover table-striped">
                 <thead>
-                <tr>
+                <tr class="">
                     <th scope="col">#</th>
                     <th scope="col">Code</th>
                     <th scope="col">Modèle</th>

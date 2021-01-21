@@ -5,7 +5,7 @@
         <label class="col-5" for="">Volume Carburant (L) :</label>
         <div class="col-6">
         <input type="text" placeholder="carburant" name="carburant" id="carburant" required
-               value="{{ old('carburant') ?? isset($attribution->ressource->carburant) ? $attribution->ressource->carburant : (old('carburant') ?? '')}}"
+               value="{{ isset($attribution->ressource->carburant) ? $attribution->ressource->carburant : (old('carburant') ?? '')}}"
                class="form-control @error('carburant') is-invalid @enderror">
         @error('carburant')
         <div class="invalide-feedBack() text-danger">

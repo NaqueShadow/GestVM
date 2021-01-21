@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Attr_event;
 use App\Models\Attribution;
 use App\Models\Vehicule;
 use Illuminate\Http\Request;
@@ -14,7 +15,8 @@ class AttributionController extends Controller
         $attribution = $request->all();
         $attribution['idChauf'] = Vehicule::find($request->idVehicule)->idChauf;
 
-        Attribution::create($attribution);
+        $attr = Attribution::create($attribution);
+        //event(new Attr_event($attr));
 
         return redirect()->route('respPool.detailsRequete', ['mission' => $request->idMission])->with('info', $request->idVehicule.' attribué avec succès');
     }
@@ -22,8 +24,8 @@ class AttributionController extends Controller
     public function store2(Request $request)
     {
         $attribution = $request->all();
-
-        Attribution::create($attribution);
+        $attr = Attribution::create($attribution);
+        //event(new Attr_event($attr));
 
         return redirect()->route('respPool.detailsRequete', ['mission' => $request->idMission])->with('info', $request->idVehicule.' attribué avec succès');
     }

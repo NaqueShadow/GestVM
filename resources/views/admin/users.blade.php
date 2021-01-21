@@ -45,10 +45,10 @@
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">MATR</th>
+                    <th scope="col">LOGIN</th>
                     <th scope="col">AGENT</th>
-                    <th scope="col">EMAIL</th>
                     <th scope="col">POOL</th>
+                    <th scope="col">STATUT</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
@@ -59,10 +59,10 @@
                 @foreach($users as $user)
                     <tr>
                         <td>{{ ++$i }}</td>
-                        <th>{{ $user->matricule }}</th> @isset($user->agent->nom)
-                        <th>{{ $user->agent->nom }} {{ $user->agent->prenom }}</th>@endisset
-                        <td>{{ $user->email }}</td>
+                        <th>{{ $user->login }}</th> @isset($user->agent->nom)
+                        <td>{{ $user->agent->nom }} {{ $user->agent->prenom }}</td>@endisset
                         <td>{{ $user->pool->abbreviation }}</td>
+                        <td>{{ $user->statut }}</td>
                         <td>
                             @if($user->statut == 'actif')
                                 <form method="post" action="{{ route('admin.desactiver', ['user' => $user->id]) }}" style="display: inline;">
@@ -99,7 +99,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Enregistrement d'un nouvel Agent</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Créer un nouveau compte</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -113,9 +113,9 @@
                             <div class="align-items-center">
                                  <div class="form-row" style="padding: 2%; margin-bottom: auto; border: 1px solid mediumseagreen; border-radius: 15px;">
                                     <div class="form-group input-group col-12 row">
-                                        <label class="col-3">Matricule</label>
+                                        <label class="col-3">Agent</label>
                                         <div class="col-9">
-                                            <select name="matricule" id="matricule" class="form-control" required placeholder="...">
+                                            <select name="matricule" id="matricule" class="selectpicker form-control" @include('include.selectOption') required @error('matricule') is-invalid @enderror>
                                                 <option value=""></option>
                                                 @foreach($agents as $agent)
                                                     <option value="{{ $agent->matricule }}" {{ $agent->matricule == old('matricule') ? 'selected':'' }}>{{ $agent->matricule }}  {{ $agent->nom }} {{ $agent->prenom }}</option>
@@ -130,11 +130,11 @@
                                      </div>
 
                                      <div class="form-group input-group col-12 row">
-                                         <label class="col-3">Email</label>
+                                         <label class="col-3">Login</label>
                                          <div class="col-9">
-                                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"
-                                                    required autocomplete="email">
-                                             @error('email')
+                                             <input id="login" type="text" class="form-control @error('login') is-invalid @enderror" name="login" value="{{ old('login') }}"
+                                                    required autocomplete="login">
+                                             @error('login')
                                              <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                              </span>

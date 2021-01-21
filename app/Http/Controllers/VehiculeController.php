@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Chauffeur;
+use App\Models\DocBord;
 use App\Models\Vehicule;
 use Illuminate\Http\Request;
 
@@ -37,16 +38,22 @@ class VehiculeController extends Controller
     public function show(Vehicule $vehicule)
     {
         $vehicule->load('chauffeur');
-        return view('respPool/detailsVehicule', compact('vehicule'));
+        $doc1 = DocBord::where('idVehicule', $vehicule->code)->where('type', 1)->orderBy('etabl','DESC')->first();
+        $doc2 = DocBord::where('idVehicule', $vehicule->code)->where('type', 2)->orderBy('etabl','DESC')->first();
+        $doc3 = DocBord::where('idVehicule', $vehicule->code)->where('type', 3)->orderBy('etabl','DESC')->first();
+        return view('respPool/detailsVehicule', compact('vehicule', 'doc1', 'doc2', 'doc3'));
     }
 
     public function fullShow(Vehicule $vehicule)
     {
         $vehicule->load('chauffeur');
+        $doc1 = DocBord::where('idVehicule', $vehicule->code)->where('type', 1)->orderBy('etabl','DESC')->first();
+        $doc2 = DocBord::where('idVehicule', $vehicule->code)->where('type', 2)->orderBy('etabl','DESC')->first();
+        $doc3 = DocBord::where('idVehicule', $vehicule->code)->where('type', 3)->orderBy('etabl','DESC')->first();
         $chauffeurs = Chauffeur::doesntHave('vehicule')
             ->where('idPool', $vehicule->idPool)
             ->get();
-        return view('gestParc/vehicules/detailsVehicule', compact('vehicule', 'chauffeurs'));
+        return view('gestParc/vehicules/detailsVehicule', compact('vehicule', 'chauffeurs', 'doc1', 'doc2', 'doc3'));
     }
 
 

@@ -62,6 +62,7 @@
                         <td>{{ $intervention->debut->format('d/m/Y') }}</td>
                         <td>{{ $intervention->finPrev->format('d/m/Y') }}</td>
                         <td>
+                            @if($intervention->debut > today())
                             <a href="interventions/{{ $intervention->id }}/delete">
                                 <button class="btn btn-danger pl-1 pr-1" title="supprimer">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -77,6 +78,7 @@
                                     </svg>
                                 </button>
                             </a>
+                            @endif
                             @if( $intervention->statut )
                             <a href="interventions/{{ $intervention->id }}">
                                 <button class="btn btn-success " title="terminer l'intervention">
@@ -143,7 +145,7 @@
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">Début</div>
                                         </div>
-                                        <input type="date" name="debut" required id="debut" value="{{ old('debut') }}" class="form-control @error('dateDepart') is-invalid @enderror">
+                                        <input type="date" name="debut" required id="debut" value="{{ old('debut') }}" class="form-control @error('debut') is-invalid @enderror">
                                         </div>
                                         @error('debut')
                                         <div class="invalide-feedBack() text-danger">
@@ -157,7 +159,7 @@
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">Fin</div>
                                         </div>
-                                        <input type="date" name="finPrev" required id="finPrev" value="{{ old('finPrev') }}" class="form-control @error('dateRetour') is-invalid @enderror">
+                                        <input type="date" name="finPrev" required id="finPrev" value="{{ old('finPrev') }}" class="form-control @error('finPrev') is-invalid @enderror">
                                         </div>
                                         @error('finPrev')
                                         <div class="invalide-feedBack() text-danger">

@@ -57,12 +57,18 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item text-info" href="{{ route('agentMiss.index') }}">
+                                    {{ __('Demandeur') }}
+                                </a>
+                                @include('include.role')
                                 <a class="dropdown-item text-danger" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
                                     {{ __('Se deconnecter') }}
                                 </a>
-
+                                <a class="dropdown-item text-warning" data-toggle="modal" data-target="#passwd">
+                                    {{ __('Mot de passe') }}
+                                </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
@@ -108,6 +114,8 @@
                     <div class="ml-3" style="min-height: 650px">
                         @yield('content')
                     </div>
+
+                    @include('include.password')
 
                 </section>
             </section>

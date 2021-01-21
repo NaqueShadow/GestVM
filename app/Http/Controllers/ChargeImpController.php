@@ -9,6 +9,7 @@ use App\Models\Vehicule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Jenssegers\Date\Date;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ChargeImpController extends Controller
 {
@@ -19,7 +20,8 @@ class ChargeImpController extends Controller
 
     public function index()
     {
-        $mois = today()->format('Y-m');
+        $mois = today()->format('m');
+        $annee = today()->format('Y');
         $a = Date::now()->firstOfMonth();
         $b = Date::now()->lastOfMonth();
         $attributions = Attribution::with('chauffeur', 'vehicule', 'entite', 'ressource')
@@ -27,22 +29,22 @@ class ChargeImpController extends Controller
                 $query->whereBetween('dateDepart', [$a, $b] );
             })->get();
 
-        return view('chargeImp/index', compact('attributions', 'mois'));
+        return view('chargeImp/index', compact('attributions', 'mois', 'annee'));
     }
 
     public function filtreMois(Request $request)
     {
         $mois = $request->mois;
-        $date1 = Date::create(substr($mois,0,4), substr($mois,5,2));
-        $date2 = Date::create(substr($mois,0,4), substr($mois,5,2));
-        $a = $date1->firstOfMonth(); $b = $date2->lastOfMonth(); //dd($a, $b);
+        $annee = $request->annee;
+        $a = Date::create($annee, $mois)->firstOfMonth();
+        $b = Date::create($annee, $mois)->lastOfMonth(); //dd($a, $b);
 
         $attributions = Attribution::with('chauffeur', 'vehicule', 'entite', 'ressource', 'mission:id,dateDepart,dateRetour')
             ->whereHas('mission', function ($query) use($a, $b) {
                 $query->whereBetween('dateDepart', [$a, $b] );
             })->get();
 
-        return view('chargeImp/index', compact('attributions', 'mois'));
+        return view('chargeImp/index', compact('attributions', 'mois', 'annee'));
     }
 
     public function indexVehicules()
@@ -82,15 +84,17 @@ class ChargeImpController extends Controller
     public function filtreMoisVehicule(Request $request, Vehicule $vehicule)
     {
         $mois = $request->mois;
-        $a = Date::create(substr($mois,0,4), substr($mois,5,2))->firstOfMonth();
-        $b = Date::create(substr($mois,0,4), substr($mois,5,2))->lastOfMonth();
+        $annee = $request->annee;
+        $a = Date::create($annee, $mois)->firstOfMonth();
+        $b = Date::create($annee, $mois)->lastOfMonth();
+
         $attributions = Attribution::with('chauffeur', 'vehicule', 'entite', 'ressource','mission:id,dateRetour,dateDepart')
             ->where('idVehicule', $vehicule->code)
             ->whereHas('mission', function ($query) use($a, $b) {
                 $query->whereBetween('dateDepart', [$a, $b] );
             })->get();
 
-        return view('chargeImp/enregistrement', compact('attributions', 'mois'));
+        return view('chargeImp/enregistrement', compact('attributions', 'mois', 'annee', 'vehicule'));
     }
 
 
@@ -132,14 +136,12 @@ class ChargeImpController extends Controller
 
     public function rapport(Request $request)
     {
-        /*return Excel::create('rapport_'. today()->format('F-Y'), function($excel) {
-
-            // Set the title
-            $excel->setTitle('Rapport d\'utilisation de vehicules');
-
-        })->export('xlsx');*/
-
-        return Excel::download(new AttributionExport(), 'rapport_'. today()->format('F-Y') .'.xlsx');
+        $a = Date::create($request->annee, $request->mois)->firstOfMonth();
+        $b = Date::create($request->annee, $request->mois)->lastOfMonth();
+        return Excel::download (
+            new AttributionExport($a, $b),
+            'rapport_'. $a->format('F-Y') .'.xlsx'
+        );
     }
 
 

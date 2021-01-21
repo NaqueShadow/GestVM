@@ -4,27 +4,18 @@
         <div class="form-group input-group col-12 row">
             <label class="col-3">Matricule</label>
             <div class="col-9">
-                <input type="text" name="matricule" id="matricule"
-                       value="{{ old('matricule') ?? $user->matricule }}" required
-                       placeholder="..." readonly
-                       class="form-control @error('matricule') is-invalid @enderror">
+                <select name="matricule" id="matricule" class="form-control" readonly="true" required placeholder="...">
+                    <option value=""></option>
+                    @foreach($agents as $ag)
+                        <option value="{{ $ag->matricule }}" {{ $ag->matricule == old('matricule') ? 'selected': ($ag->matricule==$user->agent->matricule ? 'selected':'') }}>
+                            {{ $ag->nom }} {{ $ag->prenom }}
+                        </option>
+                    @endforeach
+                </select>
                 @error('matricule')
                 <div class="invalide-feedBack() text-danger">
                     {{ 'matricule déjà inscrit dans la base de données' }}
                 </div>
-                @enderror
-            </div>
-        </div>
-
-        <div class="form-group input-group col-12 row">
-            <label class="col-3">Email</label>
-            <div class="col-9">
-                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') ?? $user->email }}"
-                       required autocomplete="email">
-                @error('email')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
                 @enderror
             </div>
         </div>
@@ -47,7 +38,7 @@
                 <select name="statut" id="statut" class="form-control" required placeholder="...">
                     <option value=""></option>
                     <option value="1" {{ 1 == old('statut') ? 'selected':( 1==$user->statut ? 'selected':'' ) }}>Actif</option>
-                    <option value="0" {{ 0 == old('statut') ? 'selected':( 1==$user->statut ? 'selected':'' ) }}>Bloquer</option>
+                    <option value="0" {{ 0 == old('statut') ? 'selected':( 1==$user->statut ? 'selected':'' ) }}>Bloqué</option>
                 </select>
             </div>
         </div>

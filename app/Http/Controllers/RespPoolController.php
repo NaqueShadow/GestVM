@@ -9,6 +9,7 @@ use App\Models\Entite;
 use App\Models\Intervention;
 use App\Models\Mission;
 use App\Models\Vehicule;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -202,5 +203,54 @@ class RespPoolController extends Controller
             ->get();
 
         return view('respPool/chauffeurPool', compact('chauffeurs', 'text'));
+    }
+
+    public function absence()
+    {
+        $statut = 'enCours';
+        $absences = Absence::where('finAbs', '>', Carbon::yesterday())
+            ->with('chauffeur')
+            ->orderBy('debutAbs', 'DESC')
+            ->get();
+        $chauffeurs = Chauffeur::all();
+
+        return view('respPool/absencePool', compact('absences', 'chauffeurs', 'statut'));
+    }
+
+    public function storeAbsence(Request $request)
+    {
+        $validate = $request->validate([
+            'idChauf'=>'required',
+            'debutAbs'=>'required|date',
+            'finAbs'=>'required|date|after_or_equal:debutAbs',
+            'motif'=>'required'
+        ]);
+        Absence::create($validate);
+        return redirect()->route('respPool.absences');
+    }
+
+    public function destroyAbsence(Request $request)
+    {
+        if ($absence = Absence::find($request->idAbs))
+            $absence->delete();
+        return redirect()->route('respPool.absences');
+    }
+
+    public function filtreAbsence(Request $request)
+    {
+        $statut = $request->statut;
+        $absences = Absence::where('finAbs', '>=', Carbon::yesterday())
+            ->with('chauffeur')
+            ->orderBy('debutAbs', 'DESC')
+            ->get();
+
+        if ( $statut == 'termine' )
+            $absences = Absence::where('finAbs', '<', today())
+                ->with('chauffeur')
+                ->orderBy('debutAbs', 'DESC')
+                ->get();
+
+        $chauffeurs = Chauffeur::all();
+        return view('respPool/absencePool', compact('absences', 'chauffeurs', 'statut'));
     }
 }

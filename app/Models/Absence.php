@@ -20,6 +20,6 @@ class Absence extends Model
 
     public function chauffeur()
     {
-        return $this->belongsTo('App\Models\Chauffeur', 'idChauf', 'id');
+        return $this->belongsTo('App\Models\Chauffeur', 'idChauf', 'matricule');
     }
 }

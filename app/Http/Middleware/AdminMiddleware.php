@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class AgentMissMiddleware
+class AdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,9 +16,10 @@ class AgentMissMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user()->role != 1) {
-            return back()->with('error', 'Chemin non authorisé');
-        }
-        return $next($request);
+        foreach(auth()->user()->roles as $role)
+            if ($role->id == 6) {
+                return $next($request);
+            }
+        return redirect()->route('agentMiss.index');
     }
 }

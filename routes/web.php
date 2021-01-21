@@ -15,8 +15,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::group(['middleware' => 'auth'], function () {
 
+    Route::get('/mot_de_passe/{user}', 'AdminController@password')->name('password');
+    Route::post('/mot_de_passe/{user}', 'AdminController@updatePassword')->name('password.update');
+
 
     //=========================route responsable de pool
+    Route::group(['middleware' => 'respPool'], function () {
 
     Route::get('/respPool', 'RespPoolController@index')->name('respPool.index');
     Route::get('/respPool/vehicules', 'RespPoolController@vehicules')->name('respPool.vehicules');
@@ -50,10 +54,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/respPool/vehicule/{vehicule}', 'VehiculeController@show')->name('vehicule.show');
     Route::get('/respPool/chauffeur/{chauffeur}', 'ChauffeurController@show')->name('chauffeur.show');
 
+    Route::get('/respPool/absences', 'RespPoolController@absence')->name('respPool.absences');
+    Route::post('/respPool/absences', 'RespPoolController@storeAbsence')->name('respPool.storeAbsence');
+    Route::delete('/respPool/absences', 'RespPoolController@destroyAbsence')->name('respPool.destroyAbsence');
+    Route::patch('/respPool/absences', 'RespPoolController@filtreAbsence')->name('respPool.filtreAbsence');
 
-
+    });
 
     //=========================route gestionnaire de parc
+    Route::group(['middleware' => 'gestParc'], function () {
 
     Route::get('/gestParc/vehicules', 'GestParcController@index')->name('gestParc.index');
     Route::post('/gestParc/vehicules', 'GestParcController@rechercheVehicule')->name('gestParc.rechercheVehicule');
@@ -87,12 +96,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/gestParc/pool/chauffeur/{chauffeur}', 'PoolController@retraitChauffeur')->name('pool.retraitChauffeur');
     Route::post('/gestParc/pool/{pool}/chauffeur', 'PoolController@ajoutChauffeur')->name('pool.ajoutChauffeur');
 
-    Route::get('/gestParc/entites', 'GestParcController@indexEntites')->name('gestParc.indexEntites');
-    Route::get('/gestParc/entites', 'EntiteController@indexEntites')->name('gestParc.create');
+    Route::get('/gestParc/documents', 'GestParcController@indexDoc')->name('gestParc.indexDoc');
+    Route::post('/gestParc/documents', 'GestParcController@storeDoc')->name('gestParc.storeDoc');
+    Route::patch('/gestParc/documents', 'GestParcController@filtreDoc')->name('gestParc.filtreDoc');
+    Route::delete('/gestParc/documents', 'GestParcController@destroyDoc')->name('gestParc.destroyDoc');
 
-
+    });
 
     //==========================route chef de garage
+    Route::group(['middleware' => 'chefGarage'], function () {
 
     Route::get('/chefGarage', 'ChefGarageController@index')->name('chefGarage.index');
     Route::get('/chefGarage/historique', 'InterventionController@index')->name('intervention.index');
@@ -110,10 +122,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/chefGarage/filtreIntervention', 'ChefGarageController@index');
     Route::get('/chefGarage/rechercheVehicule', 'ChefGarageController@listeVehicules');
 
-
+    });
 
 
     //===========================route imputation
+    Route::group(['middleware' => 'chargeImp'], function () {
 
     Route::get('/chargeImp', 'ChargeImpController@index')->name('chargeImp.index');
     Route::post('/chargeImp', 'ChargeImpController@filtreMois')->name('chargeImp.filtreMois');
@@ -126,8 +139,9 @@ Route::group(['middleware' => 'auth'], function () {
     //Route::patch('/chargeImp/consomm/{vehicule}', 'ChargeImpController@storeRessource')->name('chargeImp.storeRessource');
 
     Route::get('/chargeImp/imputation', 'ChargeImpController@index')->name('chargeImp.index');
-    Route::get('/chargeImp/imputation', 'ChargeImpController@rapport')->name('chargeImp.rapport');
+    Route::post('/chargeImp/imputation', 'ChargeImpController@rapport')->name('chargeImp.rapport');
 
+    });
 
 
     //===========================route missionnaire
@@ -155,6 +169,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     //===========================route admin
+    Route::group(['middleware' => 'admin'], function () {
 
     Route::get('/admin/utilisateurs', 'AdminController@index')->name('admin.index');
     Route::post('/admin/utilisateurs', 'AdminController@store')->name('admin.store');
@@ -177,4 +192,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/admin/agent', 'AdminController@indexAgent')->name('admin.indexAgent');
     Route::post('/admin/agent', 'AdminController@rechercheAgent')->name('admin.rechercheAgent');
+
+    });
 });

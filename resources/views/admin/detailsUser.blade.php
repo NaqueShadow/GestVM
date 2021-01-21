@@ -22,20 +22,11 @@
             </tr>
 
             <tr>
-                <th scope="row" class="">Nom</th>
-                <td>: {{ $user->agent->prenom }}</td>
+                <th scope="row" class="">Agent</th>
+                <td>: {{ $user->agent->nom }} {{ $user->agent->prenom }}</td>
             </tr>
 
             <div class="mt-3"></div>
-            <tr>
-                <th scope="row" class="">Prenom</th>
-                <td>: {{ $user->agent->nom }}</td>
-            </tr>
-            <div class="mt-3"></div>
-            <tr>
-                <th scope="row" class="">Email</th>
-                <td>: {{ $user->email }}</td>
-            </tr>
 
             <tr class="mt-3">
                 <th scope="row" class="">Pool</th>

@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <div class="card-body" style="color: #284563;">
+        <div class="card-body" style="color: #284563; overflow-x: scroll">
             @if( session()->get('info') )
                 <div class="alert alert-success text-center text-success">
                     {{ session()->get('info') }}
@@ -41,18 +41,19 @@
                 + Nouveau
             </button>
 
-                <button type="button" class="btn btn-success mt-1 mb-1" data-toggle="modal" data-target="#fenetre2">
-                    + depuis un classeur
-                </button>
+            <button type="button" disabled class="btn btn-success mt-1 mb-1" data-toggle="modal" data-target="#fenetre2">
+                + depuis un classeur
+            </button>
 
             <table class="table table-success table-hover table-striped">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">MATRICULE</th>
-                    <th scope="col">CHAUFFEUR</th>
+                    <th scope="col">MATR</th>
+                    <th scope="col">AGENT</th>
                     <th scope="col">POSTE</th>
                     <th scope="col">CONTACT</th>
+                    <th scope="col">EMAIL</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
@@ -64,10 +65,10 @@
                     <tr>
                         <td>{{ ++$i }}</td>
                         <th>{{ $ag->matricule }}</th>
-                        <th>{{ $ag->nom }}</th>
-                        <th>{{ $ag->prenom }}</th>
+                        <th>{{ $ag->nom }} {{ $ag->prenom }}</th>
                         <td>{{ $ag->poste }}</td>
                         <td>{{ $ag->telephone }}</td>
+                        <td>{{ $ag->email }}</td>
                         <td>
                             <a href="{{ route('admin.editAgent', ['agent' => $ag->matricule]) }}">
                                 <button class="btn btn-info " title="éditer">

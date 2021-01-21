@@ -14,13 +14,7 @@
     <title>GestVM | chef de garage</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-    <script type="text/javascript" src="{{asset('bootstrap-4.5.2/css/bootstrap.min.js')}}"></script>
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <link rel="stylesheet" href="{{asset('bootstrap-4.5.2/css/bootstrap.min.css')}}">
-
+    <link rel="stylesheet" href="{{asset('bootstrap-4.5.2/css/bootstrap.css')}}">
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/simple-sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
@@ -32,7 +26,7 @@
 <div class="container">
     <div class="bg-succes" style="width: 100%">
         <section id="container">
-            <!--header start-->
+            <!-- header start -->
             <header class="container header navbar navbar-expand-lg border-bottom" style="background-color: rgb(220,220,220);">
                 <div class="fa-bars">
                     <button class="btn btn-success btn-round ml-4 tooltips" data-placement="right" id="menu-toggle">
@@ -57,10 +51,18 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item text-info" href="{{ route('agentMiss.index') }}">
+                                    {{ __('Demandeur') }}
+                                </a>
+                                @include('include.role')
+
                                 <a class="dropdown-item text-danger" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
                                     {{ __('Se deconnecter') }}
+                                </a>
+                                <a class="dropdown-item text-warning" data-toggle="modal" data-target="#passwd">
+                                    {{ __('Mot de passe') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -71,9 +73,9 @@
                     </ul>
                 </div>
             </header>
-            <!--header end-->
+            <!-- header end -->
 
-            <!--sidebar start-->
+            <!-- sidebar start -->
             <aside class="">
                 <div id="sidebar" class="nav-collapse  pl-2" style="background-color: rgb(220,220,220);">
                     <!-- sidebar menu start-->
@@ -109,32 +111,28 @@
                             @yield('content')
                         </div>
 
+                        @include('include.password')
+
                     </div>
                     <!-- /row -->
                 </section>
             </section>
-            <!--main content end-->
+            <!--main content end -->
 
 
-            <!--footer start-->
+            <!--footer start -->
             <footer class="site-footer">
                 <div class="text-dark text-center">&copy Copyright_Sofitex 2020</div>
             </footer>
-            <!--footer end-->
         </section>
     </div>
 
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script type="text/javascript" src="{{asset('bootstrap-4.5.2/js/bootstrap-select.min.js')}}"></script>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
-    <!-- Menu Toggle Script -->
-    <script src="lib/common-scripts.js"></script>
     <script>
-        $("#menu-toggle").click(function(e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
+        $(document).ready(function () {
+            $('.selectpicker').selectpicker();
         });
     </script>
 

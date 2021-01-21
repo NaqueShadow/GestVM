@@ -50,30 +50,33 @@
                 @endif
             </div>
 
-            <div class="col-12 " style=""> {{--
+            <div class="col-12 " style="">
                 <table class="table ">
-                    <tr>
-                        <td></td> <td class="">code</td> <td class="">établit le</td> <td class="">expire le</td>
+                    <tr class="table-dark">
+                        <td></td> <td class="">Numéro</td> <td class="">Etablit le</td> <td class="">Expire le</td> <td class="">Lieu</td>
                     </tr>
                     <tr>
                         <th class="t">Visite technique</th>
-                        <td class="text-dark h5">{{$vehicule->modele}}</td>
-                        <td class="text-dark h5">{{$vehicule->modele}}</td>
-                        <td class="text-dark h5">{{$vehicule->modele}}</td>
+                        <td class="text-info h6">{{isset($doc2->numero) ? $doc2->numero : ''}}</td>
+                        <td class="text-info h6">{{isset($doc2->numero) ? $doc2->etabl->format('d/m/Y') : ''}}</td>
+                        <td class="text-info h6">{{isset($doc2->numero) ? $doc2->exp->format('d/m/Y') : ''}}</td>
+                        <td class="text-info h6">{{isset($doc2->numero) ? $doc2->lieu : ''}}</td>
                     </tr>
                     <tr>
                         <th>Assurance</th>
-                        <td class="text-dark h5">{{$vehicule->modele}}</td>
-                        <td class="text-dark h5">{{$vehicule->modele}}</td>
-                        <td class="text-dark h5">{{$vehicule->modele}}</td>
+                        <td class="text-info h6">{{isset($doc1->numero) ? $doc1->numero : ''}}</td>
+                        <td class="text-info h6">{{isset($doc1->numero) ? $doc1->etabl->format('d/m/Y') : ''}}</td>
+                        <td class="text-info h6">{{isset($doc1->numero) ? $doc1->exp->format('d/m/Y') : ''}}</td>
+                        <td class="text-info h6">{{isset($doc1->numero) ? $doc2->lieu : ''}}</td>
                     </tr>
                     <tr>
                         <th>Carte grise</th>
-                        <td class="text-dark h5">{{$vehicule->modele}}</td>
-                        <td class="text-dark h5">{{$vehicule->modele}}</td>
-                        <td class="text-dark h5">{{$vehicule->modele}}</td>
+                        <td class="text-info h6">{{isset($doc3->numero) ? $doc3->numero : ''}}</td>
+                        <td class="text-info h6">{{isset($doc3->numero) ? $doc3->etabl->format('d/m/Y') : ''}}</td>
+                        <td class="text-info h6">{{isset($doc3->numero) ? $doc3->exp->format('d/m/Y') : ''}}</td>
+                        <td class="text-info h6">{{isset($doc3->numero) ? $doc2->lieu : ''}}</td>
                     </tr>
-                </table> --}}
+                </table>
             </div>
 
         </div>

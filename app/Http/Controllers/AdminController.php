@@ -49,7 +49,7 @@ class AdminController extends Controller
     {
         $agent = $request->validate([
             'matricule' => 'required|numeric|unique:users',
-            'email' => 'required|string|email|max:255|unique:users',
+            'login' => 'required|string|min:4|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'statut' => 'required',
             'idPool' => 'required',
@@ -57,7 +57,7 @@ class AdminController extends Controller
 
         User::create([
             'matricule' => $agent['matricule'],
-            'email' => $agent['email'],
+            'login' => $agent['login'],
             'password' => bcrypt($agent['password']),
             'statut' => $agent['statut'],
             'idPool' => $agent['idPool'],
@@ -69,17 +69,19 @@ class AdminController extends Controller
     public function show(User $user)
     {
         $pools = Pool::all();
+        $agents = Agent::all();
+        $agent = Agent::find($user->agent->matricule);
         $roles = Role::whereDoesntHave('users', function ($query) use($user) {
             $query->where('idUser', $user->id );
         })->get();
-        return view('admin.detailsUser', compact('user', 'pools', 'roles'));
+        return view('admin.detailsUser', compact('user', 'pools', 'roles', 'agent', 'agents'));
     }
 
     public function update(Request $request, User $user)
     {
         $validate = $request->validate([
             'matricule' => 'required|numeric|unique:users',
-            'email' => 'required|string|email|max:255|unique:users',
+            'login' => 'required|string|min:4|max:255|unique:users',
             'statut' => 'required',
             'idPool' => 'required',
         ]);
@@ -146,10 +148,11 @@ class AdminController extends Controller
     public function storeAgent(Request $request)
     {
         $agent = $request->validate([
-            'matricule'=>'required|numeric|unique:App\Models\Chauffeur,matricule',
+            'matricule'=>'required|numeric|unique:App\Models\Agent,matricule',
             'nom'=>'required|min:2',
             'prenom'=>'required|min:2',
             'poste'=>'required|min:2',
+            'email' => 'required|string|email|max:255|unique:agents|unique:chauffeurs',
             'telephone' => 'required|min:8|numeric|unique:App\Models\Agent,telephone',
         ]);
 
@@ -170,6 +173,7 @@ class AdminController extends Controller
             'nom'=>'required|min:2',
             'prenom'=>'required|min:2',
             'poste'=>'required|min:2',
+            'email' => 'required|string|email|max:255|unique:users',
             'telephone' => 'required|min:8|numeric|unique:App\Models\Agent,telephone',
         ]);
         $agent->update($validate);
@@ -182,5 +186,20 @@ class AdminController extends Controller
         return redirect()->route('admin.indexAgent');
     }
 
+    //***************************
 
+    public function password(User $user)
+    {
+        return view('password', compact('user'));
+    }
+
+    public function updatePassword(Request $request, User $user)
+    {
+        $validate = $request->validate([
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+        $user->password = bcrypt($validate['password']);
+        $user->update();
+        return redirect()->back();
+    }
 }

@@ -66,6 +66,19 @@
             </div>
 
             <div class="form-group input-group col-12 row">
+                <label class="col-3">Email</label>
+                <div class="col-9">
+                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') ?? $agent->email }}"
+                           placeholder="..." required autocomplete="email">
+                    @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="form-group input-group col-12 row">
                 <label class="col-3">Contact</label>
                 <div class="col-9">
                     <small class="text-info">* huit chiffres {{-- commencant par 0,5,6 ou 7 suivi de 4,5,6 ou 7 --}}</small>

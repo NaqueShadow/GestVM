@@ -9,8 +9,14 @@
     <div class="card mt-5 align-content-center text-dark" style="height: 500px; color: #284563; margin: auto; box-shadow: 1px 1px 2px mediumseagreen; border-radius: 15px; width: 100%; height: auto">
 
         <div class="card-header bg-light pt-0 pb-0">
-            <div class="">
-                <form class="" method="post" action="{{route('respPool.rechercheChauffeur')}}" id="form">
+            <div class="row w-100">
+                <div  class="col-5 ml-0">
+                    <div class="btn-group col">
+                        <a href="{{ route('respPool.chauffeurs') }}"><button class="btn btn-light active">Liste</button></a>
+                        <a href="{{ route('respPool.absences') }}"><button class="btn btn-light">Absence</button></a>
+                    </div>
+                </div>
+                <form class="col" method="post" action="{{route('respPool.rechercheChauffeur')}}" id="form">
                     @csrf
                     <div  class="form-group form-row mb-0">
                         <div class="col"></div>

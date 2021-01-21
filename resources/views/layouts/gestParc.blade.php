@@ -15,11 +15,14 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('bootstrap-4.5.2/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('bootstrap-4.5.2/css/bootstrap-select.min.css')}}">
 
     <script type="text/javascript" src="{{asset('bootstrap-4.5.2/css/bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('bootstrap-4.5.2/css/bootstrap-select.min.js')}}"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 
-    <link rel="stylesheet" href="{{asset('bootstrap-4.5.2/css/bootstrap.min.css')}}">
+
 
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/simple-sidebar.css') }}" rel="stylesheet">
@@ -58,21 +61,18 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                @if(Auth::user()->role == 2)
-                                    <a class="dropdown-item text-info" href="{{ route('chefGarage.index') }}">
-                                        {{ __('chef de garage') }}
-                                    </a>
-                                @endif
+                                <a class="dropdown-item text-info" href="{{ route('agentMiss.index') }}">
+                                    {{ __('Demandeur') }}
+                                </a>
+                                @include('include.role')
 
-                                @if(Auth::user()->role == 4)
-                                    <a class="dropdown-item text-info" href="{{ route('respPool.attrEnCours') }}">
-                                        {{ __('responsable de pool') }}
-                                    </a>
-                                @endif
                                 <a class="dropdown-item text-danger" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
                                     {{ __('Se deconnecter') }}
+                                </a>
+                                <a class="dropdown-item text-warning" data-toggle="modal" data-target="#passwd">
+                                    {{ __('Mot de passe') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -97,9 +97,11 @@
                             <a href="{{ route('gestParc.index') }}" id="vehicules" class="list-group-item list-group-item-action h5 text-success">Véhicules</a>
                             <a href="{{ route('gestParc.indexChauffeurs') }}" id="chauffeurs" class="list-group-item list-group-item-action h5 text-success">Chauffeurs</a>
                             <a href="{{ route('gestParc.indexPools') }}" id="pools" class="list-group-item list-group-item-action h5 text-success">Pools</a>
-                            {{--<a href="{{ route('gestParc.indexPools') }}" id="documents" class="list-group-item list-group-item-action h5 text-success">Documents</a>
-                            <a href="{{ route('gestParc.indexPools') }}" id="documents" class="list-group-item list-group-item-action h5 text-success">Utilisateurs</a>
-                            --}}<a href="#" class="list-group-item list-group-item-action h6 text-success"></a>
+                            <a href="{{ route('gestParc.indexDoc') }}" id="documents" class="list-group-item list-group-item-action h5 text-success">Documents</a>
+                            {{--
+                            <a href="{{ route('gestParc.indexPools') }}" id="users" class="list-group-item list-group-item-action h5 text-success">Utilisateurs</a>
+                            --}}
+                            <a href="#" class="list-group-item list-group-item-action h6 text-success"></a>
                         </div>
 
                         <div class="align-content-center mt-5" style="">
@@ -123,6 +125,8 @@
                         <div class="ml-3" style="min-height: 650px">
                             @yield('content')
                         </div>
+
+                        @include('include.password')
 
                     </div>
                     <!-- /row -->

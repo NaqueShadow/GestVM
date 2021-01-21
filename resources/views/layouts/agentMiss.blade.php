@@ -58,27 +58,15 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                @if(Auth::user()->role == 2)
-                                    <a class="dropdown-item text-info" href="{{ route('chefGarage.index') }}">
-                                        {{ __('chef de garage') }}
-                                    </a>
-                                @endif
-                                @if(Auth::user()->role == 3)
-                                    <a class="dropdown-item text-info" href="{{ route('chargeImp.index') }}">
-                                        {{ __('chargé des imputation') }}
-                                    </a>
-                                @endif
-                                @if(Auth::user()->role == 4)
-                                    <a class="dropdown-item text-info" href="{{ route('respPool.attrEnCours') }}">
-                                        {{ __('responsable de pool') }}
-                                    </a>
-                                @endif
+                                @include('include.role')
                                 <a class="dropdown-item text-danger" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
                                     {{ __('Se deconnecter') }}
                                 </a>
-
+                                <a class="dropdown-item text-warning" data-toggle="modal" data-target="#passwd">
+                                    {{ __('Mot de passe') }}
+                                </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
@@ -135,6 +123,8 @@
                         <div class="ml-3 navbar-nav ml-auto" style="min-height: 650px; ">
                             @yield('content')
                         </div>
+
+                        @include('include.password')
 
                     </div>
                     <!-- /row -->

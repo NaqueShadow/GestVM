@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DocBord;
 use App\Models\Region;
 use Illuminate\Http\Request;
 use App\Models\Vehicule;
@@ -73,12 +74,61 @@ class GestParcController extends Controller
         return view('gestParc/pools/index', compact('chauffeurs', 'text'));
     }
 
-    public function indexEntites()
+    public function indexDoc()
     {
-        $pools = Pool::withCount('vehicules', 'chauffeurs')->get();
-        $pool = new Pool();
-        $regions = Region::all();
-        return view('gestParc/pools/index', compact('pools', 'pool', 'regions'));
+        $filtre = ['type' => '', 'code' => ''];
+        $docs = DocBord::where('type', '1' )
+            ->with('vehicule')
+            ->orderBy('etabl', 'DESC')->get();
+        $vehicules = Vehicule::all();
+        $docB = new DocBord();
+
+        return view('gestParc/vehicules/docBord', compact('filtre', 'docs', 'vehicules', 'docB'));
+    }
+
+    public function storeDoc(Request $request)
+    {
+        $validate = $request->validate([
+            'idVehicule'=>'required|exists:App\Models\Vehicule,code',
+            'numero'=>'required|unique:doc_bords',
+            'etabl'=>'required|date',
+            'exp'=>'required|date|after_or_equal:etabl',
+            'type'=>'required',
+            'lieu'=>'required',
+        ]);
+        DocBord::create($validate);
+
+        return redirect()->back();
+    }
+
+    public function filtreDoc( Request $request )
+    {
+        $filtre = $request->all();
+        $docB = new DocBord();
+        $vehicules = Vehicule::all();
+        $docs = DocBord::where('type', '1' )->with('vehicule')
+            ->orderBy('etabl', 'DESC')->get();
+
+        if ( $filtre['type'] == '2' )
+            $docs = DocBord::where('type', '2' )->with('vehicule')
+                ->orderBy('etabl', 'DESC')->get();
+
+        if ( $filtre['type'] == '3' )
+            $docs = DocBord::where('type', '3' )->with('vehicule')
+                ->orderBy('etabl', 'DESC')->get();
+
+        if ( isset($filtre['code']) )
+            $docs = $docs->where('idVehicule', $filtre['code']);
+
+
+        return view('gestParc/vehicules/docBord', compact('filtre', 'docs', 'vehicules', 'docB'));
+    }
+
+    public function destroyDoc(Request $request)
+    {
+        if ($doc = DocBord::find($request->numero))
+            $doc->delete();
+        return redirect()->route('gestParc.indexDoc');
     }
 
 

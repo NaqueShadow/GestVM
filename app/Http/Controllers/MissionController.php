@@ -52,7 +52,6 @@ class MissionController extends Controller
         $validate = $request->validate([
             'demandeur'=>'required',
             'objet'=>'min:3',
-            'nbr'=>'required',
             'dateDepart' => 'required|date',
             'dateRetour' => 'required|date|after_or_equal:dateDepart',
             'villeDepart' => 'required',
@@ -61,9 +60,7 @@ class MissionController extends Controller
         ]);
 
         $mission->update($validate);
-
         $mission->agents()->detach();
-
         foreach ($request->agent as $agent)
         {
             $mission->agents()->attach($agent);

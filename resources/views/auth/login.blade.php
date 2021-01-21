@@ -24,7 +24,7 @@
 <body style="background-color: rgb(200,236,185);font-family: Georgia;">
     <div id="app">
 
-        <div class="container mt-5 pt-5">
+        <div class="container mt-4 pt-4">
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="card mt-5" style="box-shadow: 1px 1px 2px mediumseagreen; border-radius: 15px;">
@@ -66,7 +66,7 @@
 
                                     <div class="col-md-6">
                                         <small class="text-black-50"></small>
-                                        <input id="password" minlength="8" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                                         @error('password')
                                         <span class="invalid-feedback" role="alert">
@@ -76,21 +76,18 @@
                                     </div>
                                 </div>
 
-                                {{--
                                 <div class="form-group row">
                                     <div class="col-md-6 offset-md-4">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="remember"
-                                                   id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                            <label class="form-check-label" for="remember"
-                                                   title="rester connecté tant que le navigateur n'est pas fermé">
-                                              {{ __('Garder la session ouverte') }}
-                                            </label>
-                                        </div>
+                                        <select name="role" id="role" class="form-control">
+                                            <option value="1" selected>Demandeur</option>
+                                            <option value="2">Chargé des interventions</option>
+                                            <option value="3">Chargé des imputations</option>
+                                            <option value="4">Responsable de pool</option>
+                                            <option value="5">Gestionnaire de parc</option>
+                                            <option value="6">Administrateur</option>
+                                        </select>
                                     </div>
                                 </div>
-                                --}}
 
                                 <div class="form-group row mb-0">
                                     <div class="col-md-8 offset-md-4">

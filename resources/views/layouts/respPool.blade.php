@@ -16,12 +16,13 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/accordion.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('bootstrap-4.5.2/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('bootstrap-4.5.2/css/bootstrap-select.min.css')}}">
 
     <script type="text/javascript" src="{{asset('bootstrap-4.5.2/css/bootstrap.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('bootstrap-4.5.2/css/bootstrap-select.min.js')}}"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/accordion.js') }}" defer></script>
-
-    <link rel="stylesheet" href="{{asset('bootstrap-4.5.2/css/bootstrap.min.css')}}">
 
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/simple-sidebar.css') }}" rel="stylesheet">
@@ -66,26 +67,18 @@
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item text-info" href="{{ route('agentMiss.index') }}">
-                                    {{ __('missionnaire') }}
+                                    {{ __('Demandeur') }}
                                 </a>
-
-                                {{--@include('include.role')--}}
-
-                                @if(Auth::user()->role == 4 and Auth::user()->idPool == 1)
-                                    <a class="dropdown-item text-info" href="{{ route('gestParc.index') }}">
-                                        {{ __('gestionnaire du parc') }}
-                                    </a>
-                                    <a class="dropdown-item text-info" href="{{ route('admin.index') }}">
-                                        {{ __('Administrateur') }}
-                                    </a>
-                                @endif
+                                @include('include.role')
 
                                 <a class="dropdown-item text-danger" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
                                     {{ __('Se deconnecter') }}
                                 </a>
-
+                                <a class="dropdown-item text-warning" data-toggle="modal" data-target="#passwd">
+                                    {{ __('Mot de passe') }}
+                                </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
@@ -160,6 +153,8 @@
                             @yield('content')
                         </div>
 
+                        @include('include.password')
+
                     </div>
 
                 </section>
@@ -175,19 +170,16 @@
         </section>
     </div>
 
-    <!-- Menu Toggle Script -->
-    <script src="lib/common-scripts.js"></script>
-    <script>
-        $("#menu-toggle").click(function(e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
-    </script>
-
     <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
     <script src="{{ asset('lib/chosen/chosen.jquery.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script type="text/javascript" src="{{asset('bootstrap-4.5.2/js/bootstrap-select.min.js')}}"></script>
 
-    @yield('chosen')
+    <script>
+        $(document).ready(function () {
+            $('.selectpicker').selectpicker();
+        });
+    </script>
 
 </div>
 </body>

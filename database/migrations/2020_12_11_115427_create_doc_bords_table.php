@@ -14,10 +14,10 @@ class CreateDocBordsTable extends Migration
     public function up()
     {
         Schema::create('doc_bords', function (Blueprint $table) {
-            $table->unsignedBigInteger('code')->primary();
+            $table->string('numero')->primary();
             $table->integer('type');
-            $table->string('lieus');
-            $table->boolean('statut');
+            $table->string('lieu');
+            $table->boolean('statut')->nullable();
             $table->timestamp('etabl');
             $table->timestamp('exp');
             $table->timestamps();
