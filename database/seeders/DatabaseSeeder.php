@@ -176,6 +176,13 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        \App\Models\Role::create(
+            [
+                'id' => '7',
+                'role' => 'Valideur',
+            ]
+        );
+
 
         \App\Models\User::create(
             [

@@ -6,7 +6,7 @@
         document.getElementById("users").style.backgroundColor = "white";
     </script>
 
-    <div class="card mt-5 align-content-center text-dark" style="height: 500px; color: #284563; margin: auto; box-shadow: 1px 1px 2px mediumseagreen; border-radius: 15px; width: 100%; height: auto">
+    <div class="card mt-2 h-100 align-content-center text-dark" style="margin: auto; box-shadow: 1px 1px 2px mediumseagreen; border-radius: 15px; width: 100%;">
 
         <div class="card-header bg-light pt-0 pb-0">
             <div class="">
@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <div class="card-body" style="color: #284563;">
+        <div class="card-body h-100" style="color: #284563; overflow: auto;">
             @if( session()->get('info') )
                 <div class="alert alert-success text-center text-success">
                     {{ session()->get('info') }}
@@ -41,9 +41,9 @@
                 + Nouveau
             </button>
 
-            <table class="table table-success table-hover table-striped">
+            <table class="table table-striped table-hover">
                 <thead>
-                <tr>
+                <tr class="table-success">
                     <th scope="col">#</th>
                     <th scope="col">LOGIN</th>
                     <th scope="col">AGENT</th>
@@ -62,29 +62,35 @@
                         <th>{{ $user->login }}</th> @isset($user->agent->nom)
                         <td>{{ $user->agent->nom }} {{ $user->agent->prenom }}</td>@endisset
                         <td>{{ $user->pool->abbreviation }}</td>
-                        <td>{{ $user->statut }}</td>
+                        <td class="text-primary">{{ $user->statut }}</td>
                         <td>
-                            @if($user->statut == 'actif')
-                                <form method="post" action="{{ route('admin.desactiver', ['user' => $user->id]) }}" style="display: inline;">
-                                    @csrf
-                                    @method ('PATCH')
-                                    <button class="btn btn-danger p-1" title="desactiver le compte">
-                                        désac
-                                    </button>
-                                </form>
-                            @else
-                                <form method="post" action="{{ route('admin.activer', ['user' => $user->id]) }}" style="display: inline;">
-                                    @csrf
-                                    <button class="btn btn-warning p-1" title="desactiver le compte">
-                                        activer
-                                    </button>
-                                </form>
-                            @endif
-                            <a href="{{ route('admin.show', ['user' => $user->id]) }}">
-                                <button class="btn btn-info p-1" title="voir les détails">
-                                    détails
+                            <div class="dropdown">
+                                <button title="exporter" class="btn btn-link text-primary pt-0 pb-0 dropdown-toggle" data-toggle="dropdown" >
                                 </button>
-                            </a>
+                                <div class="dropdown-menu dropdown-menu-sm-right">
+                                    @if($user->statut == 'actif')
+                                        <form class="dropdown-item" method="post" action="{{ route('admin.desactiver', ['user' => $user->id]) }}" style="display: inline;">
+                                            @csrf
+                                            @method ('PATCH')
+                                            <button class="btn btn-link text-danger p-1" title="desactiver le compte">
+                                                désactiver
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form class="dropdown-item" method="post" action="{{ route('admin.activer', ['user' => $user->id]) }}" style="display: inline;">
+                                            @csrf
+                                            <button class="btn btn-link text-warning p-1" title="desactiver le compte">
+                                                activer
+                                            </button>
+                                        </form>
+                                    @endif
+                                    <a href="{{ route('admin.show', ['user' => $user->id]) }}" class="dropdown-item">
+                                        <button class="btn btn-link text-info p-1" title="voir les détails">
+                                            détails
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 @endforeach

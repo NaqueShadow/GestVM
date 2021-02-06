@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\AgentImport;
 use App\Models\Agent;
+use App\Models\Categorie;
 use App\Models\Pool;
 use App\Models\Role;
 use App\Models\User;
@@ -48,7 +50,7 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $agent = $request->validate([
-            'matricule' => 'required|numeric|unique:users',
+            'matricule' => 'required|numeric|unique:users|exists:agents,matricule',
             'login' => 'required|string|min:4|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'statut' => 'required',
@@ -80,8 +82,8 @@ class AdminController extends Controller
     public function update(Request $request, User $user)
     {
         $validate = $request->validate([
-            'matricule' => 'required|numeric|unique:users',
-            'login' => 'required|string|min:4|max:255|unique:users',
+            'matricule' => 'required|numeric',
+            'login' => 'required|string|min:4|max:255',
             'statut' => 'required',
             'idPool' => 'required',
         ]);
@@ -129,8 +131,9 @@ class AdminController extends Controller
     public function indexAgent()
     {
         $agents = Agent::all();
+        $categories = Categorie::all();
         $agent = new Agent();
-        return view('admin/agents', compact('agents', 'agent'));
+        return view('admin/agents', compact('agents', 'categories', 'agent'));
     }
 
     public function rechercheAgent(Request $request)
@@ -147,34 +150,44 @@ class AdminController extends Controller
 
     public function storeAgent(Request $request)
     {
-        $agent = $request->validate([
-            'matricule'=>'required|numeric|unique:App\Models\Agent,matricule',
-            'nom'=>'required|min:2',
-            'prenom'=>'required|min:2',
-            'poste'=>'required|min:2',
-            'email' => 'required|string|email|max:255|unique:agents|unique:chauffeurs',
-            'telephone' => 'required|min:8|numeric|unique:App\Models\Agent,telephone',
-        ]);
+        if ($request->form == 1)
+        {
+            $agent = $request->validate([
+                'matricule'=>'required|numeric|unique:App\Models\Agent,matricule',
+                'nom'=>'required|min:2',
+                'prenom'=>'required|min:2',
+                'idCateg'=>'nullable|exists:categories,categorie',
+                'poste'=>'required|min:2',
+                'email' => 'required|string|email|max:255|unique:agents|unique:chauffeurs',
+                'telephone' => 'required|min:8|numeric|unique:agents|unique:chauffeurs',
+            ]);
+            Agent::create($agent);
+        }
 
-        Agent::create($agent);
+        elseif ($request->form == 2)
+        {
+            (new AgentImport)->import($request->file('fichier')->path(), null, \Maatwebsite\Excel\Excel::XLSX);
+        }
 
         return redirect()->route('admin.indexAgent')->with('info', $request->nom.' '.$request->prenom.' enregistré avec succès');
     }
 
     public function editAgent(Agent $agent)
     {
-        return view('admin.editAgent', compact('agent'));
+        $categories = Categorie::all();
+        return view('admin.editAgent', compact('agent', 'categories'));
     }
 
     public function updateAgent(Request $request, Agent $agent)
     {
         $validate = $request->validate([
-            'matricule'=>'required|numeric|unique:App\Models\Chauffeur,matricule',
+            'matricule'=>'required|numeric',
             'nom'=>'required|min:2',
             'prenom'=>'required|min:2',
             'poste'=>'required|min:2',
-            'email' => 'required|string|email|max:255|unique:users',
-            'telephone' => 'required|min:8|numeric|unique:App\Models\Agent,telephone',
+            'idCateg'=>'nullable|exists:categories,categorie',
+            'email' => 'required|string|email|max:255',
+            'telephone' => 'required|min:8|numeric',
         ]);
         $agent->update($validate);
         return redirect()->route('admin.indexAgent');

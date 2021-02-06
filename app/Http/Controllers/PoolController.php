@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Chauffeur;
 use App\Models\Pool;
+use App\Models\Region;
 use App\Models\Vehicule;
 use Illuminate\Http\Request;
 
@@ -56,20 +57,27 @@ class PoolController extends Controller
 
     public function edit(Pool $pool)
     {
-        //
+        $regions = Region::all();
+        return view('gestParc/pools/editPool', compact('pool', 'regions'));
     }
 
 
     public function update(Request $request, Pool $pool)
     {
-        //
+        $validate = $request->validate([
+            'designation'=>'required',
+            'regionID'=>'required',
+            'abbreviation' => 'required',
+        ]);
+        $pool->update($validate);
+        return redirect()->route('gestParc.indexPools');
     }
 
 
     public function destroy(Pool $pool)
     {
         $pool->delete();
-        return redirect()->route('gestParc/indexPools');
+        return redirect()->route('gestParc.indexPools');
     }
 
     public function ajoutVehicule(Request $request, Pool $pool)

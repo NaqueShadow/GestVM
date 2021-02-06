@@ -81,15 +81,19 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/gestParc/chauffeursS', 'ChauffeurController@store')->name('chauffeur.store');
     Route::get('/gestParc/chauffeur/{chauffeur}', 'GestParcController@indexChauffeurs')->name('chauffeur.fullShow');
     Route::get('/gestParc/chauffeur/{chauffeur}/edit', 'ChauffeurController@edit')->name('chauffeur.edit');
-    Route::patch('/gestParc/chauffeur/{chauffeur}', 'ChauffeurController@update')->name('chauffeur.update');
+    Route::post('/gestParc/chauffeur/{chauffeur}/edit', 'ChauffeurController@update')->name('chauffeur.update');
     Route::delete('/gestParc/chauffeur/{chauffeur}', 'ChauffeurController@destroy')->name('chauffeur.destroy');
 
 
     Route::get('/gestParc/pools', 'GestParcController@indexPools')->name('gestParc.indexPools');
     Route::post('/gestParc/pools', 'GestParcController@recherchePool')->name('gestParc.recherchePool');
-    Route::get('/gestParc/poolsS', 'GestParcController@indexPools')->name('gestParc.indexPools');
+    Route::get('/gestParc/poolsS', 'GestParcController@indexPools');
     Route::post('/gestParc/poolsS', 'PoolController@store')->name('pool.store');
     Route::get('/gestParc/pool/{pool}', 'PoolController@show')->name('pool.show');
+    Route::get('/gestParc/pool/{pool}/edit', 'PoolController@edit')->name('pool.edit');
+    Route::post('/gestParc/pool/{pool}/edit', 'PoolController@update')->name('pool.update');
+    Route::delete('/gestParc/poolS', 'PoolController@destroy')->name('pool.destroy');
+
     Route::get('/gestParc/pool/vehicule/{vehicule}', 'PoolController@retraitVehicule')->name('pool.retraitVehicule');
     Route::post('/gestParc/pool/{pool}', 'PoolController@ajoutVehicule')->name('pool.ajoutVehicule');
     Route::get('/gestParc/pool/{pool}/chauffeur', 'PoolController@showChauf')->name('pool.showChauf');
@@ -100,6 +104,17 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/gestParc/documents', 'GestParcController@storeDoc')->name('gestParc.storeDoc');
     Route::patch('/gestParc/documents', 'GestParcController@filtreDoc')->name('gestParc.filtreDoc');
     Route::delete('/gestParc/documents', 'GestParcController@destroyDoc')->name('gestParc.destroyDoc');
+    Route::get('/gestParc/documents/{doc}', 'GestParcController@editDoc')->name('gestParc.editDoc');
+    Route::post('/gestParc/documents/{doc}', 'GestParcController@updateDoc')->name('gestParc.updateDoc');
+
+    Route::get('/gestParc/statistiques/utilisateurs', 'StatController@index')->name('stat.index');
+    Route::post('/gestParc/statistiques/utilisateurs', 'StatController@index')->name('stat.index');
+
+        Route::get('/gestParc/statistiques/pools', 'StatController@indexPool')->name('stat.indexPool');
+        Route::post('/gestParc/statistiques/pools', 'StatController@indexPool')->name('stat.indexPool');
+
+        Route::get('/gestParc/statistiques/vehicules', 'StatController@indexVehicule')->name('stat.indexVehicule');
+        Route::post('/gestParc/statistiques/vehicules', 'StatController@indexVehicule')->name('stat.indexVehicule');
 
     });
 
@@ -110,10 +125,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/chefGarage/historique', 'InterventionController@index')->name('intervention.index');
     Route::post('/chefGarage', 'InterventionController@store')->name('intervention.store');
     Route::get('/chefGarage/liste_vehicules', 'ChefGarageController@listeVehicules')->name('chefGarage.liste_vehicules');
-    Route::get('interventions/{intervention}/edit', 'InterventionController@edit' );
-    Route::patch('interventions/{intervention}', 'InterventionController@update' );
-    Route::get('interventions/{intervention}', 'InterventionController@terminerInt' );
-    Route::get('interventions/{intervention}/delete', 'InterventionController@destroy' );
+    Route::get('interventions/{intervention}/edit', 'InterventionController@edit' )->name('intervention.edit');
+    Route::post('interventions/{intervention}/edit', 'InterventionController@update' )->name('intervention.update');
+    Route::get('interventions/{intervention}', 'InterventionController@terminerInt' )->name('intervention.terminer');
+    Route::delete('interventions/{intervention}', 'InterventionController@destroy' )->name('intervention.destroy');
     Route::get('/chefGarage/vehicule/{vehicule}', 'ChefGarageController@voirVehicule' )->name('chefGarage.voirVehicule');
 
     Route::post('/chefGarage/filtreIntervention', 'ChefGarageController@filtreIntervention')->name('chefGarage.filtreIntervention');
@@ -145,17 +160,18 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     //===========================route missionnaire
-
     Route::get('/agentMiss', 'AgentMissController@index')->name('agentMiss.index');
     Route::get('/agentMiss/reponse', 'AgentMissController@reponse')->name('agentMiss.reponse');
     Route::get('/agentMiss/reponse/{attribution}', 'AgentMissController@showReponse')->name('reponse.show');
 
     Route::get('/agentMiss/reponse/{mission}', 'AgentMissController@reponse')->name('agentMiss.detailsReponse');
+    Route::post('/agentMiss/reponse/{attribution}', 'GenererDocController@attrPDF')->name('pdf.attribution');
     Route::get('/agentMiss/demandeVehicule', 'AgentMissController@newDemande')->name('mission.create');
     Route::post('/mission/store', 'AgentMissController@storeDemande')->name('mission.storeDemande');
     //Route::post('/mission/store', 'AgentMissController@demanderVehicule')->name('mission.store');
 
     Route::get('/mission/{mission}', 'MissionController@show')->name('mission.show');
+    Route::post('/mission/{mission}', 'GenererDocController@demandePDF')->name('pdf.demande');
     Route::get('/mission/{mission}/destroy', 'MissionController@destroy');
     Route::get('/mission/{mission}/edit', 'MissionController@edit');
     Route::post('/mission/{mission}/update', 'MissionController@update');
@@ -165,6 +181,18 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/agentMiss/filtreDemande', 'AgentMissController@index');
     Route::get('/agentMiss/filtreReponse', 'AgentMissController@reponse');
+
+
+    //===========================route valideur
+    Route::get('/valideur/demandes', 'ValideurController@index')->name('valideur.index');
+    Route::post('/respPool/demandes', 'ValideurController@filtreDemande')->name('valideur.filtreDemande');
+
+    Route::get('/respPool/demandes/{mission}', 'ValideurController@showMission')->name('valideur.showMission');
+    Route::post('/respPool/demandes/{mission}', 'ValideurController@valider')->name('valideur.valider');
+
+    Route::get('/valideur/traitees', 'ValideurController@indexValidation')->name('valideur.indexValidation');
+    Route::post('/respPool/traitees', 'ValideurController@filtreValidation')->name('valideur.filtreValidation');
+
 
 
 
@@ -190,7 +218,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::patch('/admin/agents/{agent}', 'AdminController@updateAgent')->name('admin.updateAgent');
     Route::delete('/admin/agents/{agent}', 'AdminController@destroyAgent')->name('admin.destroyAgent');
 
-    Route::get('/admin/agent', 'AdminController@indexAgent')->name('admin.indexAgent');
+    Route::get('/admin/agent', 'AdminController@indexAgent');
     Route::post('/admin/agent', 'AdminController@rechercheAgent')->name('admin.rechercheAgent');
 
     });

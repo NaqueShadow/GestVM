@@ -6,21 +6,19 @@
         document.getElementById("pools").style.backgroundColor = "white";
     </script>
 
-    <div class="mt-4 text-success h3">Pool / {{$pool->designation}}</div>
-
-    <div class="card mt-3 align-content-center text-dark" style="height: 500px; color: #284563; margin: auto; box-shadow: 1px 1px 2px mediumseagreen; border-radius: 15px; width: 100%; height: auto">
+    <div class="card mt-2 h-100 align-content-center text-dark" style="margin: auto; box-shadow: 1px 1px 2px mediumseagreen; border-radius: 15px; width: 100%;">
 
         <div class="card-header bg-light pt-0 pb-0">
             <div class="row">
-                <div class="col"></div>
-                <div class="btn-group mr-0">
+                <div class=" col text-success h4">Pool / {{$pool->designation}}</div>
+                <div class="col-auto btn-group mr-0">
                     <a href="{{ route('pool.show', ['pool' => $pool->id]) }}"><button class="btn btn-light">Véhicules</button></a>
                     <a href="{{ route('pool.showChauf', ['pool' => $pool->id]) }}"><button class="btn btn-light active">Chauffeurs</button></a>
                 </div>
             </div>
         </div>
 
-        <div class="card-body" style="color: #284563;">
+        <div class="card-body h-100" style="color: #284563; overflow: auto;">
             @if( session()->get('info') )
                 <div class="alert alert-success text-center text-success">
                     {{ session()->get('info') }}

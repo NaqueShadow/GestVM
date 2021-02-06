@@ -20,12 +20,14 @@ class CreateVehiculesTable extends Migration
             $table->timestamp('acquisition')->nullable();
             $table->integer('statut')->default('1');
             $table->timestamp('dernierRetour')->nullable();
-            $table->timestamps();
 
             $table->string('idChauf')->nullable();
+            $table->char('idCateg')->nullable();
             $table->unsignedBigInteger('idPool')->nullable();
+            $table->timestamps();
 
             $table->foreign('idPool')->references('id')->on('pools');
+            $table->foreign('idCateg')->references('categorie')->on('categories');
             $table->foreign('idChauf')->references('matricule')->on('chauffeurs');
         });
     }

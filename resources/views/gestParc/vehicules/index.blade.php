@@ -6,7 +6,7 @@
         document.getElementById("vehicules").style.backgroundColor = "white";
     </script>
 
-    <div class="card mt-5 align-content-center text-dark" style="height: 500px; color: #284563; margin: auto; box-shadow: 1px 1px 2px mediumseagreen; border-radius: 15px; width: 100%; height: auto">
+    <div class="card mt-2 h-100 align-content-center text-dark" style="margin: auto; box-shadow: 1px 1px 2px mediumseagreen; border-radius: 15px; width: 100%;">
 
         <div class="card-header bg-light pt-0 pb-0">
             <div class="">
@@ -25,7 +25,8 @@
             </div>
         </div>
 
-        <div class="card-body" style="color: #284563;">
+        <div class="card-body h-100" style="color: #284563; overflow: auto;">
+
             @if( session()->get('info') )
                 <div class="alert alert-success text-center text-success">
                     {{ session()->get('info') }}
@@ -40,14 +41,18 @@
             <button type="button" class="btn btn-success mt-1 mb-1" data-toggle="modal" data-target="#fenetre">
                 + Nouveau
             </button>
+            <button type="button" class="btn btn-success mt-1 mb-1" data-toggle="modal" data-target="#fenetre2">
+                + depuis un classeur
+            </button>
 
-            <table class="table table-success table-hover table-striped">
+            <table class="table table-striped table-hover">
                 <thead>
-                <tr class="">
+                <tr class="table-success">
                     <th scope="col">#</th>
                     <th scope="col">Code</th>
                     <th scope="col">Modèle</th>
                     <th scope="col">Acquisition</th>
+                    <th scope="col">Catégorie</th>
                     <th scope="col">Chauffeur</th>
                     <th scope="col">Affectation</th>
                     <th scope="col"></th>
@@ -63,16 +68,23 @@
                         <th>{{ $vehicul->code }}</th>
                         <td>{{ $vehicul->modele }}</td>
                         <td>{{ $vehicul->acquisition ? $vehicul->acquisition->format('d/m/Y'):''}}</td>
+                        <td>{{ isset($vehicul->idCateg) ? $vehicul->idCateg:'' }}</td>
                         <td>
                             {{ isset($vehicul->chauffeur->nom) ? $vehicul->chauffeur->nom.' '.$vehicul->chauffeur->prenom : '--' }}
                         </td>
                         <td>{{ isset($vehicul->pool->abbreviation) ? $vehicul->pool->abbreviation:'' }}</td>
                         <td>
-                            <a href="{{route('vehicule.fullShow', ['vehicule' => $vehicul->code])}}">
-                                <button class="btn btn-info p-1">
-                                    ouvrir
+                            <div class="dropdown">
+                                <button title="exporter" class="btn btn-link text-primary pt-0 pb-0 dropdown-toggle" data-toggle="dropdown" >
                                 </button>
-                            </a>
+                                <div class="dropdown-menu dropdown-menu-sm-right">
+                                    <a class="dropdown-item" href="{{route('vehicule.fullShow', ['vehicule' => $vehicul->code])}}">
+                                        <button class="btn btn-link text-info p-1">
+                                            détails
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
                         </td>
 
                     </tr>
@@ -100,12 +112,10 @@
                         <form class="mt-5" method="post" action="{{route('vehicule.store')}}" id="form">
 
                             @csrf
+                            <input type="hidden" name="form" value="1">
                             <div class="align-items-center">
-
                                 <fieldset>
                                     <div class="form-row" style="padding: 2%; margin-bottom: auto; border: 1px solid mediumseagreen; border-radius: 15px;">
-                                        <legend></legend>
-
                                         <div  class="form-group input-group col-12 row">
                                             <label class="col-3">Code véhicule</label>
                                             <div class="col-9">
@@ -153,6 +163,25 @@
                                             @enderror
                                             </div>
                                         </div>
+
+                                        <div class="form-group input-group col-12 row">
+                                            <label class="col-3">Catégorie</label>
+                                            <div class="col-9">
+                                                <select name="idCateg" id="idCateg" required class="form-control @error('idCateg') is-invalid @enderror">
+                                                    <option value="">...</option>
+                                                    @foreach($categories as $categorie)
+                                                        <option value="{{$categorie->categorie}}" {{$categorie->categorie == old('idCateg')?'selected':($categorie->categorie == $vehicule->idCateg?'selected':'')}}>
+                                                            {{$categorie->categorie}}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @error('idCateg')
+                                                <div class="invalide-feedBack() text-danger">
+                                                    {{ 'Poste invalide' }}
+                                                </div>
+                                                @enderror
+                                            </div>
+                                        </div>
                                     </div>
                                 </fieldset>
 
@@ -160,6 +189,38 @@
 
                             <button type="submit" id="submitForm" class="btn btn-success mt-2" >Enregistrer</button>
 
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <small></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="modal fade" id="fenetre2" tabindex="-1" aria-labelledby="fenetre2" aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Importation une liste de véhicules</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="text-center">Contenu du fichier Excel <br>(Code-Immatriculation-Acquisition-Catégorie-Matricule_chauffeur-Numéro_pool)</div>
+                        <form class="mt-5" method="post" action="{{route('vehicule.store')}}" id="form" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="form" value="2">
+                            <div class="mb-1 custom-file text-left">
+                                <label for="fichier" class="form-label mb-2">Importer un fichier Excel :</label>
+                                <input class="form-control-file border" type="file" name="fichier" id="fichier" accept=".csv,.xlsx">
+                            </div>
+                            <button type="submit" id="submitForm" class="btn btn-success mt-3 mb-3">Importer</button>
                         </form>
 
                     </div>

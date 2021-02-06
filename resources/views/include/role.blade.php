@@ -1,8 +1,14 @@
 
 @foreach(Auth::user()->roles as $role)
+    @if($role->id == 7)
+        <a class="dropdown-item text-info" href="{{ route('valideur.index') }}">
+            {{ __('Valideur') }}
+        </a>
+    @endif
+
     @if($role->id == 2)
         <a class="dropdown-item text-info" href="{{ route('chefGarage.index') }}">
-            {{ __('Chef de garage') }}
+            {{ __('Chargé des interventions') }}
         </a>
     @endif
 

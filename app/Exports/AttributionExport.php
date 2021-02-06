@@ -2,13 +2,18 @@
 
 namespace App\Exports;
 
-use App\Attribution;
+use App\Models\Attribution;
 use Jenssegers\Date\Date;
+use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromArray;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-class AttributionExport implements FromArray, WithStyles
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+
+class AttributionExport implements FromArray, WithStyles, ShouldAutoSize, WithHeadings
 {
+    use Exportable;
     public $a, $b;
     public function __construct(Date $a, Date $b)
     {
@@ -16,16 +21,33 @@ class AttributionExport implements FromArray, WithStyles
         $this->b = $b;
     }
 
+    public function headings(): array {
+        return [
+            "#",
+            "Utilisateur",
+            "Conducteur",
+            "Véhicule",
+            "Date",
+            "Trajet",
+            "Qte Carburant",
+            "Compteur départ",
+            "compteur retour",
+            "Km parcourus"
+        ];
+
+    }
+
     public function array(): array
     {
-        $attributions = \App\Models\Attribution::with('mission', 'entite', 'ressource', 'chauffeur')
+        $attributions = Attribution::with('mission', 'entite', 'ressource', 'chauffeur')
             ->whereHas('mission', function ($query) {
                 $query->whereBetween('dateDepart', [$this->a, $this->b]);
             })->get();
 
-        $data[] = ["Utilisateur","Conducteur","Vehicule","Date","Trajet","Qte Carburant","Compteur depart","compteur retour","Km parcourus"];
+        $i=0;
         foreach ($attributions as $attr)
             $data[] = [
+                ++$i,
                 $attr->entite->designation,
                 $attr->chauffeur->nom.' '.$attr->chauffeur->prenom,
                 $attr->idVehicule,
@@ -43,10 +65,11 @@ class AttributionExport implements FromArray, WithStyles
     {
         return [
             // Première ligne en gras
-            1    => ['font' => ['bold' => true]],
+            1    => [
+                'font' => ['bold' => true, 'size' => 12, 'color' => ['rgb' => '000000']],
+                'fill' => ['color' => ['argb' => 'FF00FF00']],
+            ],
 
-            // Styling a specific cell by coordinate.
-            'B2' => ['font' => ['italic' => true]],
         ];
     }
 }

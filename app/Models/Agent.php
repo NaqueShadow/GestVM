@@ -9,6 +9,7 @@ class Agent extends Model
 {
     use HasFactory;
     public $primaryKey = 'matricule';
+    public $incrementing = false;
 
     protected $guarded = [];
 

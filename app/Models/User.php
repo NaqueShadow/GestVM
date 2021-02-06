@@ -65,8 +65,18 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Mission', 'demandeur');
     }
 
+    public function validations()
+    {
+        return $this->hasMany('App\Models\Mission', 'idValideur');
+    }
+
     public function pool()
     {
         return $this->belongsTo('App\Models\Pool', 'idPool', 'id');
+    }
+
+    public function validation()
+    {
+        return $this->hasMany('App\Models\Validation', 'idMission');
     }
 }

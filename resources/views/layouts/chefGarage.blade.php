@@ -15,13 +15,15 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{asset('bootstrap-4.5.2/css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{asset('bootstrap-4.5.2/css/bootstrap-select.min.css')}}">
+
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/simple-sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style-responsive.css') }}" rel="stylesheet">
 </head>
 
-<body class="" style="background-color: rgb(17,176,17);">
+<body class="" style="background-color: rgb(17,176,17); min-width: 900px;">
 
 <div class="container">
     <div class="bg-succes" style="width: 100%">
@@ -85,7 +87,9 @@
                         </div>
                         <div class="list-group list-group-flush mt-5">
                             <a href="{{ route('chefGarage.index') }}" id="intervention" class="list-group-item list-group-item-action h5 text-success">Interventions</a>
+                            {{--
                             <a href="{{ route('intervention.index') }}" id="historique" class="list-group-item list-group-item-action h5 text-success">Historique</a>
+                            --}}
                             <a href="{{ route('chefGarage.liste_vehicules') }}" id="vehicule" class="list-group-item list-group-item-action h5 text-success">Véhicules</a>
                             <a href="#" class="list-group-item list-group-item-action h6 text-success"></a>
                         </div>
@@ -104,21 +108,13 @@
             <section id="main-content" style="background-color: white;">
                 <section class="wrapper">
                     <div class="">
-
-                        <!-- /col-lg-3 -->
-
-                        <div class="ml-3" style="height: 650px">
+                        <div class="ml-2 vh-100">
                             @yield('content')
                         </div>
-
                         @include('include.password')
-
                     </div>
-                    <!-- /row -->
                 </section>
             </section>
-            <!--main content end -->
-
 
             <!--footer start -->
             <footer class="site-footer">

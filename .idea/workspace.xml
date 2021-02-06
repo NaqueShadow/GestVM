@@ -23,185 +23,108 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eba87701-5528-4ed5-8f26-52134391cdc9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Events/Attr_event.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Helpers/Sms.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Listeners/Attr_listener.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Mail/Attr_email.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/css/bootstrap-select.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/bootstrap-select.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-am_ET.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-am_ET.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-am_ET.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-ar_AR.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-ar_AR.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-ar_AR.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-bg_BG.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-bg_BG.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-bg_BG.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-cs_CZ.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-cs_CZ.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-cs_CZ.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-da_DK.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-da_DK.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-da_DK.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-de_DE.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-de_DE.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-de_DE.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-en_US.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-en_US.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-en_US.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-es_CL.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-es_CL.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-es_CL.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-es_ES.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-es_ES.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-es_ES.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-et_EE.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-et_EE.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-et_EE.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-eu.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-eu.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-eu.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-fa_IR.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-fa_IR.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-fa_IR.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-fi_FI.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-fi_FI.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-fi_FI.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-fr_FR.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-fr_FR.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-fr_FR.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-hr_HR.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-hr_HR.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-hr_HR.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-hu_HU.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-hu_HU.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-hu_HU.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-id_ID.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-id_ID.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-id_ID.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-it_IT.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-it_IT.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-it_IT.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-ja_JP.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-ja_JP.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-ja_JP.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-kh_KM.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-kh_KM.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-kh_KM.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-ko_KR.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-ko_KR.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-ko_KR.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-lt_LT.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-lt_LT.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-lt_LT.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-lv_LV.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-lv_LV.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-lv_LV.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-nb_NO.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-nb_NO.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-nb_NO.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-nl_NL.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-nl_NL.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-nl_NL.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-pl_PL.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-pl_PL.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-pl_PL.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-pt_BR.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-pt_BR.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-pt_BR.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-pt_PT.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-pt_PT.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-pt_PT.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-ro_RO.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-ro_RO.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-ro_RO.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-ru_RU.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-ru_RU.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-ru_RU.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-sk_SK.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-sk_SK.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-sk_SK.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-sl_SI.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-sl_SI.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-sl_SI.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-sr_SP.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-sr_SP.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-sr_SP.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-sv_SE.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-sv_SE.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-sv_SE.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-th_TH.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-th_TH.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-th_TH.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-tr_TR.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-tr_TR.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-tr_TR.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-ua_UA.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-ua_UA.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-ua_UA.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-vi_VN.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-vi_VN.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-vi_VN.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-zh_CN.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-zh_CN.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-zh_CN.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-zh_TW.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-zh_TW.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/bootstrap-4.5.2/js/i18n/defaults-zh_TW.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/emails/attribution_email.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/gestParc/vehicules/docBord.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/include/password.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/include/selectOption.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/respPool/absencePool.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/laravel-excel/laravel-excel-Y6pNEIJyVtU6PHYh9VxaVZbaxDO9v42n.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/GenererDocController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/StatController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/ValideurController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Imports/AgentImport.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Imports/ChauffeurImport.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Imports/VehiculeImport.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/Categorie.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/Validation.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/charts.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2013_01_25_171324_create_categories_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_01_25_160049_create_validations_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/coton.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/vehicule.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/common-scripts.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/highcharts.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/chefGarage/editIntervention.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/etatsVues/attributionPDF.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/etatsVues/demandePDF.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/etatsVues/etatsVues.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/gestParc/chauffeurs/editChauffeur.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/gestParc/pools/editPool.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/gestParc/statistiques/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/gestParc/statistiques/indexPools.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/gestParc/statistiques/indexVehicules.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/gestParc/vehicules/editDocBord.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/layouts/valideur.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/valideur/demandes.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/valideur/detailsDemande.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/valideur/validations.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/laravel-excel/laravel-excel-DmJdwg1sN20cTPa2fyI8w73NsoYcnyET.tmp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/laravel-excel/laravel-excel-PybNmYqWYEUVYuLSv0KXMJhY1IplI3ix.tmp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/laravel-excel/laravel-excel-gL147TzSQxt8PlSIN21n91pJPJ1evGnq.tmp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/laravel-excel/laravel-excel-gj62XwzyON9G3mmNYwr8UrRFarZcdzFt.tmp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/laravel-excel/laravel-excel-lIQ4ahgqIEeHTsec7y3PPwxSUh1DW3nB.tmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/GestVM.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/GestVM.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Exports/AttributionExport.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Exports/AttributionExport.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AttributionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AttributionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AgentMissController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AgentMissController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ChargeImpController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ChargeImpController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/EntiteController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ChauffeurController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ChauffeurController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ChefGarageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ChefGarageController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/GestParcController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/GestParcController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/InterventionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/InterventionController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MissionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MissionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PoolController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PoolController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/RespPoolController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/RespPoolController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/VehiculeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/VehiculeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/AgentMissMiddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/AdminMiddleware.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/ChargeImpMiddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/ChargeImpMiddleware.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/ChefGarageMiddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/ChefGarageMiddleware.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/GestParcMiddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/GestParcMiddleware.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/RespPoolMiddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/RespPoolMiddleware.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Absence.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Absence.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/DocBord.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/DocBord.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Region.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Region.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Agent.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Agent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Chauffeur.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Chauffeur.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Mission.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Mission.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Vehicule.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Vehicule.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/EventServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/EventServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_11_115427_create_doc_bords_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_12_11_115427_create_doc_bords_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2013_12_03_155028_create_agents_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2013_12_03_155028_create_agents_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_04_121508_create_missions_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_12_04_121508_create_missions_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_11_113640_create_vehicules_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_12_11_113640_create_vehicules_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_11_114118_create_entites_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_12_11_114118_create_entites_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/simple-sidebar.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/simple-sidebar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/agents.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/agents.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/detailsUser.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/detailsUser.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/include/agentForm.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/include/agentForm.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/include/userForm.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/include/userForm.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/users.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/users.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/agentmiss/agentMiss.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/agentmiss/agentMiss.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/agentmiss/demandeVehicule.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/agentmiss/demandeVehicule.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/agentmiss/detailsMission.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/agentmiss/detailsMission.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/agentmiss/detailsReponse.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/agentmiss/detailsReponse.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/agentmiss/editMiss.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/agentmiss/editMiss.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/agentmiss/reponse.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/agentmiss/reponse.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/chargeImp/contenuModal.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/chargeImp/contenuModal.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/chargeImp/enregistrement.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/chargeImp/enregistrement.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/chargeImp/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/chargeImp/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/chargeImp/vehicules.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/chargeImp/vehicules.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/chefGarage/chefGarage.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/chefGarage/chefGarage.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/chefGarage/detailsVehicule.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/chefGarage/detailsVehicule.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/chefGarage/vehicule.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/chefGarage/vehicule.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/gestParc/chauffeurs/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/gestParc/chauffeurs/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/gestParc/pools/chauffeurPool.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/gestParc/pools/chauffeurPool.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/gestParc/pools/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/gestParc/pools/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/gestParc/pools/vehiculePool.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/gestParc/pools/vehiculePool.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/gestParc/vehicules/detailsVehicule.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/gestParc/vehicules/detailsVehicule.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/gestParc/vehicules/docBord.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/gestParc/vehicules/docBord.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/gestParc/vehicules/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/gestParc/vehicules/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/include/role.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/include/role.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/include/selectOption.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/include/selectOption.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/agentMiss.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/agentMiss.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/chargeImp.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/chargeImp.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/chefGarage.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/chefGarage.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/gestParc.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/gestParc.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/respPool.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/respPool.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/respPool/absencePool.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/respPool/absencePool.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/respPool/attrEnCours.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/respPool/attrEnCours.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/respPool/chauffeurPool.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/respPool/chauffeurPool.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/respPool/detailsRequete.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/respPool/detailsRequete.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/respPool/detailsVehicule.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/respPool/detailsVehicule.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/respPool/requetes.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/respPool/requetes.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/respPool/vehiculePool.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/respPool/vehiculePool.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -222,6 +145,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="PhpDebugGeneral" listening_started="true" />
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.4">
@@ -342,6 +273,13 @@
       <path value="$PROJECT_DIR$/vendor/maatwebsite/excel" />
       <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
       <path value="$PROJECT_DIR$/vendor/myclabs/php-enum" />
+      <path value="$PROJECT_DIR$/vendor/sabberworm/php-css-parser" />
+      <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-dompdf" />
+      <path value="$PROJECT_DIR$/vendor/phenx/php-font-lib" />
+      <path value="$PROJECT_DIR$/vendor/phenx/php-svg-lib" />
+      <path value="$PROJECT_DIR$/vendor/dompdf/dompdf" />
+      <path value="$PROJECT_DIR$/vendor/consoletvs/charts" />
+      <path value="$PROJECT_DIR$/vendor/chartisan/php" />
     </include_path>
   </component>
   <component name="ProjectId" id="1l9Jnhr6Cg0LVHK6Rh37sFVNQrk" />
@@ -357,22 +295,22 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/gestParc/vehicules" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/gestParc/statistiques" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\laragon\www\GestVM\resources\views\gestParc\vehicules" />
-      <recent name="C:\laragon\www\GestVM\resources\views\respPool" />
-      <recent name="C:\laragon\www\GestVM\app\Helpers" />
-      <recent name="C:\laragon\www\GestVM\resources\views" />
-      <recent name="C:\laragon\www\GestVM\resources\views\admin" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\laragon\www\GestVM\resources\views\include" />
       <recent name="C:\laragon\www\GestVM\resources\views\agentmiss\include" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\laragon\www\GestVM\resources\views\gestParc\statistiques" />
+      <recent name="C:\laragon\www\GestVM\public\js" />
+      <recent name="C:\laragon\www\GestVM\resources\views\gestParc" />
+      <recent name="C:\laragon\www\GestVM\resources\views\etatsVues" />
+      <recent name="C:\laragon\www\GestVM\resources\views\valideur" />
     </key>
   </component>
   <component name="RunManager">
@@ -381,7 +319,10 @@
       <method v="2" />
     </configuration>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="eba87701-5528-4ed5-8f26-52134391cdc9" name="Default Changelist" comment="" />
@@ -437,12 +378,32 @@
       <workItem from="1611001210557" duration="11350000" />
       <workItem from="1611065761244" duration="20525000" />
       <workItem from="1611105291542" duration="22966000" />
-      <workItem from="1611187328045" duration="7385000" />
+      <workItem from="1611187328045" duration="7987000" />
+      <workItem from="1611309051076" duration="24206000" />
+      <workItem from="1611528616846" duration="1678000" />
+      <workItem from="1611568466128" duration="11926000" />
+      <workItem from="1611601933464" duration="9916000" />
+      <workItem from="1611656299186" duration="10254000" />
+      <workItem from="1611693281049" duration="3909000" />
+      <workItem from="1611741089710" duration="17251000" />
+      <workItem from="1611851397923" duration="6214000" />
+      <workItem from="1611909911316" duration="25719000" />
+      <workItem from="1612098041019" duration="18627000" />
+      <workItem from="1612135744661" duration="24059000" />
+      <workItem from="1612192100774" duration="8051000" />
+      <workItem from="1612217811930" duration="2119000" />
+      <workItem from="1612259415049" duration="31363000" />
+      <workItem from="1612304134494" duration="1841000" />
+      <workItem from="1612360915697" duration="6123000" />
+      <workItem from="1612431587518" duration="711000" />
+      <workItem from="1612432382283" duration="13446000" />
+      <workItem from="1612477416190" duration="43228000" />
+      <workItem from="1612562845577" duration="16633000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
+    <option name="version" value="2" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -458,5 +419,19 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="371" y="95" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1612522593703">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="371" y="95" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1280.680/1920.0.1440.860@0.0.1280.680" timestamp="1612522593703" />
+    <state x="297" y="151" key="run.anything.popup" timestamp="1612567545971">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="297" y="151" key="run.anything.popup/0.0.1280.680@0.0.1280.680" timestamp="1612567545971" />
+    <state x="303" y="1" key="search.everywhere.popup" timestamp="1612541153739">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="303" y="1" key="search.everywhere.popup/0.0.1280.680/1920.0.1440.860@0.0.1280.680" timestamp="1612541153739" />
   </component>
 </project>

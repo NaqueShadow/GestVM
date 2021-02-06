@@ -20,15 +20,20 @@ class CreateMissionsTable extends Migration
             $table->string('commentaire')->nullable();
             $table->timestamp('dateDepart');
             $table->timestamp('dateRetour');
+            $table->smallInteger('validation')->default('0');
 
             $table->unsignedBigInteger('villeDepart');
             $table->unsignedBigInteger('villeDest');
-            $table->unsignedBigInteger('transfert')->nullable();
-            $table->unsignedBigInteger('demandeur'); // user-role:missionnaire
+            $table->unsignedBigInteger('idValideur')->nullable();
+            $table->unsignedBigInteger('demandeur');
+            $table->string('typeV')->nullable();
+            $table->string('codeV')->nullable();
+            $table->string('idChauf')->nullable();
 
-            $table->foreign('villeDepart')->references('id')->on('villes');
-            $table->foreign('villeDest')->references('id')->on('villes');
-            $table->foreign('demandeur')->references('id')->on('users');
+            $table->foreign('villeDepart')->references('id')->on('villes')->cascadeOnDelete();
+            $table->foreign('villeDest')->references('id')->on('villes')->cascadeOnDelete();
+            $table->foreign('idValideur')->references('id')->on('users')->nullOnDelete();
+            $table->foreign('demandeur')->references('id')->on('users')->cascadeOnDelete();
 
             $table->timestamps();
         });

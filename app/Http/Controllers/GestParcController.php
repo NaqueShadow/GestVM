@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categorie;
 use App\Models\DocBord;
 use App\Models\Region;
 use Illuminate\Http\Request;
@@ -13,15 +14,16 @@ class GestParcController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     public function index()
     {
         $vehicules = Vehicule::all()->load('pool', 'chauffeur');
         $vehicule = new Vehicule();
+        $categories = Categorie::all();
 
-        return view('gestParc/vehicules/index', compact('vehicules', 'vehicule'));
+        return view('gestParc/vehicules/index', compact('vehicules', 'vehicule', 'categories'));
     }
 
     public function rechercheVehicule(Request $request)
@@ -99,6 +101,24 @@ class GestParcController extends Controller
         DocBord::create($validate);
 
         return redirect()->back();
+    }
+
+    public function editDoc(DocBord $doc)
+    {
+        return view('gestParc/vehicules/editDocBord', compact('doc'));
+    }
+
+    public function updateDoc(Request $request, DocBord $doc)
+    {
+        $validate = $request->validate([
+            'numero'=>'required',
+            'etabl'=>'required|date',
+            'exp'=>'required|date|after_or_equal:etabl',
+            'lieu'=>'required',
+        ]);
+        $doc->update($validate);
+
+        return redirect()->route('gestParc.indexDoc');
     }
 
     public function filtreDoc( Request $request )

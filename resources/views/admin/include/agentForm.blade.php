@@ -66,13 +66,32 @@
             </div>
 
             <div class="form-group input-group col-12 row">
+                <label class="col-3">Catégorie</label>
+                <div class="col-9">
+                    <select name="idCateg" id="idCateg" required class="form-control @error('idCateg') is-invalid @enderror">
+                        <option value="">...</option>
+                        @foreach($categories as $categorie)
+                        <option value="{{$categorie->categorie}}" {{$categorie->categorie == old('idCateg')?'selected':($categorie->categorie == $agent->idCateg?'selected':'')}}>
+                            {{$categorie->categorie}}
+                        </option>
+                        @endforeach
+                    </select>
+                    @error('idCateg')
+                    <div class="invalide-feedBack() text-danger">
+                        {{ 'Poste invalide' }}
+                    </div>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="form-group input-group col-12 row">
                 <label class="col-3">Email</label>
                 <div class="col-9">
                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') ?? $agent->email }}"
                            placeholder="..." required autocomplete="email">
                     @error('email')
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                        <strong>{{ 'déjà existant' }}</strong>
                     </span>
                     @enderror
                 </div>
@@ -81,10 +100,10 @@
             <div class="form-group input-group col-12 row">
                 <label class="col-3">Contact</label>
                 <div class="col-9">
-                    <small class="text-info">* huit chiffres {{-- commencant par 0,5,6 ou 7 suivi de 4,5,6 ou 7 --}}</small>
+                    <small class="text-info">* huit chiffres</small>
                     <input type="tel" name="telephone" id="telephone"
                            value="{{ old('telephone') ?? $agent->telephone }}" required
-                           placeholder="..." pattern="(0|7|6|5)[4-7]{1}[0-9]{6}"
+                           placeholder="..." pattern="(0|7|6|5)[0-9]{7}"
                            class="form-control @error('telephone') is-invalid @enderror">
                     @error('telephone')
                     <div class="invalide-feedBack() text-danger">

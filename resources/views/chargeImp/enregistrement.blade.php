@@ -6,10 +6,10 @@
         document.getElementById("enregistrement").style.backgroundColor = "white";
     </script>
 
-    <div class="card mt-5 align-content-center text-dark" style="height: 500px; color: #284563; margin: auto; box-shadow: 1px 1px 2px mediumseagreen; border-radius: 15px; width: 100%; height: auto">
+    <div class="card mt-2 h-100 align-content-center text-dark" style="margin: auto; box-shadow: 1px 1px 2px mediumseagreen; border-radius: 15px; width: 100%;">
 
         <div class="card-header bg-light pt-0 pb-0">
-            <h3>{{ $vehicule->code }}</h3>
+
             <div class="">
                 <form class="" method="post" action="{{route('chargeImp.filtreMoisVehicule', ['vehicule' => $vehicule->code])}}" id="form">
                     @csrf
@@ -31,17 +31,17 @@
             </div>
         </div>
 
-        <div class="card-body row" style="">
+        <div class="card-body h-100" style="color: #284563; overflow: auto;">
 
             @if( $errors->any() )
-                <div class="alert alert-danger text-center text-danger">
+                <div class="alert alert-danger text-danger">
                     Erreur detectée lors de l'enregistrement, veillez réessayer..
                 </div>
             @endif
-
-            <table class="table table-success table-hover table-striped">
+            <h3 class="text-success h3">{{ $vehicule->code }}</h3>
+            <table class="table table-hover table-striped">
                 <thead>
-                <tr>
+                <tr class="table-success">
                     <th>#</th>
                     <th scope="col">DATE</th>
                     <th scope="col">UTILISATEUR</th>

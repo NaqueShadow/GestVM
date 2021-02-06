@@ -32,39 +32,55 @@ class RespPoolController extends Controller
         return view('respPool/respPool', compact('interventions', 'absences', 'filtre'));
     }
 
+    public function requetes()
+    {
+        $filtre = ['categorie' => '', 'periode' => '', 'date' => null];
+        $missions = Mission::doesntHave('attributions')
+            ->where('validation', '1')
+            ->whereHas('dmdeur', function ($query) {
+                $query->where('idPool', auth()->user()->idPool );
+            })->where(function ($query){
+                $query->where('dateRetour', '>', today())
+                    ->orWhere('dateRetour', '=', today());
+            })->orderBy('created_at', 'DESC')
+            ->get();
+
+        return view('respPool/requetes', compact('filtre', 'missions'));
+    }
+
     public function filtreDemande( Request $request )
     {
         $filtre = $request->all();
         $p = $filtre['periode'] == 'avant' ? '<' : ($filtre['periode'] == 'apres' ? '>=' : '=');
 
-        $missions = Mission::whereHas('dmdeur', function ($query) {
-            $query->where('idPool', auth()->user()->idPool );
-        })->get();
+        $missions = Mission::doesntHave('attributions')
+            ->where('validation', '1')
+            ->whereHas('dmdeur', function ($query) {
+                $query->where('idPool', auth()->user()->idPool );
+            })->where(function ($query){
+                $query->where('dateRetour', '>', today())
+                    ->orWhere('dateRetour', '=', today());
+            })->orderBy('created_at', 'DESC')
+            ->get();
 
-        if ( $filtre['categorie'] == 'enAttente' )
-            $missions = Mission::doesntHave('attributions')
-                ->whereHas('dmdeur', function ($query) {
-                    $query->where('idPool', auth()->user()->idPool );
-                })->where('dateRetour', '>', today())
-                ->orWhere('dateRetour', '=', today())
-                ->orderBy('updated_at', 'DESC')
-                ->get();
         if ( $filtre['categorie'] == 'nonTraite' )
             $missions = Mission::doesntHave('attributions')
+                ->where('validation', '1')
                 ->whereHas('dmdeur', function ($query) {
                     $query->where('idPool', auth()->user()->idPool );
                 })->where('dateRetour', '<', today())
-                ->orderBy('updated_at', 'DESC')
+                ->orderBy('created_at', 'DESC')
                 ->get();
+
         if ( $filtre['categorie'] == 'traite' )
             $missions = Mission::has('attributions')
                 ->whereHas('dmdeur', function ($query) {
                     $query->where('idPool', auth()->user()->idPool );
-                })->orderBy('updated_at', 'DESC')
+                })->orderBy('created_at', 'DESC')
                 ->get();
 
         if ( $filtre['periode'] != 'tous' )
-            $missions = $missions->where('updated_at', $p, $filtre['date']); //->format('Y-m-d')
+            $missions = $missions->where('created_at', $p, $filtre['date']); //->format('Y-m-d')
 
         return view('respPool/requetes', compact('missions', 'filtre'));
     }
@@ -99,20 +115,6 @@ class RespPoolController extends Controller
             $attributions = $attributions->where('updated_at', $p, $filtre['date']); //->format('Y-m-d')
 
         return view('respPool/attrEnCours', compact('attributions', 'filtre'));
-    }
-
-    public function requetes()
-    {
-        $filtre = ['categorie' => '', 'periode' => '', 'date' => null];
-        $missions = Mission::doesntHave('attributions')
-            ->whereHas('dmdeur', function ($query) {
-                $query->where('idPool', auth()->user()->idPool );
-            })->where('dateRetour', '>', today())
-            ->orWhere('dateRetour', '=', today())
-            ->orderBy('created_at', 'DESC')
-            ->get();
-
-        return view('respPool/requetes', compact('filtre', 'missions'));
     }
 
     public function attrEnCours()
@@ -155,7 +157,6 @@ class RespPoolController extends Controller
 
     public function historique()
     {
-
         return view('respPool/historique');
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attribution;
+use App\Models\DocBord;
 use App\Models\Intervention;
 use App\Models\Vehicule;
 use Illuminate\Http\Request;
@@ -61,7 +62,11 @@ class ChefGarageController extends Controller
     public function voirVehicule(Vehicule $vehicule)
     {
         $vehicule->load('chauffeur');
-        return view('chefGarage/detailsVehicule', compact('vehicule'));
+        $doc1 = DocBord::where('idVehicule', $vehicule->code)->where('type', 1)->orderBy('etabl','DESC')->first();
+        $doc2 = DocBord::where('idVehicule', $vehicule->code)->where('type', 2)->orderBy('etabl','DESC')->first();
+        $doc3 = DocBord::where('idVehicule', $vehicule->code)->where('type', 3)->orderBy('etabl','DESC')->first();
+
+        return view('chefGarage/detailsVehicule', compact('vehicule', 'doc1', 'doc2', 'doc3'));
     }
 
     public function rechercheVehicule(Request $request)

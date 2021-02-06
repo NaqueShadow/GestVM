@@ -6,10 +6,7 @@
         document.getElementById("vehicule").style.backgroundColor = "white";
     </script>
 
-    <div class="col-12" style="">
-
-
-        <div class="card mt-5 align-content-center text-dark" style="margin: auto; box-shadow: 1px 1px 2px mediumseagreen; border-radius: 15px; width: 100%; height: auto">
+        <div class="card mt-2 h-100 align-content-center text-dark" style="margin: auto; box-shadow: 1px 1px 2px mediumseagreen; border-radius: 15px; width: 100%;">
             <div class="card-header bg-light pt-0 pb-0">
                 <div class="">
                     <form class="" method="post" action="{{route('chefGarage.rechercheVehicule')}}" id="form">
@@ -27,11 +24,11 @@
                 </div>
             </div>
 
-            <div class="card-body row" style="color: #284563;">
-
-                <table class="table table-success table-hover table-striped">
+            <div class="card-body h-100" style="color: #284563; overflow: auto;">
+                <table class="table table-striped table-hover">
                     <thead>
-                    <tr>
+                    <tr class="table-success">
+                        <th scope="col">#</th>
                         <th scope="col">Code</th>
                         <th scope="col">Modèle</th>
                         <th scope="col">Chauffeur</th>
@@ -40,22 +37,30 @@
                     </tr>
                     </thead>
                     <tbody id="">
+                    @php
+                        $i = 0;
+                    @endphp
                     @foreach( $vehicules as $vehicule )
                         <tr>
+                            <th>{{ ++$i }}</th>
                             <th>{{ $vehicule->code }}</th>
                             <td>{{ $vehicule->modele }}</td>
                             <td>
-                                @isset($vehicule->chauffeur->nom)
-                                    {{ $vehicule->chauffeur->nom }} {{ $vehicule->chauffeur->prenom }}
-                                @endisset
+                                {{isset($vehicule->chauffeur->nom) ? $vehicule->chauffeur->nom .' '. $vehicule->chauffeur->prenom : '--'}}
                             </td>
-                            <td>{{ isset($vehicule->dernierRetour) ? $vehicule->dernierRetour->format('d/m/Y'):'' }}</td>
+                            <td>{{ isset($vehicule->dernierRetour) ? $vehicule->dernierRetour->format('d/m/Y'):'--' }}</td>
                             <td>
-                                <a href="{{route('chefGarage.voirVehicule', ['vehicule' => $vehicule->code])}}">
-                                    <button class="btn btn-info p-1">
-                                        detail
+                                <div class="dropdown">
+                                    <button title="exporter" class="btn btn-link text-primary pt-0 pb-0 dropdown-toggle" data-toggle="dropdown" >
                                     </button>
-                                </a>
+                                    <div class="dropdown-menu dropdown-menu-sm-right">
+                                        <a class="dropdown-item" href="{{route('chefGarage.voirVehicule', ['vehicule' => $vehicule->code])}}">
+                                            <button class="btn btn-link text-info">
+                                                détails
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
                             </td>
 
                         </tr>
@@ -66,6 +71,5 @@
             </div>
 
         </div>
-    </div>
 
 @endsection

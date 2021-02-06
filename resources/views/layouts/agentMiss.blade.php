@@ -14,12 +14,8 @@
     <title>GestVM | Demande de véhicule</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-    <script type="text/javascript" src="{{asset('bootstrap-4.5.2/css/bootstrap.min.js')}}"></script>
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <link rel="stylesheet" href="{{asset('bootstrap-4.5.2/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('bootstrap-4.5.2/css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{asset('bootstrap-4.5.2/css/bootstrap-select.min.css')}}">
 
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/simple-sidebar.css') }}" rel="stylesheet">
@@ -28,7 +24,7 @@
     <link href="{{ asset('lib/chosen/chosen.css') }}" rel="stylesheet">
 </head>
 
-<body class="" style="background-color: rgb(17,176,17);">
+<body class="" style="background-color: rgb(17,176,17); min-width: 900px;">
 
 <div class="container">
     <div class="bg-succes" style="width: 100%">
@@ -75,7 +71,6 @@
                     </ul>
                 </div>
             </header>
-            <!--header end-->
 
             <!--sidebar start-->
             <aside class="">
@@ -110,47 +105,39 @@
                         </div>
                         <div class="text-dark text-center">&copy Copyright_Sofitex 2020</div>
                     </div>
-                    <!-- sidebar menu end-->
                 </div>
             </aside>
-            <!--sidebar end-->
 
             <!--main content start-->
             <section id="main-content" style="background-color: white;">
                 <section class="wrapper">
                     <div>
-
-                        <div class="ml-3 navbar-nav ml-auto" style="min-height: 650px; ">
+                        <div class="ml-2 vh-100">
                             @yield('content')
                         </div>
-
                         @include('include.password')
-
                     </div>
-                    <!-- /row -->
                 </section>
             </section>
-            <!--main content end-->
-
 
             <!--footer start-->
             <footer class="site-footer">
                 <div class="text-dark text-center">&copy Copyright_Sofitex 2020</div>
             </footer>
-            <!--footer end-->
+
         </section>
     </div>
 
-    <!-- Menu Toggle Script -->
-    <script src="lib/common-scripts.js"></script>
-    <script>
-        $("#menu-toggle").click(function(e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
-    </script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script type="text/javascript" src="{{asset('bootstrap-4.5.2/js/bootstrap-select.min.js')}}"></script>
     <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
     <script src="{{ asset('lib/chosen/chosen.jquery.js') }}" type="text/javascript"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.selectpicker').selectpicker();
+        });
+    </script>
 
     @yield('chosen')
 </div>

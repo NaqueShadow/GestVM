@@ -14,15 +14,8 @@
     <title>{{ config('app.name') }} | Gestion du parc</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('bootstrap-4.5.2/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('bootstrap-4.5.2/css/bootstrap.css')}}">
     <link rel="stylesheet" href="{{asset('bootstrap-4.5.2/css/bootstrap-select.min.css')}}">
-
-    <script type="text/javascript" src="{{asset('bootstrap-4.5.2/css/bootstrap.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('bootstrap-4.5.2/css/bootstrap-select.min.js')}}"></script>
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-
 
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/simple-sidebar.css') }}" rel="stylesheet">
@@ -31,7 +24,7 @@
     <link href="{{ asset('lib/chosen/chosen.css') }}" rel="stylesheet">
 </head>
 
-<body class="" style="background-color: rgb(17,176,17);">
+<body class="" style="background-color: rgb(17,176,17); min-width: 900px;">
 
 <div class="container">
     <div class="bg-succes" style="width: 100%">
@@ -83,7 +76,6 @@
                     </ul>
                 </div>
             </header>
-            <!--header end-->
 
             <!--sidebar start-->
             <aside class="">
@@ -94,13 +86,36 @@
 
                         </div>
                         <div class="list-group list-group-flush mt-5">
-                            <a href="{{ route('gestParc.index') }}" id="vehicules" class="list-group-item list-group-item-action h5 text-success">Véhicules</a>
-                            <a href="{{ route('gestParc.indexChauffeurs') }}" id="chauffeurs" class="list-group-item list-group-item-action h5 text-success">Chauffeurs</a>
-                            <a href="{{ route('gestParc.indexPools') }}" id="pools" class="list-group-item list-group-item-action h5 text-success">Pools</a>
-                            <a href="{{ route('gestParc.indexDoc') }}" id="documents" class="list-group-item list-group-item-action h5 text-success">Documents</a>
-                            {{--
-                            <a href="{{ route('gestParc.indexPools') }}" id="users" class="list-group-item list-group-item-action h5 text-success">Utilisateurs</a>
-                            --}}
+                            <a href="{{ route('gestParc.index') }}" id="vehicules" class="list-group-item list-group-item-action h5 text-success">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="indianred" class="bi bi-chat-text" viewBox="0 0 16 16">
+                                    <path d="M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-11zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zm1.5.5A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-13z"/>
+                                </svg>
+                                Véhicules
+                            </a>
+                            <a href="{{ route('gestParc.indexChauffeurs') }}" id="chauffeurs" class="list-group-item list-group-item-action h5 text-success">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="indianred" class="bi bi-chat-text" viewBox="0 0 16 16">
+                                    <path d="M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-11zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zm1.5.5A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-13z"/>
+                                </svg>
+                                Chauffeurs
+                            </a>
+                            <a href="{{ route('gestParc.indexPools') }}" id="pools" class="list-group-item list-group-item-action h5 text-success">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="indianred" class="bi bi-chat-text" viewBox="0 0 16 16">
+                                    <path d="M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-11zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zm1.5.5A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-13z"/>
+                                </svg>
+                                Pools
+                            </a>
+                            <a href="{{ route('gestParc.indexDoc') }}" id="documents" class="list-group-item list-group-item-action h5 text-success">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="indianred" class="bi bi-chat-text" viewBox="0 0 16 16">
+                                    <path d="M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-11zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zm1.5.5A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-13z"/>
+                                </svg>
+                                Documents
+                            </a>
+                            <a href="{{ route('stat.index') }}" id="statistiques" class="list-group-item list-group-item-action h5 text-success">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="indianred" class="bi bi-chat-text" viewBox="0 0 16 16">
+                                    <path d="M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-11zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zm1.5.5A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-13z"/>
+                                </svg>
+                                Statistiques
+                            </a>
                             <a href="#" class="list-group-item list-group-item-action h6 text-success"></a>
                         </div>
 
@@ -113,49 +128,40 @@
                     <!-- sidebar menu end-->
                 </div>
             </aside>
-            <!--sidebar end-->
 
             <!--main content start-->
             <section id="main-content" style="background-color: white;">
                 <section class="wrapper">
                     <div class="">
-
-                        <!-- /col-lg-3 -->
-
-                        <div class="ml-3" style="min-height: 650px">
+                        <div class="ml-2 vh-100">
                             @yield('content')
                         </div>
-
                         @include('include.password')
-
                     </div>
-                    <!-- /row -->
                 </section>
             </section>
-            <!--main content end-->
-
 
             <!--footer start-->
             <footer class="site-footer">
                 <div class="text-dark text-center">&copy Copyright_Sofitex 2020</div>
             </footer>
-            <!--footer end-->
+
         </section>
     </div>
 
-    <!-- Menu Toggle Script -->
-    <script src="lib/common-scripts.js"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ asset('lib/chosen/chosen.jquery.js') }}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{asset('bootstrap-4.5.2/js/bootstrap-select.min.js')}}"></script>
+
+    @yield('chosen')
     <script>
-        $("#menu-toggle").click(function(e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
+        $(document).ready(function () {
+            $('.selectpicker').selectpicker();
         });
     </script>
 
-    <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
-    <script src="{{ asset('lib/chosen/chosen.jquery.js') }}" type="text/javascript"></script>
-
-    @yield('chosen')
+    @yield('charts')
 
 </div>
 </body>

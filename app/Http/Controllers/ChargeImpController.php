@@ -136,12 +136,34 @@ class ChargeImpController extends Controller
 
     public function rapport(Request $request)
     {
+        $format = $request->type;
         $a = Date::create($request->annee, $request->mois)->firstOfMonth();
         $b = Date::create($request->annee, $request->mois)->lastOfMonth();
-        return Excel::download (
-            new AttributionExport($a, $b),
-            'rapport_'. $a->format('F-Y') .'.xlsx'
-        );
+
+        if ($format === 'xlsx')
+            return Excel::download (
+                new AttributionExport($a, $b),
+            'rapport_'. $a->format('F-Y') . '.xlsx',
+            \Maatwebsite\Excel\Excel::XLSX
+            );
+
+        elseif ($format === 'csv')
+            return (new AttributionExport($a, $b))->download (
+                'rapport_'. $a->format('F-Y') . '.csv',
+                \Maatwebsite\Excel\Excel::CSV,
+                [
+                    'Content-Type' => 'text/csv',
+                ]
+            );
+
+        elseif ($format === 'pdf')
+            return Excel::download (
+                new AttributionExport($a, $b),
+                'rapport_'. $a->format('F-Y') . '.pdf',
+                \Maatwebsite\Excel\Excel::DOMPDF
+            );
+
+        else return redirect()->back();
     }
 
 

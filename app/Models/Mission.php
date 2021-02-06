@@ -21,6 +21,15 @@ class Mission extends Model
 
     protected $with = ['villeDesti', 'dmdeur',];
 
+    public function getValidationAttribute($attributes) {
+
+        return [
+            '2' => 'Invalidée',
+            '0' => 'Aucun avis',
+            '1' => 'Validée',
+        ][$attributes];
+    }
+
     /*public function scopeDemandeur($query)
     {
         return $query->where('status', 1);
@@ -34,11 +43,22 @@ class Mission extends Model
     public function scopeNew($query) {
 
         return $query->doesntHave('attributions')
+            ->where('validation', '1')
             ->whereHas('dmdeur', function ($query) {
                 $query->where('idPool', auth()->user()->idPool );
-            })
-            ->where('dateRetour', '>', today())
-            ->orWhere('dateRetour', '=', today())
+            })->where(function ($query){
+                $query->where('dateRetour', '>', today())
+                    ->orWhere('dateRetour', '=', today());
+            })->count();
+    }
+
+    public function scopeNewV($query) {
+
+        return $query->doesntHave('attributions')
+            ->where('validation', '0')
+            ->whereHas('dmdeur', function ($query) {
+                $query->where('idPool', auth()->user()->idPool );
+            })->where('idValideur', auth()->user()->id )
             ->count();
     }
 
@@ -66,6 +86,16 @@ class Mission extends Model
     public function attributions()
     {
         return $this->hasMany('App\Models\Attribution', 'idMission');
+    }
+
+    public function valideur()
+    {
+        return $this->belongsTo('App\Models\User', 'idValideur', 'id');
+    }
+
+    public function chauffeur()
+    {
+        return $this->belongsTo('App\Models\Chauffeur', 'idChauf', 'matricule');
     }
 
 }

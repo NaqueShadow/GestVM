@@ -14,33 +14,29 @@
     <title>{{ config('app.name') }} | Responsable de pool</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/accordion.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('bootstrap-4.5.2/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('bootstrap-4.5.2/css/bootstrap.css')}}">
     <link rel="stylesheet" href="{{asset('bootstrap-4.5.2/css/bootstrap-select.min.css')}}">
 
-    <script type="text/javascript" src="{{asset('bootstrap-4.5.2/css/bootstrap.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('bootstrap-4.5.2/css/bootstrap-select.min.js')}}"></script>
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/accordion.js') }}" defer></script>
+    <script src="{{ asset('js/accordion.js') }}"></script>
 
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/simple-sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style-responsive.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/accordion.css') }}" rel="stylesheet">
     <link href="{{ asset('lib/chosen/chosen.css') }}" rel="stylesheet">
 </head>
 
-<body class="" style="background-color: rgb(17,176,17);">
+<body class="" style="background-color: rgb(17,176,17); min-width: 900px; height: 100%;">
 
-<div class="container">
-    <div class="bg-succes" style="width: 100%">
-        <section id="container">
+<div class="container" style="height: 100%;">
+    <div class="" style="width: 100%; ">
+        <section id="container" class="vh-100">
             <!--header start-->
             <header class="container header navbar navbar-expand-lg border-bottom" style="background-color: rgb(220,220,220);">
                 <div class="fa-bars">
                     <button class="btn btn-success btn-round ml-4 tooltips" data-placement="right" id="menu-toggle">
-                        <h3>{{ config('app.name', 'Laravel') }}</h3>
+                        <h3>{{ config('app.name', 'VM_SOFT') }}</h3>
                     </button>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -94,16 +90,7 @@
                 <div id="sidebar" class="nav-collapse  pl-2" style="background-color: rgb(220,220,220);">
                     <!-- sidebar menu start-->
                     <div class="border-right sidebar" id="sidebar-wrapper">
-                        <div class="sidebar-heading">
-
-                        </div>
-
                         <div class="list-group list-group-flush mt-3">
-                            <div class="h5 text-center" style="color: #284563;"></div>
-                            {{--
-                            <a href="{{route('respPool.index')}}"
-                            class="list-group-item list-group-item-action h5 text-success">Tableau de bord</a>
-                            --}}
                             <a href="{{route('respPool.attrEnCours')}}" id="affectations" class="list-group-item list-group-item-action h5 text-success" >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="indianred" class="bi bi-clipboard" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
@@ -148,30 +135,22 @@
             <section id="main-content" style="background-color: white;">
                 <section class="wrapper">
                     <div class="">
-
-                        <div class="ml-3" style="min-height: 650px">
+                        <div class="ml-2 vh-100">
                             @yield('content')
                         </div>
-
                         @include('include.password')
-
                     </div>
-
                 </section>
             </section>
-            <!--main content end-->
-
 
             <!--footer start-->
-            <footer class="site-footer">
+            <footer class="site-footer mb-0">
                 <div class="text-dark text-center">&copy Copyright_Sofitex 2020</div>
             </footer>
-            <!--footer end-->
+
         </section>
     </div>
 
-    <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
-    <script src="{{ asset('lib/chosen/chosen.jquery.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script type="text/javascript" src="{{asset('bootstrap-4.5.2/js/bootstrap-select.min.js')}}"></script>
 
@@ -180,6 +159,9 @@
             $('.selectpicker').selectpicker();
         });
     </script>
+
+    <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ asset('lib/chosen/chosen.jquery.js') }}" type="text/javascript"></script>
 
 </div>
 </body>

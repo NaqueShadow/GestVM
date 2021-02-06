@@ -6,7 +6,7 @@
         document.getElementById("vehicules").style.backgroundColor = "white";
     </script>
 
-    <div class="card mt-5 align-content-center text-dark" style="height: 500px; color: #284563; margin: auto; box-shadow: 1px 1px 2px mediumseagreen; border-radius: 15px; width: 100%; height: auto">
+    <div class="card mt-2 h-100 align-content-center text-dark" style="margin: auto; box-shadow: 1px 1px 2px mediumseagreen; border-radius: 15px; width: 100%;">
 
         <div class="card-header bg-light pt-0 pb-0">
             <div class="">
@@ -25,13 +25,15 @@
             </div>
         </div>
 
-        <div class="card-body row" style="">
+        <div class="card-body h-100" style="color: #284563; overflow: auto;">
 
-            <table class="table table-success table-hover table-striped">
+            <table class="table table-striped table-hover">
                 <thead>
-                <tr>
+                <tr class="table-success">
+                    <th>#</th>
                     <th scope="col">Code</th>
                     <th scope="col">Modèle</th>
+                    <th scope="col">Catégorie</th>
                     <th scope="col">Chauffeur</th>
                     <th scope="col">Dernier retour</th>
                     <th scope="col">Mission du mois</th>
@@ -39,10 +41,15 @@
                 </tr>
                 </thead>
                 <tbody id="">
+                @php
+                    $i = 0;
+                @endphp
                 @foreach( $vehicules as $vehicule )
                     <tr>
+                        <th>{{ ++$i }}</th>
                         <th>{{ $vehicule->code }}</th>
                         <td>{{ $vehicule->modele }}</td>
+                        <td>{{ $vehicule->idCateg }}</td>
                         <td>
                             @isset($vehicule->chauffeur->nom)
                                 {{ $vehicule->chauffeur->nom }} {{ $vehicule->chauffeur->prenom }}

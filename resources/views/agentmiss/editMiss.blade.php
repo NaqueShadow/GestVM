@@ -17,9 +17,9 @@
                 <div class="form-row" style="padding: 2%; margin-bottom: auto; border: 1px solid mediumseagreen; border-radius: 15px;">
 
                     <legend>Informations sur la mission</legend>
-                    <div  class="form-group input-group col-8">
+                    <div  class="form-group input-group col-7">
                         <div class="input-group-prepend">
-                            <div class="input-group-text">Objet</div>
+                            <div class="input-group-text">Mission</div>
                         </div>
                         <input type="text" name="objet" id="objet" value="{{ old('objet') ?? $mission->objet }}" required placeholder="entrez l'objet de la mission" value="{{ old('objet') }}" class="form-control @error('objet') is-invalid @enderror">
                         @error('objet')
@@ -29,7 +29,18 @@
                         @enderror
                     </div>
 
-                    <div  class="form-group input-group col-4">
+                    <div  class="form-group input-group col-5">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Valideur</div>
+                        </div>
+                        <select name="idValideur" required id="idValideur" class="custom-select @error('idValideur') is-invalid @enderror">
+                            <option value="" class="text-light">...</option>
+                            @foreach($valideurs as $valideur)
+                                <option value="{{$valideur->id}}" {{$valideur->id == old('idValideur') ? 'selected' : ($valideur->id == $mission->idValideur ? 'selected' : '') }}>
+                                    {{$valideur->agent->nom}} {{$valideur->agent->prenom}}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <input type="hidden" name="demandeur" value="{{ Auth::user()->id }}">
@@ -92,7 +103,7 @@
                                 <option value="">--selectionner la destination--</option>
 
                                 @foreach($villes as $ville)
-                                    <option value="{{$ville->id}}" {{$ville->id == old('villeDest') ? 'selected' : ($ville->id == $mission->villeDest ? 'selected' : '') }}>
+                                    <option value="{{$ville->id}}" {{ $ville->id == old('villeDest') ? 'selected' : ($ville->id == $mission->villeDest ? 'selected' : '') }}>
                                         {{$ville->nom}}
                                     </option>
                                 @endforeach
@@ -102,6 +113,60 @@
                         @error('villeDest')
                         <div class="invalide-feedBack() text-danger">
                             destination incorrecte
+                        </div>
+                        @enderror
+                    </div>
+
+                    <div  class="form-group col-4">
+                        <div class="text-info">* optionnel</div>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Véhicule</div>
+                            </div>
+                            <select name="typeV" id="typeV" class="custom-select form-control @error('typeV') is-invalid @enderror">
+                                <option value="" class="text-light">...</option>
+                                <option value="pool" {{ 'pool' == old('typeV') ? 'selected' : ('pool' == $mission->typeV ? 'selected' : '') }}>Véhicule de pool</option>
+                                <option value="tournee" {{ 'tournee' == old('typeV') ? 'selected' : ('tournee' == $mission->typeV ? 'selected' : '') }}>Véhicule de tournée</option>
+                            </select>
+                        </div>
+                        @error('typeV')
+                        <div class="invalide-feedBack() text-danger">
+                            information invalide
+                        </div>
+                        @enderror
+                    </div>
+
+                    <div  class="form-group col-3">
+                        <div class="text-info">* optionnel</div>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Code</div>
+                            </div>
+                            <input type="codeV" name="codeV" id="codeV" value="{{ old('codeV') }}" class="form-control @error('codeV') is-invalid @enderror">
+                        </div>
+                        @error('codeV')
+                        <div class="invalide-feedBack() text-danger">
+                            véhicule inexistant
+                        </div>
+                        @enderror
+                    </div>
+
+                    <div  class="form-group col-5">
+                        <div class="text-info">* optionnel</div>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Chauffeur</div>
+                            </div>
+                            <select name="idChauf" id="idChauf" class="custom-select form-control @error('idChauf') is-invalid @enderror">
+                                <option value="" class="text-light">...</option>
+                                @foreach($chauffeurs as $chauffeur)
+                                    <option value="{{$chauffeur->matricule}}" {{ $chauffeur->matricule == old('idChauf') ? 'selected' : ($chauffeur->matricule == $mission->idChauf ? 'selected' : '') }}>{{$chauffeur->nom}} {{$chauffeur->prenom}} ({{$chauffeur->matricule}})</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @error('idChauf')
+                        <div class="invalide-feedBack() text-danger">
+                            Chauffeur introuvable
                         </div>
                         @enderror
                     </div>

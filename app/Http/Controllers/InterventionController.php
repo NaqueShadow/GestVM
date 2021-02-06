@@ -35,9 +35,10 @@ class InterventionController extends Controller
 
     public function show($id) {  }
 
-    public function edit($id)
+    public function edit(Intervention $intervention)
     {
-        return route('chefGarage.index');
+        $vehicules = Vehicule::all();
+        return view('chefGarage.editIntervention', compact('intervention', 'vehicules'));
     }
 
     public function terminerInt(Intervention $intervention)
@@ -48,7 +49,17 @@ class InterventionController extends Controller
         return back();
     }
 
-    public function update(Request $request, $id) {  }
+    public function update(Request $request, Intervention $intervention)
+    {
+        $validate = $request->validate([
+            'idVehicule'=>'required|min:3',
+            'debut'=>'required|date',
+            'finPrev'=>'required|date|after_or_equal:debut',
+            'type'=>'required'
+        ]);
+        $intervention->update($validate);
+        return redirect()->route('chefGarage.index');
+    }
 
 
     public function destroy( Intervention $intervention )

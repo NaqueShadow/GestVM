@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attribution;
+use App\Models\Chauffeur;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Ville;
 use App\Models\Agent;
@@ -18,16 +20,16 @@ class AgentMissController extends Controller
        //
     }
 
-    protected $guarded = [];
-
     public function index()
     {
         $filtre = ['categorie' => '', 'periode' => '', 'date' => null];
 
         $missions = Mission::doesntHave('attributions')
             ->where( 'demandeur', '=', auth()->user()->id )
-            ->where('dateRetour', '>=', now())
-            ->orderBy('updated_at', 'DESC')
+            ->where(function ($query){
+                $query->where('dateRetour', '>', today())
+                    ->orWhere('dateRetour', '=', today());
+            })->orderBy('updated_at', 'DESC')
             ->get();
 
         return view('agentMiss/agentMiss', compact('missions', 'filtre'));
@@ -38,16 +40,14 @@ class AgentMissController extends Controller
         $filtre = $request->all();
         $p = $filtre['periode'] == 'avant' ? '<' : ($filtre['periode'] == 'apres' ? '>=' : '=');
 
-        $missions = Mission::where( 'demandeur', '=', auth()->user()->id )
-            ->get();
-
-        if ( $filtre['categorie'] == 'enAttente' )
-            $missions = Mission::doesntHave('attributions')
+        $missions = Mission::doesntHave('attributions')
                 ->where( 'demandeur', '=', auth()->user()->id )
-                ->where('dateRetour', '>', today())
-                ->orWhere('dateRetour', '=', today())
-                ->orderBy('updated_at', 'DESC')
+                ->where(function ($query){
+                    $query->where('dateRetour', '>', today())
+                        ->orWhere('dateRetour', '=', today());
+                })->orderBy('updated_at', 'DESC')
                 ->get();
+
         if ( $filtre['categorie'] == 'nonTraite' )
             $missions = Mission::doesntHave('attributions')
                 ->where( 'demandeur', '=', auth()->user()->id )
@@ -103,7 +103,12 @@ class AgentMissController extends Controller
         $villes = Ville::All();
         $agents = Agent::all();
         $mission = new Mission();
-        return view('agentMiss/demandeVehicule', compact('villes', 'agents', 'mission'));
+        $chauffeurs = Chauffeur::all();
+        $valideurs = User::whereHas('roles', function ($query) {
+            $query->where( 'idRole', 7 );
+        })->where('statut', 1)
+            ->get();
+        return view('agentMiss/demandeVehicule', compact('villes', 'chauffeurs', 'agents', 'valideurs', 'mission'));
     }
 
     public function reponse()
@@ -113,6 +118,7 @@ class AgentMissController extends Controller
         $attributions = Attribution::whereHas('mission', function ($query) {
             $query->where( 'demandeur', '=', auth()->user()->id );
         })->where('statut', 1)
+            ->orderBy('created_at', 'DESC')
             ->get();
 
         return view('agentMiss/reponse', compact('attributions', 'filtre'));
@@ -130,15 +136,18 @@ class AgentMissController extends Controller
         $mission = $request->validate([
             'demandeur'=>'required',
             'objet'=>'min:3',
+            'idValideur'=>'required|exists:users,id',
             'dateDepart' => 'required|date',
             'dateRetour' => 'required|date|after_or_equal:dateDepart',
             'villeDepart' => 'required',
             'villeDest' => 'required',
+            'typeV'=>'nullable',
+            'codeV'=>'nullable|exists:vehicules,code',
+            'idChauf'=>'nullable|exists:chauffeurs,matricule',
             'commentaire'=>'min:0',
         ]);
 
         $mission = Mission::create( $mission );
-
         foreach ($request->agent as $agent)
         {
             $mission->agents()->attach($agent);
@@ -147,33 +156,4 @@ class AgentMissController extends Controller
         return redirect()->route('agentMiss.index');
     }
 
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-
-    public function show($id)
-    {
-        //
-    }
-
-
-    public function edit($id)
-    {
-        //
-    }
-
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-
-    public function destroy($id)
-    {
-        //
-    }
 }

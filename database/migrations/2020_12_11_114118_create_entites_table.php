@@ -16,6 +16,7 @@ class CreateEntitesTable extends Migration
         Schema::create('entites', function (Blueprint $table) {
             $table->id();
             $table->string('designation');
+            $table->string('abbreviation')->nullable();
             $table->timestamps();
         });
     }

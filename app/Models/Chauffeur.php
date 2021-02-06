@@ -50,11 +50,19 @@ class Chauffeur extends Model
                 $query->whereBetween('debutAbs', session('tab' ))
                     ->orWhereBetween('finAbs', session('tab' ));
             })
-            ->whereDoesntHave('attributions', function ($query) {
-                $query->whereHas('mission', function ($query) {
-                    $query->whereBetween('dateDepart', session('tab' ))
-                        ->orWhereBetween('dateRetour', session('tab' ));
-                });
+            ->where(function ($query){
+                $query->whereDoesntHave('attributions', function ($query) {
+                    $query->whereHas('mission', function ($query) {
+                        $query->whereBetween('dateDepart', session('tab' ))
+                            ->orWhereBetween('dateRetour', session('tab' ));
+                    });
+                })
+                    ->orWhereHas('attributions', function ($query) {
+                        $query->whereHas('mission', function ($query) {
+                            $query->whereBetween('dateDepart', session('tab' ))
+                                ->orWhereBetween('dateRetour', session('tab' ));
+                        })->where('statut', 0);
+                    });
             });
     }
 

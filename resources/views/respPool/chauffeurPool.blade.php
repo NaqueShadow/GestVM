@@ -6,7 +6,7 @@
         document.getElementById("chauffeurs").style.backgroundColor = "white";
     </script>
 
-    <div class="card mt-5 align-content-center text-dark" style="height: 500px; color: #284563; margin: auto; box-shadow: 1px 1px 2px mediumseagreen; border-radius: 15px; width: 100%; height: auto">
+    <div class="card mt-2 h-100 align-content-center text-dark" style="margin: auto; box-shadow: 1px 1px 2px mediumseagreen; border-radius: 15px; width: 100%;">
 
         <div class="card-header bg-light pt-0 pb-0">
             <div class="row w-100">
@@ -31,11 +31,12 @@
             </div>
         </div>
 
-        <div class="card-body row" style="">
+        <div class="card-body h-100" style="color: #284563; overflow: auto;">
 
-            <table class="table table-success table-hover table-striped">
+            <table class="table table-striped table-hover">
                 <thead>
-                <tr>
+                <tr class="table-success">
+                    <th>#</th>
                     <th scope="col">Matricule</th>
                     <th scope="col">Chauffeur</th>
                     <th scope="col">Contact</th>
@@ -44,8 +45,12 @@
                 </tr>
                 </thead>
                 <tbody id="">
+                @php
+                    $i = 0;
+                @endphp
                 @foreach($chauffeurs as $chauffeur)
                     <tr>
+                        <th>{{ ++$i }}</th>
                         <td>{{ $chauffeur->matricule }}</td>
                         <th>{{ $chauffeur->nom }} {{ $chauffeur->prenom }}</th>
                         <td>{{ $chauffeur->telephone }}</td>

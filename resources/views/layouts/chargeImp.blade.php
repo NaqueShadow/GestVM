@@ -27,7 +27,7 @@
     <link href="{{ asset('css/style-responsive.css') }}" rel="stylesheet">
 </head>
 
-<body class="" style="background-color: rgb(17,176,17);">
+<body class="" style="background-color: rgb(17,176,17); min-width: 900px;">
 
 <div class="container">
     <div class="bg-succes" style="width: 100%">
@@ -49,7 +49,7 @@
                             <a class="nav-link" href="#"><span class="sr-only">(current)</span></a>
                         </li>
                         <div class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle h6 text-success" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle h5 text-success" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->agent->nom }} {{ Auth::user()->agent->prenom }}
                                 <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
@@ -90,10 +90,18 @@
 
                         <div class="list-group list-group-flush mt-5">
                             <div class="h5 text-center" style="color: #284563;"></div>
-                            <a href="{{ route('chargeImp.index') }}" id="consommation" class="list-group-item list-group-item-action h5 text-success ">Imputation</a>
-                            <a href="{{ route('chargeImp.indexVehicules') }}" id="enregistrement" class="list-group-item list-group-item-action h5 text-success">Saisie</a>
-                            {{--<a href="#" id="consommation" data-toggle="modal" data-target="#fenetre"
-                                class="list-group-item list-group-item-action h5 text-success ">Rapport</a>--}}
+                            <a href="{{ route('chargeImp.index') }}" id="consommation" class="list-group-item list-group-item-action h5 text-success ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="indianred" class="bi bi-chat-text" viewBox="0 0 16 16">
+                                    <path d="M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-11zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zm1.5.5A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-13z"/>
+                                </svg>
+                                Imputation
+                            </a>
+                            <a href="{{ route('chargeImp.indexVehicules') }}" id="enregistrement" class="list-group-item list-group-item-action h5 text-success">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="indianred" class="bi bi-chat-text" viewBox="0 0 16 16">
+                                    <path d="M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-11zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zm1.5.5A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-13z"/>
+                                </svg>
+                                Saisie
+                            </a>
                             <a href="#" class="list-group-item list-group-item-action h5 text-success"></a>
                         </div>
 
@@ -110,13 +118,10 @@
             <!--main content start-->
             <section id="main-content" style="background-color: white;">
                 <section class="wrapper">
-
-                    <div class="ml-3" style="min-height: 650px">
+                    <div class="ml-2 vh-100">
                         @yield('content')
                     </div>
-
                     @include('include.password')
-
                 </section>
             </section>
             <!--main content end-->
