@@ -6,6 +6,8 @@
         document.getElementById("intervention").style.backgroundColor = "white";
     </script>
 
+
+
         <div class="card mt-2 h-100 align-content-center text-dark" style="margin: auto; box-shadow: 1px 1px 2px mediumseagreen; border-radius: 15px; width: 100%;">
             <div class="card-header bg-light pt-0 pb-0">
                 <div class="">
@@ -36,8 +38,11 @@
 
             <div class="card-body h-100" style="color: #284563; overflow: auto;">
                 @if( session()->get('info') )
-                    <div class="alert alert-success text-center text-success">
+                    <div class="alert alert-success text-center text-success alert-dismissible fade show" role="alert">
                         {{ session()->get('info') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                 @endif
                 @if( $errors->any() )
@@ -55,11 +60,11 @@
                         <tr class="table-success">
                             <th scope="col">#</th>
                             <th scope="col">Date</th>
-                            <th scope="col">Vehicule</th>
+                            <th scope="col">Véhicule</th>
                             <th scope="col">Motif</th>
                             <th scope="col">Début</th>
-                            <th scope="col">Fin prévisionnelle</th>
-                            @if(!$interventions[0]->statut)<th scope="col">Fin réel</th>@endif
+                            <th scope="col">Fin prév.</th>
+                            <th scope="col">Fin réel</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -75,7 +80,9 @@
                         <td>Maintenance {{ $intervention->type }}</td>
                         <td>{{ $intervention->debut->format('d/m/Y') }}</td>
                         <td>{{ $intervention->finPrev->format('d/m/Y') }}</td>
-                        @if(!$intervention->statut)<td scope="col">{{$intervention->updated_at->format('d/m/Y')}}</td>@endif
+                        <td scope="col">
+                            @if(!$intervention->statut){{$intervention->updated_at->format('d/m/Y')}}@endif
+                        </td>
                         <td>
                             <div class="dropdown">
                                 <button title="exporter" class="btn btn-link text-primary pt-0 pb-0 dropdown-toggle" data-toggle="dropdown" >

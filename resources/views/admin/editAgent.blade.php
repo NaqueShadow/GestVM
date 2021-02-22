@@ -14,7 +14,7 @@
 
             <div class="modal-body">
 
-                <form class="mt-5" method="post" action="{{route('admin.updateAgent', ['agent' => $agent->matricule])}}" id="form">
+                <form class="" method="post" action="{{route('admin.updateAgent', ['agent' => $agent->matricule])}}" id="form">
                     @method('PATCH')
                     @csrf
                     @include('admin.include.agentForm')

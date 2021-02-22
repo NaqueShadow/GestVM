@@ -14,6 +14,7 @@
                 <div class="col-auto btn-group mr-0">
                     <a href="{{ route('pool.show', ['pool' => $pool->id]) }}"><button class="btn btn-light">Véhicules</button></a>
                     <a href="{{ route('pool.showChauf', ['pool' => $pool->id]) }}"><button class="btn btn-light active">Chauffeurs</button></a>
+                    <a href="{{ route('pool.showEntite', ['pool' => $pool->id]) }}"><button class="btn btn-light">Entités</button></a>
                 </div>
             </div>
         </div>
@@ -25,9 +26,9 @@
                 </div>
             @endif
 
-            <table class="table table-success table-hover table-striped">
+            <table class="table table-striped table-hover">
                 <thead>
-                <tr>
+                <tr class="table-success">
                     <th scope="col">#</th>
                     <th scope="col">Matricule</th>
                     <th scope="col">Chauffeur</th>

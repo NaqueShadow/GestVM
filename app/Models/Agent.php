@@ -22,4 +22,9 @@ class Agent extends Model
     {
         return $this->belongsToMany('App\Models\Mission', 'missionnaires', 'agentId', 'missionId', 'matricule', 'id');
     }
+
+    public function entite()
+    {
+        return $this->belongsTo('App\Models\Entite', 'idEntite', 'id');
+    }
 }

@@ -32,7 +32,6 @@
                         <th scope="col">Code</th>
                         <th scope="col">Modèle</th>
                         <th scope="col">Chauffeur</th>
-                        <th scope="col">Dernier retour</th>
                         <th scope="col"></th>
                     </tr>
                     </thead>
@@ -48,7 +47,6 @@
                             <td>
                                 {{isset($vehicule->chauffeur->nom) ? $vehicule->chauffeur->nom .' '. $vehicule->chauffeur->prenom : '--'}}
                             </td>
-                            <td>{{ isset($vehicule->dernierRetour) ? $vehicule->dernierRetour->format('d/m/Y'):'--' }}</td>
                             <td>
                                 <div class="dropdown">
                                     <button title="exporter" class="btn btn-link text-primary pt-0 pb-0 dropdown-toggle" data-toggle="dropdown" >

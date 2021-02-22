@@ -11,7 +11,10 @@
         <div class="card-header bg-light pt-0 pb-0">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link text-info h5" href="{{ route('stat.index') }}">Utilisateurs</a>
+                    <a class="nav-link text-info h5" href="{{ route('stat.index') }}">Entités</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-info h5" href="{{ route('stat.indexActivite') }}">Activités</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-info h5" href="{{ route('stat.indexPool') }}">Pools</a>
@@ -61,6 +64,7 @@
     <script type="text/javascript">
         var distances = {{ json_encode($tab2) }};
         var carburant = {{ json_encode($tab3) }};
+        var km_l = {{ json_encode($tab4) }};
 
         Highcharts.chart('charts_container', {
             chart: {
@@ -93,11 +97,11 @@
                 },
                 { //--- Secondary yAxis
                     title: {
-                        text: 'Litres'
+                        text: 'Litres ou Kilomètre par litre'
                     },
                     labels: {
                         formatter: function() {
-                            return this.value + ' L';
+                            return this.value + ' L, Km/L';
                         }
                     },
                     opposite: true
@@ -119,6 +123,12 @@
                     yAxis: 1,
                     name: 'L carburant',
                     data: carburant
+                },
+                {
+                    yAxis: 1,
+                    type: 'spline',
+                    name: 'KM/L',
+                    data: km_l
                 }],
             responsive: {
                 rules: [{

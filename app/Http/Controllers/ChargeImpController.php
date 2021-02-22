@@ -24,10 +24,11 @@ class ChargeImpController extends Controller
         $annee = today()->format('Y');
         $a = Date::now()->firstOfMonth();
         $b = Date::now()->lastOfMonth();
-        $attributions = Attribution::with('chauffeur', 'vehicule', 'entite', 'ressource')
+        $attributions = Attribution::with('chauffeur', 'mission', 'vehicule', 'entite', 'ressource')
             ->whereHas('mission', function ($query) use($a, $b) {
                 $query->whereBetween('dateDepart', [$a, $b] );
-            })->get();
+            })->orderBy('idMission', 'DESC')
+            ->get();
 
         return view('chargeImp/index', compact('attributions', 'mois', 'annee'));
     }
@@ -69,6 +70,7 @@ class ChargeImpController extends Controller
     public function indexEnregistrement(Vehicule $vehicule)
     {
         $mois = today()->format('Y-m');
+        $annee = today()->format('Y');
         $a = Date::now()->firstOfMonth();
         $b = Date::now()->lastOfMonth();
         $attributions = Attribution::with('chauffeur', 'vehicule', 'entite', 'ressource')
@@ -77,7 +79,7 @@ class ChargeImpController extends Controller
                 $query->whereBetween('dateDepart', [$a, $b] );
             })->get();
 
-        return view('chargeImp/enregistrement', compact('attributions', 'mois', 'vehicule'));
+        return view('chargeImp/enregistrement', compact('attributions', 'mois', 'annee', 'vehicule'));
     }
 
 
@@ -120,19 +122,6 @@ class ChargeImpController extends Controller
 
         return redirect()->back();
     }
-
-
-    public function show($id)
-    {
-        //
-    }
-
-
-    public function edit($id)
-    {
-        //
-    }
-
 
     public function rapport(Request $request)
     {

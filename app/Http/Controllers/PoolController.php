@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Chauffeur;
+use App\Models\Entite;
 use App\Models\Pool;
 use App\Models\Region;
 use App\Models\Vehicule;
@@ -28,15 +29,12 @@ class PoolController extends Controller
         $pool = $request->validate([
             'designation'=>'required|unique:App\Models\Pool,designation',
             'regionID'=>'required',
-            'abbreviation' => 'required|unique:App\Models\Pool,abbreviation',
+            'abbreviation' => 'nullable|unique:App\Models\Pool,abbreviation',
         ]);
-
         Pool::create($pool);
 
         return redirect()->route('gestParc.indexPools')->with('info', $request->abbreviation.' créé avec succès');
-
     }
-
 
     public function show(Pool $pool)
     {
@@ -54,13 +52,21 @@ class PoolController extends Controller
         return view('gestParc/pools/chauffeurPool', compact('pool', 'chauffeurs'));
     }
 
+    public function showEntite(Pool $pool)
+    {
+        $pool->load('entites');
+        $entites = Entite::whereDoesntHave('pools', function ($query) use ($pool) {
+            $query->where('pools.id', $pool->id);
+        })->get();
+
+        return view('gestParc/pools/entitePool', compact('pool', 'entites'));
+    }
 
     public function edit(Pool $pool)
     {
         $regions = Region::all();
         return view('gestParc/pools/editPool', compact('pool', 'regions'));
     }
-
 
     public function update(Request $request, Pool $pool)
     {
@@ -72,7 +78,6 @@ class PoolController extends Controller
         $pool->update($validate);
         return redirect()->route('gestParc.indexPools');
     }
-
 
     public function destroy(Pool $pool)
     {
@@ -113,6 +118,23 @@ class PoolController extends Controller
     {
         $chauffeur->idPool = null;
         $chauffeur->save();
+        return redirect()->back();
+    }
+
+    public function ajoutEntite(Request $request, Pool $pool)
+    {
+        foreach ($request->entite as $idEntite)
+        {
+            $pool->entites()->attach($idEntite);
+        }
+        return redirect()->route('pool.showEntite', ['pool' => $pool->id]);
+    }
+
+    public function retraitEntite( Request $request, Pool $pool )
+    {
+        $idEntite = $request->entite;
+        $pool->entites()->detach($idEntite);
+
         return redirect()->back();
     }
 }

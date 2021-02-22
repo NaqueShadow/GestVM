@@ -30,11 +30,6 @@ class Mission extends Model
         ][$attributes];
     }
 
-    /*public function scopeDemandeur($query)
-    {
-        return $query->where('status', 1);
-    }*/
-
     public function scopeDuPool ($query) {
 
         return $query->where('dmdeur.idPool', auth()->user()->idPool )->get();
@@ -42,10 +37,13 @@ class Mission extends Model
 
     public function scopeNew($query) {
 
+        foreach (auth()->user()->pools as $p)
+            $pl[] = $p->id;
+
         return $query->doesntHave('attributions')
             ->where('validation', '1')
-            ->whereHas('dmdeur', function ($query) {
-                $query->where('idPool', auth()->user()->idPool );
+            ->whereHas('pool', function ($query) use($pl) {
+                $query->whereIn('id', $pl );
             })->where(function ($query){
                 $query->where('dateRetour', '>', today())
                     ->orWhere('dateRetour', '=', today());
@@ -96,6 +94,21 @@ class Mission extends Model
     public function chauffeur()
     {
         return $this->belongsTo('App\Models\Chauffeur', 'idChauf', 'matricule');
+    }
+
+    public function entite()
+    {
+        return $this->belongsTo('App\Models\Entite', 'idEntite');
+    }
+
+    public function activite()
+    {
+        return $this->belongsTo('App\Models\Activite', 'idActivite');
+    }
+
+    public function pool()
+    {
+        return $this->belongsTo('App\Models\Pool', 'idPool');
     }
 
 }

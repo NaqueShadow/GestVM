@@ -9,7 +9,7 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class VehiculeImport implements ToCollection, WithHeadingRow
+class VehiculeImport implements ToCollection
 {
     use Importable;
 
@@ -17,15 +17,17 @@ class VehiculeImport implements ToCollection, WithHeadingRow
     {
         foreach ($rows as $row)
         {
-            if ($row[0] != null)
+            $v = Vehicule::where('code', $row[0])
+                ->orWhere('immatriculation', $row[1],)->get();
+
+            if ($row[0] != null && $v == null)
                 Vehicule::create([
                     'code'              => $row[0],
                     'immatriculation'   => $row[1],
                     'modele'            => $row[2],
                     'acquisition'       => $row[3],
                     'idcateg'           => $row[4],
-                    'idChauf'           => $row[5],
-                    'idPool'            => $row[6],
+                    'idPool'            => $row[5],
                 ]);
         }
     }

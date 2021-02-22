@@ -10,7 +10,7 @@
 
         <div class="card-header bg-light pt-0 pb-0">
             <div class="">
-                <form class="" method="post" action="{{-- route('admin.rechercheAgent' )--}}" id="form">
+                <form class="" method="post" action="{{ route('admin.rechercheUser' ) }}" id="form">
                     @csrf
                     <div  class="form-group form-row mb-0">
                         <div class="col"></div>
@@ -47,7 +47,7 @@
                     <th scope="col">#</th>
                     <th scope="col">LOGIN</th>
                     <th scope="col">AGENT</th>
-                    <th scope="col">POOL</th>
+                    <th scope="col">ENTITE</th>
                     <th scope="col">STATUT</th>
                     <th scope="col"></th>
                 </tr>
@@ -61,13 +61,18 @@
                         <td>{{ ++$i }}</td>
                         <th>{{ $user->login }}</th> @isset($user->agent->nom)
                         <td>{{ $user->agent->nom }} {{ $user->agent->prenom }}</td>@endisset
-                        <td>{{ $user->pool->abbreviation }}</td>
+                        <td>{{ $user->agent->idEntite? $user->agent->entite->abbreviation:'' }}</td>
                         <td class="text-primary">{{ $user->statut }}</td>
                         <td>
                             <div class="dropdown">
                                 <button title="exporter" class="btn btn-link text-primary pt-0 pb-0 dropdown-toggle" data-toggle="dropdown" >
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-sm-right">
+                                    <a href="{{ route('admin.show', ['user' => $user->id]) }}" class="dropdown-item">
+                                        <button class="btn btn-link text-info p-1" title="voir les détails">
+                                            détails
+                                        </button>
+                                    </a>
                                     @if($user->statut == 'actif')
                                         <form class="dropdown-item" method="post" action="{{ route('admin.desactiver', ['user' => $user->id]) }}" style="display: inline;">
                                             @csrf
@@ -84,11 +89,6 @@
                                             </button>
                                         </form>
                                     @endif
-                                    <a href="{{ route('admin.show', ['user' => $user->id]) }}" class="dropdown-item">
-                                        <button class="btn btn-link text-info p-1" title="voir les détails">
-                                            détails
-                                        </button>
-                                    </a>
                                 </div>
                             </div>
                         </td>
@@ -105,23 +105,21 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Créer un nouveau compte</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Nouveau compte</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
 
                     <div class="modal-body">
-
                         <form class="mt-5" method="post" action="{{route('admin.store')}}" id="form">
-
                             @csrf
                             <div class="align-items-center">
                                  <div class="form-row" style="padding: 2%; margin-bottom: auto; border: 1px solid mediumseagreen; border-radius: 15px;">
                                     <div class="form-group input-group col-12 row">
                                         <label class="col-3">Agent</label>
                                         <div class="col-9">
-                                            <select name="matricule" id="matricule" class="selectpicker form-control" @include('include.selectOption') required @error('matricule') is-invalid @enderror>
+                                            <select name="matricule" id="matricule" class="selectpicker form-control @error('matricule') is-invalid @enderror" @include('include.selectOption') required>
                                                 <option value=""></option>
                                                 @foreach($agents as $agent)
                                                     <option value="{{ $agent->matricule }}" {{ $agent->matricule == old('matricule') ? 'selected':'' }}>{{ $agent->matricule }}  {{ $agent->nom }} {{ $agent->prenom }}</option>
@@ -149,29 +147,12 @@
                                      </div>
 
                                      <div class="form-group input-group col-12 row">
-                                         <label class="col-3">Pool</label>
-                                         <div class="col-9">
-                                             <select name="idPool" id="idPool" class="form-control" required placeholder="...">
-                                                 <option value=""></option>
-                                                 @foreach($pools as $pool)
-                                                     <option value="{{ $pool->id }}" {{ $pool->id == old('idPool') ? 'selected':'' }}>{{ $pool->designation }}</option>
-                                                 @endforeach
-                                             </select>
-                                             @error('idPool')
-                                             <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                             </span>
-                                             @enderror
-                                         </div>
-                                     </div>
-
-                                     <div class="form-group input-group col-12 row">
                                          <label class="col-3">Statut</label>
                                          <div class="col-9">
                                              <select name="statut" id="statut" class="form-control" required placeholder="...">
                                                  <option value=""></option>
-                                                 <option value="1" {{ 1 == old('statut') ? 'selected':'' }}>Actif</option>
-                                                 <option value="0" {{ 0 == old('statut') ? 'selected':'' }}>Bloquer</option>
+                                                 <option value="1" {{ '1' == old('statut') ? 'selected':'' }}>Actif</option>
+                                                 <option value="0" {{ '0' == old('statut') ? 'selected':'' }}>Bloquer</option>
                                              </select>
                                              @error('statut')
                                              <span class="invalid-feedback" role="alert">

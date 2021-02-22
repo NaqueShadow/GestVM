@@ -30,10 +30,23 @@ class Attr_listener
     public function handle($event)
     {
         //email au demandeur
-        $demandeur = $event->attr->mission->dmdeur->agent->email;
-        Mail::to($demandeur)->send(new Attr_email($event->attr));
+        if ($event->attr->mission->demandeur && $event->attr->mission->dmdeur->agent->email) {
+            $demandeur = $event->attr->mission->dmdeur->agent->email;
+            if ($event->attr->mission->idValideur && $event->attr->mission->valideur->agent->email) {
+                $valideur = $event->attr->mission->valideur->agent->email;
+                Mail::to($demandeur)->cc($valideur)->send(new Attr_email($event->attr));
+            }
+            else
+            Mail::to($demandeur)->send(new Attr_email($event->attr));
+        }
+        elseif ($event->attr->mission->idValideur && $event->attr->mission->valideur->agent->email)
+        {
+            $valideur = $event->attr->mission->valideur->agent->email;
+            Mail::to($valideur)->send(new Attr_email($event->attr));
+        }
 
-        //SMS au chauffeur
+        /*
+        SMS au chauffeur
         $chauffeur = Chauffeur::find($event->attr->idChauf)->telephone;
         $msg = 'Nouvelle mission
                 Vehicule : '.$event->attr->idVehicule.'
@@ -41,7 +54,8 @@ class Attr_listener
                 Retour : '.$event->attr->mission->dateRetour.'
                 Trajet : '.$event->attr->mission->villeDepart.' '.$event->attr->mission->villeDesti->nom;
 
-        //Sms::sendSMSFonction($chauffeur, $msg);
+        Sms::sendSMSFonction($chauffeur, $msg);
+        */
 
     }
 }

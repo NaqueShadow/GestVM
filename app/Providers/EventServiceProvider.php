@@ -18,6 +18,12 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Attr_event' => [
             'App\Listeners\Attr_listener',
         ],
+        'App\Events\Validation_event' => [
+            'App\Listeners\Validation_listener',
+        ],
+        'App\Events\Demande_event' => [
+            'App\Listeners\Demande_listener',
+        ],
     ];
 
     /**

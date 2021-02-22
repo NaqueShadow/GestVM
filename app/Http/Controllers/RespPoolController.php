@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Session;
 
 class RespPoolController extends Controller
 {
+
     public function __construct()
     {
         //
@@ -34,11 +35,14 @@ class RespPoolController extends Controller
 
     public function requetes()
     {
+        foreach (auth()->user()->pools as $p)
+            $pl[] = $p->id;
+
         $filtre = ['categorie' => '', 'periode' => '', 'date' => null];
         $missions = Mission::doesntHave('attributions')
             ->where('validation', '1')
-            ->whereHas('dmdeur', function ($query) {
-                $query->where('idPool', auth()->user()->idPool );
+            ->whereHas('pool', function ($query) use($pl) {
+                $query->whereIn('idPool', $pl );
             })->where(function ($query){
                 $query->where('dateRetour', '>', today())
                     ->orWhere('dateRetour', '=', today());
@@ -48,15 +52,36 @@ class RespPoolController extends Controller
         return view('respPool/requetes', compact('filtre', 'missions'));
     }
 
+    public function requetesRefresh()
+    {
+        foreach (auth()->user()->pools as $p)
+            $pl[] = $p->id;
+
+        $filtre = ['categorie' => '', 'periode' => '', 'date' => null];
+        $missions = Mission::doesntHave('attributions')
+            ->where('validation', '1')
+            ->whereHas('pool', function ($query) use($pl) {
+                $query->whereIn('idPool', $pl );
+            })->where(function ($query){
+                $query->where('dateRetour', '>', today())
+                    ->orWhere('dateRetour', '=', today());
+            })->orderBy('created_at', 'DESC')
+            ->get();
+
+        return view('respPool/requetesRefresh', compact('filtre', 'missions'));
+    }
+
     public function filtreDemande( Request $request )
     {
         $filtre = $request->all();
         $p = $filtre['periode'] == 'avant' ? '<' : ($filtre['periode'] == 'apres' ? '>=' : '=');
+        foreach (auth()->user()->pools as $p)
+            $pl[] = $p->id;
 
         $missions = Mission::doesntHave('attributions')
             ->where('validation', '1')
-            ->whereHas('dmdeur', function ($query) {
-                $query->where('idPool', auth()->user()->idPool );
+            ->whereHas('pool', function ($query) use($pl) {
+                $query->whereIn('idPool', $pl );
             })->where(function ($query){
                 $query->where('dateRetour', '>', today())
                     ->orWhere('dateRetour', '=', today());
@@ -66,16 +91,16 @@ class RespPoolController extends Controller
         if ( $filtre['categorie'] == 'nonTraite' )
             $missions = Mission::doesntHave('attributions')
                 ->where('validation', '1')
-                ->whereHas('dmdeur', function ($query) {
-                    $query->where('idPool', auth()->user()->idPool );
+                ->whereHas('pool', function ($query) use($pl) {
+                    $query->whereIn('idPool', $pl );
                 })->where('dateRetour', '<', today())
                 ->orderBy('created_at', 'DESC')
                 ->get();
 
         if ( $filtre['categorie'] == 'traite' )
             $missions = Mission::has('attributions')
-                ->whereHas('dmdeur', function ($query) {
-                    $query->where('idPool', auth()->user()->idPool );
+                ->whereHas('pool', function ($query) use($pl) {
+                    $query->whereIn('idPool', $pl );
                 })->orderBy('created_at', 'DESC')
                 ->get();
 
@@ -89,24 +114,26 @@ class RespPoolController extends Controller
     {
         $filtre = $request->all();
         $p = $filtre['periode'] == 'avant' ? '<' : ($filtre['periode'] == 'apres' ? '>=' : '=');
+        foreach (auth()->user()->pools as $p)
+            $pl[] = $p->id;
 
-        $attributions = Attribution::whereHas('mission', function ($query) {
-            $query->whereHas('dmdeur', function ($query) {
-                $query->where('idPool', auth()->user()->idPool );
+        $attributions = Attribution::whereHas('mission', function ($query) use($pl) {
+            $query->whereHas('pool', function ($query) use($pl) {
+                $query->whereIn('idPool', $pl );
             }); })->get();
 
         if ( $filtre['categorie'] == 'enCours' )
-            $attributions = Attribution::whereHas('mission', function ($query) {
-                $query->whereHas('dmdeur', function ($query) {
-                    $query->where('idPool', auth()->user()->idPool );
+            $attributions = Attribution::whereHas('mission', function ($query) use($pl) {
+                $query->whereHas('pool', function ($query) use($pl) {
+                    $query->whereIn('idPool', $pl );
                 }); })->where('statut', 1)
                 ->orderBy('updated_at', 'DESC')
                 ->get();
 
         if ( $filtre['categorie'] == 'termine' )
-            $attributions =Attribution::whereHas('mission', function ($query) {
-                $query->whereHas('dmdeur', function ($query) {
-                    $query->where('idPool', auth()->user()->idPool );
+            $attributions =Attribution::whereHas('mission', function ($query) use($pl) {
+                $query->whereHas('pool', function ($query) use($pl) {
+                    $query->whereIn('idPool', $pl );
                 }); })->where('statut', 0)
                 ->orderBy('created_at', 'DESC')
                 ->get();
@@ -120,9 +147,12 @@ class RespPoolController extends Controller
     public function attrEnCours()
     {
         $filtre = ['categorie' => '', 'periode' => '', 'date' => null];
-        $attributions = Attribution::whereHas('mission', function ($query) {
-            $query->whereHas('dmdeur', function ($query) {
-                $query->where('idPool', auth()->user()->idPool );
+        foreach (auth()->user()->pools as $p)
+            $pl[] = $p->id;
+
+        $attributions = Attribution::whereHas('mission', function ($query) use($pl) {
+            $query->whereHas('pool', function ($query) use($pl) {
+                $query->whereIn('idPool', $pl );
             }); })->where('statut', 1)
             ->orderBy('created_at', 'DESC')
             ->get();
@@ -132,27 +162,32 @@ class RespPoolController extends Controller
 
     public function detailsRequete( Mission $mission)
     {
-        $entites = Entite::all();
-        $mission->load('agents:nom,prenom,poste', 'villeDesti', 'villeDep', 'dmdeur');
+        foreach (auth()->user()->pools as $pool)
+            $rp[] = $pool->id;
+
+        $mission->load('agents:matricule,nom,prenom,poste', 'villeDesti', 'villeDep', 'dmdeur');
         $tab = array($mission->dateDepart, $mission->dateRetour);
 
         Session::put('tab', $tab); //Important pour le scope "selection()"
             //Véhicules dispo avec leur chauffeur
-            $vehicules = Vehicule::selection()
-                ->whereHas('chauffeur', function ($query) {
-                    $query->selection();
+            $vehicules = Vehicule::selection($tab)
+                ->whereIn('idPool', $rp )
+                ->whereHas('chauffeur', function ($query) use ($tab) {
+                    $query->selectionChauf($tab);
                 })->get();
 
             //Véhicules et chauffeur dispo du pool
-            $vehicules2 = Vehicule::selection()->get();
-            $chauffeurs2 = Chauffeur::selection()->where('idPool', auth()->user()->idPool )->get();
+            $vehicules2 = Vehicule::selection($tab)
+                ->whereIn('idPool', $rp )
+                ->get();
+            $chauffeurs2 = Chauffeur::selectionChauf($tab)->get();
 
             //Véhicules dispo du pool et chauffeur d'ailleurs
             $vehicules3 = new Vehicule();
-            //$chauffeurs3 = Chauffeur::selection()->where('idPool','!=', auth()->user()->idPool )->get();
+            //$chauffeurs3 = Chauffeur::selectionChauf($tab)->where('idPool','!=', auth()->user()->idPool )->get();
         Session::forget('tab');
 
-        return view('respPool/detailsRequete', compact('entites','vehicules', 'vehicules2', 'vehicules3', 'mission', 'chauffeurs2'));
+        return view('respPool/detailsRequete', compact('vehicules', 'vehicules2', 'vehicules3', 'mission', 'chauffeurs2'));
     }
 
     public function historique()
@@ -162,7 +197,10 @@ class RespPoolController extends Controller
 
     public function vehicules()
     {
-        $vehicules = Vehicule::nbrMiss()->get();
+        foreach (auth()->user()->pools as $pool)
+            $rp[] = $pool->id;
+
+        $vehicules = Vehicule::nbrMiss($rp)->get();
         $vehicules->load('chauffeur');
 
         return view('respPool/vehiculePool', compact('vehicules'));
@@ -175,6 +213,7 @@ class RespPoolController extends Controller
             ->with('chauffeur')
             ->where('code', 'like', '%'.$request->text.'%')
             ->orWhere('modele', 'like', '%'.$request->text.'%')
+            ->orWhere('immatriculation', 'like', '%'.$request->text.'%')
             ->get();
 
         return view('respPool/vehiculePool', compact('vehicules', 'text'));
@@ -187,7 +226,9 @@ class RespPoolController extends Controller
 
     public function chauffeurs()
     {
-        $chauffeurs = Chauffeur::nbrMiss()->get();
+        foreach (auth()->user()->pools as $pool)
+            $rp[] = $pool->id;
+        $chauffeurs = Chauffeur::nbrMiss($rp)->get();
         $chauffeurs->load('vehicule');
 
         return view('respPool/chauffeurPool', compact('chauffeurs'));
@@ -208,12 +249,15 @@ class RespPoolController extends Controller
 
     public function absence()
     {
+        foreach (auth()->user()->pools as $p)
+            $pl[] = $p->id;
+
         $statut = 'enCours';
         $absences = Absence::where('finAbs', '>', Carbon::yesterday())
             ->with('chauffeur')
             ->orderBy('debutAbs', 'DESC')
             ->get();
-        $chauffeurs = Chauffeur::all();
+        $chauffeurs = Chauffeur::whereIn('idPool', $pl)->get();
 
         return view('respPool/absencePool', compact('absences', 'chauffeurs', 'statut'));
     }

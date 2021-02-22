@@ -8,6 +8,15 @@
 
     <div class="card mt-5 align-content-center" style="box-shadow: 1px 1px 2px mediumseagreen; border-radius: 15px; height: auto">
 
+        @if( session()->get('passError') )
+            <div class="alert alert-danger mt-3 text-center text-danger alert-dismissible fade show" role="alert">
+                {{ session()->get('passError') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif {{ session()->get('passError') }}
+
         <div class="card-body row" style="color: #284563;">
             <div class="col-6 pl-5">
                 <table class="table table-responsive">

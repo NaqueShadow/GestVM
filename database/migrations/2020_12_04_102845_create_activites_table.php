@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEntitesTable extends Migration
+class CreateActivitesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateEntitesTable extends Migration
      */
     public function up()
     {
-        Schema::create('entites', function (Blueprint $table) {
-            $table->id();
+        Schema::create('activites', function (Blueprint $table) {
+            $table->string('code')->primary();
             $table->string('designation');
-            $table->string('abbreviation')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateEntitesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('entites');
+        Schema::dropIfExists('activites');
     }
 }

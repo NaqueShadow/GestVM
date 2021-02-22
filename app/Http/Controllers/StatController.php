@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activite;
 use App\Models\Entite;
 use App\Models\Pool;
 use App\Models\Ressource;
@@ -26,16 +27,21 @@ class StatController extends Controller
             $b = Date::now()->lastOfMonth();
         }
 
-        $entites = Entite::all()->load('attributions', 'attributions.ressource');
+        $entites = Entite::whereHas('missions', function ($query) use($a, $b) {
+            $query->whereBetween('dateDepart', [$a, $b]);
+        })->get();
         $entite = 0;
 
+        $tab1[] = null;
+        $tab2[] = null;
+        $tab3[] = null;
         foreach ($entites as $ent) {
                 $ressources = Ressource::select('comptRetour', 'comptDepart', 'carburant')
                     ->whereHas('attributions', function ($query) use ($a, $b, $ent) {
-                        $query->where('idEntite', $ent->id)
-                            ->whereHas('mission', function ($query) use ($a, $b) {
-                                $query->whereBetween('dateDepart', [$a, $b]);
-                            });
+                        $query->whereHas('mission', function ($query) use ($a, $b, $ent) {
+                            $query->whereBetween('dateDepart', [$a, $b])
+                                ->where('idEntite', $ent->id);
+                        });
                     })->get();
 
                 $dist = 0;
@@ -71,6 +77,9 @@ class StatController extends Controller
             })->where('idEntite', $entite);
         });
 
+        $tab1[] = null;
+        $tab2[] = null;
+        $tab3[] = null;
         foreach ($vehicules as $vehicule) {
             $ressources = Ressource::select('comptRetour', 'comptDepart', 'carburant')
                 ->whereHas('attributions', function ($query) use($a, $b, $entite, $vehicule) {
@@ -115,6 +124,9 @@ class StatController extends Controller
         }
         $pools = Pool::all();
 
+        $tab1[] = null;
+        $tab2[] = null;
+        $tab3[] = null;
         foreach ($pools as $pool) {
             $ressources = Ressource::select('comptRetour', 'comptDepart', 'carburant')
                 ->whereHas('attributions', function ($query) use($a, $b, $pool) {
@@ -163,8 +175,11 @@ class StatController extends Controller
                 $query->whereBetween('dateDepart', [$a, $b]);
             });
         })->get();
-        //$vehicules = Vehicule::all();
 
+        $tab1[] = null;
+        $tab2[] = null;
+        $tab3[] = null;
+        $tab4[] = null;
         foreach ($vehicules as $vehicule) {
             $ressources = Ressource::select('comptRetour', 'comptDepart', 'carburant')
                 ->whereHas('attributions', function ($query) use($a, $b, $vehicule) {
@@ -186,20 +201,58 @@ class StatController extends Controller
             $tab1[] = $vehicule->code;
             $tab2[] = $dist;
             $tab3[] = $carb;
+            if ($carb == 0) $carb=1;
+            $tab4[] = $dist/$carb;
         }
 
-        return view('gestParc.statistiques.indexVehicules', compact('tab1', 'tab2', 'tab3', 'mois', 'annee'));
+        return view('gestParc.statistiques.indexVehicules', compact('tab1', 'tab2', 'tab3', 'tab4', 'mois', 'annee'));
     }
 
 
-    public function update(Request $request, $id)
+    public function indexActivite(Request $request)
     {
-        //
-    }
+        if (isset($request->mois)) {
+            $mois = $request->mois;
+            $annee = $request->annee;
+            $a = Date::create($annee, $mois)->firstOfMonth();
+            $b = Date::create($annee, $mois)->lastOfMonth(); //dd($a, $b);
+        }
+        else {
+            $mois = today()->format('m');
+            $annee = today()->format('Y');
+            $a = Date::now()->firstOfMonth();
+            $b = Date::now()->lastOfMonth();
+        }
 
+        $activites = Activite::all();
+        $activite = 0;
 
-    public function destroy($id)
-    {
-        //
+        $tab1[] = null;
+        $tab2[] = null;
+        $tab3[] = null;
+        foreach ($activites as $act) {
+            $ressources = Ressource::select('comptRetour', 'comptDepart', 'carburant')
+                ->whereHas('attributions', function ($query) use ($a, $b, $act) {
+                    $query->whereHas('mission', function ($query) use ($a, $b, $act) {
+                        $query->whereBetween('dateDepart', [$a, $b])
+                            ->where('idActivite', $act->code);
+                    });
+                })->get();
+
+            $dist = 0;
+            $carb = 0;
+            foreach ($ressources as $ressource) {
+                if (!empty($ressource->comptDepart))
+                    $dist += ($ressource->comptRetour - $ressource->comptDepart);
+                if (!empty($ressource->carburant))
+                    $carb += $ressource->carburant;
+            }
+
+            $tab1[] = $act->designation;
+            $tab2[] = $dist;
+            $tab3[] = $carb;
+        }
+
+        return view('gestParc.statistiques.indexActivites', compact('tab1', 'tab2', 'tab3', 'activite', 'activites', 'mois', 'annee'));
     }
 }

@@ -23,108 +23,139 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eba87701-5528-4ed5-8f26-52134391cdc9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/GenererDocController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/StatController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/ValideurController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Imports/AgentImport.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Imports/ChauffeurImport.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Imports/VehiculeImport.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/Categorie.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/Validation.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/charts.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2013_01_25_171324_create_categories_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2021_01_25_160049_create_validations_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/coton.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/vehicule.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/js/common-scripts.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/js/highcharts.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/chefGarage/editIntervention.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/etatsVues/attributionPDF.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/etatsVues/demandePDF.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/etatsVues/etatsVues.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/gestParc/chauffeurs/editChauffeur.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/gestParc/pools/editPool.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/gestParc/statistiques/index.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/gestParc/statistiques/indexPools.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/gestParc/statistiques/indexVehicules.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/gestParc/vehicules/editDocBord.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/layouts/valideur.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/valideur/demandes.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/valideur/detailsDemande.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/valideur/validations.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/laravel-excel/laravel-excel-DmJdwg1sN20cTPa2fyI8w73NsoYcnyET.tmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/laravel-excel/laravel-excel-PybNmYqWYEUVYuLSv0KXMJhY1IplI3ix.tmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/laravel-excel/laravel-excel-gL147TzSQxt8PlSIN21n91pJPJ1evGnq.tmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/laravel-excel/laravel-excel-gj62XwzyON9G3mmNYwr8UrRFarZcdzFt.tmp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/storage/framework/laravel-excel/laravel-excel-lIQ4ahgqIEeHTsec7y3PPwxSUh1DW3nB.tmp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/GestVM.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/GestVM.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Events/Demande_event.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Events/Validation_event.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/EntiteController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/ValideurMiddleware.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Listeners/Demande_listener.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Listeners/Validation_listener.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Mail/Demande_email.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Mail/Validation_email.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/Activite.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/Direction.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2013_12_03_102730_create_directions_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_12_04_102845_create_activites_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_02_08_103425_pool_users.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_02_10_095807_entites_pools.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/lang/fr/auth.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/lang/fr/pagination.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/lang/fr/passwords.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/lang/fr/validation-inline.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/lang/fr/validation.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/entites/editActivites.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/entites/editDirections.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/entites/editEntites.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/entites/indexActivites.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/entites/indexDirections.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/entites/indexEntites.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/emails/demande_email.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/emails/validation_email.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/gestParc/pools/entitePool.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/gestParc/statistiques/indexActivites.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/include/passInfo.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/respPool/requetesRefresh.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/vendor/mail/html/button.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/vendor/mail/html/footer.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/vendor/mail/html/header.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/vendor/mail/html/layout.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/vendor/mail/html/message.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/vendor/mail/html/panel.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/vendor/mail/html/subcopy.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/vendor/mail/html/table.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/vendor/mail/html/themes/default.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/vendor/mail/text/button.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/vendor/mail/text/footer.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/vendor/mail/text/header.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/vendor/mail/text/layout.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/vendor/mail/text/message.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/vendor/mail/text/panel.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/vendor/mail/text/subcopy.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/vendor/mail/text/table.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/laravel-excel/laravel-excel-GEBhYn8hqnHTRdvpmnfXPu7a8a6kWRZY.tmp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/laravel-excel/laravel-excel-I3awFNJU4Zy3u0vheOGIibkh6IzQKdhB.tmp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/laravel-excel/laravel-excel-OSVrpjy4gwPQyd4Cy8D62Bfp6eEUYvOe.tmp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/laravel-excel/laravel-excel-SenQIe1MxSLhcxExn87cvmucRSmsWf2L.tmp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/laravel-excel/laravel-excel-XDrDg1ZcxiavzTaWyH02aWt25fEhVj0n.tmp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/laravel-excel/laravel-excel-ZaDGb4VDMXhuSYde1kBI7I6Vm8uYNHbD.tmp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/laravel-excel/laravel-excel-ZubE4Plvwb4xhD5zHpkwKno9mN96hdZw.tmp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/laravel-excel/laravel-excel-qGbnxoKaibWSDZHY2cnTJ0QBkoOfer9Q.tmp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/laravel-excel/laravel-excel-x1mTPWWmdXda65moG9rOxIFF2AA4stDc.tmp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/storage/framework/laravel-excel/laravel-excel-z2Jf8ebqJbFW6pppJadzpSQqfKcLkWkI.tmp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Exports/AttributionExport.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Exports/AttributionExport.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AgentMissController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AgentMissController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AttributionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AttributionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ChargeImpController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ChargeImpController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ChauffeurController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ChauffeurController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ChefGarageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ChefGarageController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/GestParcController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/GestParcController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/InterventionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/InterventionController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MissionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MissionController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PoolController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PoolController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/RespPoolController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/RespPoolController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/VehiculeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/VehiculeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/StatController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/StatController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ValideurController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ValideurController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/ChefGarageMiddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/ChefGarageMiddleware.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/RespPoolMiddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/RespPoolMiddleware.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Imports/AgentImport.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Imports/AgentImport.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Imports/ChauffeurImport.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Imports/ChauffeurImport.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Imports/VehiculeImport.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Imports/VehiculeImport.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Listeners/Attr_listener.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Listeners/Attr_listener.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Mail/Attr_email.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Mail/Attr_email.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Agent.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Agent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Attribution.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Attribution.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Chauffeur.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Chauffeur.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Entite.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Entite.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Mission.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Mission.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Pool.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Pool.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Vehicule.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Vehicule.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/EventServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/EventServiceProvider.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2013_12_03_155028_create_agents_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2013_12_03_155028_create_agents_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_04_121508_create_missions_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_12_04_121508_create_missions_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_11_113640_create_vehicules_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_12_11_113640_create_vehicules_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_11_114118_create_entites_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_12_11_114118_create_entites_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/simple-sidebar.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/simple-sidebar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_11_114118_create_entites_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2013_12_03_114118_create_entites_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_11_114302_create_attributions_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_12_11_114302_create_attributions_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/agents.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/agents.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/detailsUser.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/detailsUser.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/editAgent.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/editAgent.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/include/agentForm.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/include/agentForm.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/include/userForm.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/include/userForm.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/users.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/users.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/agentmiss/agentMiss.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/agentmiss/agentMiss.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/agentmiss/demandeVehicule.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/agentmiss/demandeVehicule.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/agentmiss/detailsMission.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/agentmiss/detailsMission.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/agentmiss/detailsReponse.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/agentmiss/detailsReponse.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/agentmiss/editMiss.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/agentmiss/editMiss.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/agentmiss/reponse.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/agentmiss/reponse.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/chargeImp/enregistrement.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/chargeImp/enregistrement.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/chargeImp/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/chargeImp/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/chargeImp/vehicules.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/chargeImp/vehicules.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/chefGarage/chefGarage.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/chefGarage/chefGarage.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/chefGarage/detailsVehicule.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/chefGarage/detailsVehicule.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/chefGarage/vehicule.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/chefGarage/vehicule.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/gestParc/chauffeurs/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/gestParc/chauffeurs/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/emails/attribution_email.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/emails/attribution_email.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/etatsVues/attributionPDF.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/etatsVues/attributionPDF.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/etatsVues/demandePDF.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/etatsVues/demandePDF.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/gestParc/chauffeurs/detailsChauffeur.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/gestParc/chauffeurs/detailsChauffeur.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/gestParc/chauffeurs/editChauffeur.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/gestParc/chauffeurs/editChauffeur.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/gestParc/pools/chauffeurPool.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/gestParc/pools/chauffeurPool.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/gestParc/pools/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/gestParc/pools/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/gestParc/pools/vehiculePool.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/gestParc/pools/vehiculePool.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/gestParc/vehicules/detailsVehicule.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/gestParc/vehicules/detailsVehicule.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/gestParc/vehicules/docBord.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/gestParc/vehicules/docBord.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/gestParc/vehicules/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/gestParc/vehicules/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/gestParc/statistiques/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/gestParc/statistiques/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/gestParc/statistiques/indexPools.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/gestParc/statistiques/indexPools.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/gestParc/statistiques/indexVehicules.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/gestParc/statistiques/indexVehicules.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/include/password.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/include/password.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/include/role.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/include/role.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/include/selectOption.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/include/selectOption.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/admin.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/agentMiss.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/agentMiss.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/chargeImp.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/chargeImp.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/chefGarage.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/chefGarage.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/gestParc.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/gestParc.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/respPool.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/respPool.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/respPool/absencePool.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/respPool/absencePool.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/valideur.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/valideur.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/respPool/attrEnCours.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/respPool/attrEnCours.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/respPool/chauffeurPool.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/respPool/chauffeurPool.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/respPool/detailsRequete.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/respPool/detailsRequete.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/respPool/detailsVehicule.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/respPool/detailsVehicule.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/respPool/requetes.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/respPool/requetes.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/respPool/vehiculePool.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/respPool/vehiculePool.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/valideur/detailsDemande.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/valideur/detailsDemande.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/valideur/validations.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/valideur/validations.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -295,7 +326,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/gestParc/statistiques" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/include" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -306,11 +337,11 @@
       <recent name="C:\laragon\www\GestVM\resources\views\agentmiss\include" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\laragon\www\GestVM\resources\views\include" />
+      <recent name="C:\laragon\www\GestVM\resources\lang" />
+      <recent name="C:\laragon\www\GestVM\resources\views\respPool" />
+      <recent name="C:\laragon\www\GestVM\resources\views\gestParc\pools" />
       <recent name="C:\laragon\www\GestVM\resources\views\gestParc\statistiques" />
-      <recent name="C:\laragon\www\GestVM\public\js" />
-      <recent name="C:\laragon\www\GestVM\resources\views\gestParc" />
-      <recent name="C:\laragon\www\GestVM\resources\views\etatsVues" />
-      <recent name="C:\laragon\www\GestVM\resources\views\valideur" />
     </key>
   </component>
   <component name="RunManager">
@@ -398,7 +429,29 @@
       <workItem from="1612431587518" duration="711000" />
       <workItem from="1612432382283" duration="13446000" />
       <workItem from="1612477416190" duration="43228000" />
-      <workItem from="1612562845577" duration="16633000" />
+      <workItem from="1612562845577" duration="19017000" />
+      <workItem from="1612713159934" duration="3691000" />
+      <workItem from="1612777313229" duration="28797000" />
+      <workItem from="1612861397095" duration="25045000" />
+      <workItem from="1612907015575" duration="43087000" />
+      <workItem from="1613060073864" duration="1036000" />
+      <workItem from="1613081020061" duration="12788000" />
+      <workItem from="1613156548282" duration="2953000" />
+      <workItem from="1613203293291" duration="4908000" />
+      <workItem from="1613322710676" duration="10683000" />
+      <workItem from="1613380184771" duration="2090000" />
+      <workItem from="1613390427631" duration="7746000" />
+      <workItem from="1613427587985" duration="2525000" />
+      <workItem from="1613469542617" duration="1492000" />
+      <workItem from="1613599588988" duration="17224000" />
+      <workItem from="1613648680366" duration="697000" />
+      <workItem from="1613653510701" duration="5729000" />
+      <workItem from="1613661705636" duration="2175000" />
+      <workItem from="1613730309140" duration="5285000" />
+      <workItem from="1613782838704" duration="2170000" />
+      <workItem from="1613815436488" duration="11819000" />
+      <workItem from="1613907806407" duration="20177000" />
+      <workItem from="1613987662105" duration="5274000" />
     </task>
     <servers />
   </component>
@@ -421,17 +474,21 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="371" y="95" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1612522593703">
+    <state x="371" y="95" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1613920486776">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="371" y="95" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1280.680/1920.0.1440.860@0.0.1280.680" timestamp="1612522593703" />
+    <state x="371" y="95" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1280.680/1920.0.1440.860@0.0.1280.680" timestamp="1613920486776" />
+    <state x="2027" y="67" width="946" height="669" maximized="true" key="dock-window-1" timestamp="1612876169608">
+      <screen x="1920" y="0" width="1440" height="860" />
+    </state>
+    <state x="2027" y="67" width="946" height="669" maximized="true" key="dock-window-1/0.0.1280.680/1920.0.1440.860@0.0.1280.680" timestamp="1612876169608" />
     <state x="297" y="151" key="run.anything.popup" timestamp="1612567545971">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="297" y="151" key="run.anything.popup/0.0.1280.680@0.0.1280.680" timestamp="1612567545971" />
-    <state x="303" y="1" key="search.everywhere.popup" timestamp="1612541153739">
+    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup" timestamp="1613657820530">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="303" y="1" key="search.everywhere.popup/0.0.1280.680/1920.0.1440.860@0.0.1280.680" timestamp="1612541153739" />
+    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup/0.0.1280.680/1920.0.1440.860@0.0.1280.680" timestamp="1613657820530" />
   </component>
 </project>

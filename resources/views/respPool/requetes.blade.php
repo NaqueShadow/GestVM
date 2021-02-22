@@ -43,12 +43,12 @@
                     <th scope="col">Demandeur</th>
                     <th scope="col">Mission</th>
                     <th scope="col">Lieu</th>
-                    <th scope="col">Depart</th>
+                    <th scope="col">Départ</th>
                     <th scope="col">Retour</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
-                <tbody id="">
+                <tbody id="" class="refresh">
                 @foreach($missions as $mission)
                     <tr>
                         <td> {{$mission->updated_at->format('d/m/Y')}} </td>
@@ -78,11 +78,14 @@
         </div>
 
     </div>
-
-
-
-
-
-
-
+{{--
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        var auto_refresh = setInterval(
+            function ()
+            {
+                $('.refresh').load('{{ route('respPool.requetesRefresh') }}').fadeIn("slow");
+            }, 10000); // refresh every 10000 milliseconds
+    </script>
+--}}
 @endsection

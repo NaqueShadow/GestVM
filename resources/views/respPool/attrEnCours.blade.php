@@ -61,14 +61,15 @@
                                 <button title="exporter" class="btn btn-link text-primary pt-0 pb-0 dropdown-toggle" data-toggle="dropdown" >
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-sm-right">
-                                    <a href="/attribution/{{ $attribution->id }}/destroy" class="dropdown-item">
-                                        <button class="btn btn-link text-danger" title="annuler l'attribution">
-                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                                            </svg> annuler l'affectation
-                                        </button>
-                                    </a>
                                     @if($attribution->statut == 1)
+                                        <a href="/attribution/{{ $attribution->id }}/destroy" class="dropdown-item">
+                                            <button class="btn btn-link text-danger" title="annuler l'attribution">
+                                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                                </svg> annuler l'affectation
+                                            </button>
+                                        </a>
+
                                         <a href="/attribution/{{ $attribution->id }}/terminer" class="dropdown-item">
                                             <button class="btn btn-link text-info" title="mission terminée">
                                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -77,6 +78,15 @@
                                             </button>
                                         </a>
                                     @endif
+                                    <form class="dropdown-item" method="post" action="{{ route('pdf.attribution', ['attribution' => $attribution->id]) }}">
+                                        @csrf
+                                        <button type="submit" class="btn btn-link col-auto">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="indianred" class="bi bi-chat-text" viewBox="0 0 16 16">
+                                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                                            </svg> Pdf
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </td>

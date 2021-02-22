@@ -35,7 +35,7 @@
                         <div class="card-body">
 
                             <div class="w-75 m-auto mt-3 h4 text-info">
-                                <marquee behavior="" direction="">Bienvenu sur la plateforme de gestion des véhicules de mission !!</marquee>
+                                <marquee behavior="" direction="">Bienvenue sur la plateforme de gestion des véhicules de mission !!</marquee>
                             </div>
                             <div class="mt-2">.</div>
                             @if( session()->get('error') )
@@ -65,7 +65,6 @@
                                     <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Mot de passe') }}</label>
 
                                     <div class="col-md-6">
-                                        <small class="text-black-50"></small>
                                         <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                                         @error('password')
@@ -77,14 +76,18 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <div class="col-md-6 offset-md-4">
+                                    <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Profil') }}</label>
+
+                                    <div class="col-md-6">
                                         <select name="role" id="role" class="form-control">
-                                            <option value="1" selected>Demandeur</option>
+                                            <option value="1"></option>
+                                            <option value="1">Demandeur</option>
                                             <option value="2">Chargé des interventions</option>
                                             <option value="3">Chargé des imputations</option>
                                             <option value="4">Responsable de pool</option>
                                             <option value="5">Gestionnaire de parc</option>
                                             <option value="6">Administrateur</option>
+                                            <option value="7">Valideur</option>
                                         </select>
                                     </div>
                                 </div>

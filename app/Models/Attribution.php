@@ -14,11 +14,25 @@ class Attribution extends Model
     protected $with = ['vehicule', 'chauffeur'];
 
     public function scopeEnCours ($query) {
+        foreach (auth()->user()->pools as $p)
+            $pl[] = $p->id;
+
         return $query->where('statut', 1)
-            ->whereHas('vehicule', function ($query) {
-                $query->where('idPool', auth()->user()->idPool );
+            ->whereHas('vehicule', function ($query) use($pl) {
+                $query->whereIn('idPool', $pl);
             })
             ->get();
+    }
+
+    public function scopeNew($query) {
+
+        foreach (auth()->user()->pools as $p)
+            $pl[] = $p->id;
+
+        return $query->where('statut', '1')
+            ->whereHas('vehicule', function ($query) use($pl) {
+                $query->whereIn('idPool', $pl);
+            })->count();
     }
 
     public function vehicule()

@@ -21,8 +21,18 @@ class Pool extends Model
         return $this->hasMany('App\Models\Chauffeur', 'idPool');
     }
 
+    public function entites()
+    {
+        return $this->belongsToMany('App\Models\Entite', 'entites_pools', 'idPool', 'idEntite');
+    }
+
     public function users()
     {
-        return $this->hasMany('App\Models\User', 'idPool');
+        return $this->belongsToMany('App\Models\User', 'pool_users', 'idPool', 'idUser');
+    }
+
+    public function missions()
+    {
+        return $this->hasMany('App\Models\Mission', 'idPool');
     }
 }

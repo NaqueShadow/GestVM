@@ -68,6 +68,9 @@ class LoginController extends Controller
                 elseif ($input['role'] == 6) {
                     return redirect()->route('admin.index');
                 }
+                elseif ($input['role'] == 7) {
+                    return redirect()->route('valideur.index');
+                }
                 return redirect()->route('agentMiss.index');
             }
             else {
@@ -75,8 +78,6 @@ class LoginController extends Controller
                 $request->session()->regenerate();
                 return redirect()->route('login')->with('error','compte inactif');
             }
-
-
         }
 
         else {

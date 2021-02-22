@@ -20,7 +20,7 @@
             </form>
         </div>
     </div>
-    <div class="mt-2 ml-5 mr-5 align-content-center text-dark" style="padding: 2%; margin-bottom: auto; border: 1px solid mediumseagreen; border-radius: 15px; color: #284563;" >
+    <div class="mt-2 ml-5 mr-5 align-content-center text-dark" style="padding: 2%; margin-bottom: auto; border: 1px solid mediumseagreen; border-radius: 15px; color: #284563; overflow: auto;" >
 
         <div class="row mt-3">
             <div class="col-3 text-right font-weight-bold">Mission :</div>
@@ -34,9 +34,19 @@
 
         <div class="row mt-3">
             <div class="col-3 text-right font-weight-bold">Depart :</div>
-            <div class="col-2 form-control">{{ $mission->dateDepart->format('d/m/Y') }}</div>
+            <div class="col-3 form-control">{{ $mission->dateDepart->format('d/m/Y') }}</div>
             <div class="col-2 text-right font-weight-bold">Retour :</div>
-            <div class="col-4 form-control">{{ $mission->dateRetour->format('d/m/Y') }}</div>
+            <div class="col-3 form-control">{{ $mission->dateRetour->format('d/m/Y') }}</div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-3 text-right font-weight-bold">Activité :</div>
+            <div class="col-8 form-control">{{ isset($mission->idActivite)?$mission->activite->designation:'-' }}</div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-3 text-right font-weight-bold">Entité :</div>
+            <div class="col-8 form-control">{{ isset($mission->idEntite)?$mission->entite->designation:'-' }}</div>
         </div>
 
         <div class="row mt-3">
@@ -49,7 +59,11 @@
         @if(!empty($mission->typeV) || !empty($mission->codeV) || !empty($mission->idChauf))
             <div class="row mt-3">
                 <div class="col-3 text-right font-weight-bold">Préférence :</div>
-                <div class="col-3 form-control">Véhicule de {{ $mission->typeV }}</div>
+                <div class="col-3 form-control">
+                    @if($mission->typeV)
+                        Véhicule de {{ $mission->typeV }}
+                    @endif
+                </div>
                 <div class="col-2 text-right font-weight-bold">Code :</div>
                 <div class="col-3 form-control">{{ $mission->codeV }}</div>
             </div>
@@ -69,9 +83,14 @@
             <div class="col-9 text-right"></div>
             @foreach($mission->agents as $agent)
                 <div class="col-3 text-right"></div>
-                <div class="col-3">- {{ $agent->nom }} {{ $agent->prenom }}</div>
-                <div class="col-6">{{ $agent->poste }}</div>
+                <div class="col-4">- {{ $agent->nom }} {{ $agent->prenom }}</div>
+                <div class="col-4">{{ $agent->matricule }}</div>
             @endforeach
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-3 text-right font-weight-bold">Pool de reception :</div>
+            <div class="col-8 form-control">{{ isset($mission->idPool)?$mission->pool->designation:'-' }}</div>
         </div>
 
         @isset($mission->commentaire)

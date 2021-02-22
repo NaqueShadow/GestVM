@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Imports\AgentImport;
 use App\Models\Agent;
 use App\Models\Categorie;
+use App\Models\Entite;
 use App\Models\Pool;
 use App\Models\Role;
 use App\Models\User;
@@ -24,7 +25,6 @@ class AdminController extends Controller
         $this->middleware('auth');
     }
 
-
     public function index()
     {
         $users = User::all()->load('pool');
@@ -37,14 +37,15 @@ class AdminController extends Controller
     {
         $text = $request->text;
         $pools = Pool::all();
-        $users = User::where('email', 'like', '%'.$request->text.'%')
+        $agents = Agent::all();
+        $users = User::where('login', 'like', '%'.$request->text.'%')
             ->orWhere('matricule', 'like', '%'.$request->text.'%')
-            ->whereHas('agent', function ($query) use($request) {
+            ->orWhereHas('agent', function ($query) use($request) {
                 $query->where('nom', 'like', '%'.$request->text.'%')
                     ->orWhere('prenom', 'like', '%'.$request->text.'%');
             })->get();
 
-        return view('admin/users', compact('users', 'text', 'pools'));
+        return view('admin/users', compact('users', 'agents', 'text', 'pools'));
     }
 
     public function store(Request $request)
@@ -54,7 +55,6 @@ class AdminController extends Controller
             'login' => 'required|string|min:4|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'statut' => 'required',
-            'idPool' => 'required',
         ]);
 
         User::create([
@@ -62,7 +62,6 @@ class AdminController extends Controller
             'login' => $agent['login'],
             'password' => bcrypt($agent['password']),
             'statut' => $agent['statut'],
-            'idPool' => $agent['idPool'],
         ]);
 
         return redirect()->route('admin.index')->with('info', 'compte créé avec succès');
@@ -70,7 +69,7 @@ class AdminController extends Controller
 
     public function show(User $user)
     {
-        $pools = Pool::all();
+        $pools = Pool::doesntHave('users')->get();
         $agents = Agent::all();
         $agent = Agent::find($user->agent->matricule);
         $roles = Role::whereDoesntHave('users', function ($query) use($user) {
@@ -82,10 +81,9 @@ class AdminController extends Controller
     public function update(Request $request, User $user)
     {
         $validate = $request->validate([
-            'matricule' => 'required|numeric',
+
             'login' => 'required|string|min:4|max:255',
             'statut' => 'required',
-            'idPool' => 'required',
         ]);
 
         $user->update($validate);
@@ -112,7 +110,6 @@ class AdminController extends Controller
         return redirect()->route('admin.index');
     }
 
-
     public function storeRole(Request $request, User $user)
     {
         $user->roles()->attach($request->role);
@@ -121,8 +118,22 @@ class AdminController extends Controller
 
     public function destroyRole(Request $request, User $user)
     {
-        $user->roles()->detach($request->role);
+        if ($request->role)
+            $user->roles()->detach($request->role);
         return redirect()->back()->with('info', ' role retiré avec succès');
+    }
+
+    public function storePool(Request $request, User $user)
+    {
+        if ($request->pool)
+            $user->pools()->attach($request->pool);
+        return redirect()->back()->with('info', ' pool affecté avec succès');
+    }
+
+    public function destroyPool(Request $request, User $user)
+    {
+        $user->pools()->detach($request->pool);
+        return redirect()->back()->with('info', ' pool retiré avec succès');
     }
 
 
@@ -132,20 +143,23 @@ class AdminController extends Controller
     {
         $agents = Agent::all();
         $categories = Categorie::all();
+        $entites = Entite::all();
         $agent = new Agent();
-        return view('admin/agents', compact('agents', 'categories', 'agent'));
+        return view('admin/agents', compact('agents', 'entites', 'categories', 'agent'));
     }
 
     public function rechercheAgent(Request $request)
     {
         $text = $request->text;
         $agent = new Agent();
+        $categories = Categorie::all();
+        $entites = Entite::all();
         $agents = Agent::where('nom', 'like', '%'.$request->text.'%')
             ->orWhere('prenom', 'like', '%'.$request->text.'%')
             ->orWhere('matricule', 'like', '%'.$request->text.'%')
             ->get();
 
-        return view('admin/agents', compact('agents', 'text', 'agent'));
+        return view('admin/agents', compact('agents', 'categories', 'entites', 'text', 'agent'));
     }
 
     public function storeAgent(Request $request)
@@ -157,6 +171,7 @@ class AdminController extends Controller
                 'nom'=>'required|min:2',
                 'prenom'=>'required|min:2',
                 'idCateg'=>'nullable|exists:categories,categorie',
+                'idEntite'=>'nullable|exists:entites,id',
                 'poste'=>'required|min:2',
                 'email' => 'required|string|email|max:255|unique:agents|unique:chauffeurs',
                 'telephone' => 'required|min:8|numeric|unique:agents|unique:chauffeurs',
@@ -175,7 +190,8 @@ class AdminController extends Controller
     public function editAgent(Agent $agent)
     {
         $categories = Categorie::all();
-        return view('admin.editAgent', compact('agent', 'categories'));
+        $entites = Entite::all();
+        return view('admin.editAgent', compact('agent', 'entites', 'categories'));
     }
 
     public function updateAgent(Request $request, Agent $agent)
@@ -184,8 +200,9 @@ class AdminController extends Controller
             'matricule'=>'required|numeric',
             'nom'=>'required|min:2',
             'prenom'=>'required|min:2',
-            'poste'=>'required|min:2',
+            'poste'=>'nullable|min:2',
             'idCateg'=>'nullable|exists:categories,categorie',
+            'idEntite'=>'nullable|exists:entites,id',
             'email' => 'required|string|email|max:255',
             'telephone' => 'required|min:8|numeric',
         ]);
@@ -208,11 +225,16 @@ class AdminController extends Controller
 
     public function updatePassword(Request $request, User $user)
     {
-        $validate = $request->validate([
-            'password' => 'required|string|min:8|confirmed',
-        ]);
-        $user->password = bcrypt($validate['password']);
-        $user->update();
-        return redirect()->back();
+        if ( password_verify($request->ancienPass, $user->password) )
+        {
+            $validate = $request->validate([
+                'passwd' => 'required|string|min:8|confirmed',
+            ]);
+            $user->password = bcrypt($validate['passwd']);
+            $user->update();
+            return redirect()->back()->with('passUpdated', 'Mot de passe modifié avec succes');
+        }
+        else
+            return redirect()->back()->with('passError', 'Echec d\'authentification');
     }
 }

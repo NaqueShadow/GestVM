@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'chefGarage' => \App\Http\Middleware\ChefGarageMiddleware::class,
         'chargeImp' => \App\Http\Middleware\ChargeImpMiddleware::class,
         'respPool' => \App\Http\Middleware\RespPoolMiddleware::class,
+        'valideur' => \App\Http\Middleware\ValideurMiddleware::class,
     ];
 }

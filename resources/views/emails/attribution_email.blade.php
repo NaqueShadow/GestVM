@@ -1,12 +1,18 @@
 @component('mail::message')
-# Reponse demande de véhicule
 
-Bonjour,
-Suite à votre demande de véhicule pour la mission _{{$attr->mission->objet}}_,
-le véhicule {{$attr->idVehicule}}, immatriculation {{$attr->vehicule->immatriculation}} vous a été alloué
-avec le chauffeur {{$attr->idChauf}}, matricule {{$attr->chauffeur->matricule}},
-que vous pourrez jouindre au {{$attr->chauffeur->telephone}}
+    Bonjour,
 
-Merci,<br>
-{{ config('app.name') }}
+    Suite à votre demande de véhicule pour la mission "{{strtoupper($attr->mission->objet)}}",
+    les éléments suivants vous ont été attribués:
+
+    -----------------------------------------------------------
+        Véhicule  :   {{$attr->idVehicule}},
+            Immatriculation {{$attr->vehicule->immatriculation}}
+
+        Chauffeur :   {{$attr->chauffeur->nom}} {{$attr->chauffeur->prenom}},
+            Matricule : {{$attr->chauffeur->matricule}},
+              Contact : {{$attr->chauffeur->telephone}}
+    -----------------------------------------------------------
+    Merci,
+    {{ config('app.name') }} (SOFITEX)
 @endcomponent

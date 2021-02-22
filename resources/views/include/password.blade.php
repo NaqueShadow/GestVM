@@ -13,12 +13,25 @@
                         <div class="form-group input-group col-12 row">
                             <label class="col-3">Mot de passe</label>
                             <div class="col-9">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-                                       name="password" value="{{ old('password') }}" required autocomplete="new-password">
-                                @error('password')
+                                <input id="ancienPass" type="password" class="form-control @if(session()->get('passError')) is-invalid @endif"
+                                       name="ancienPass" value="{{ old('ancienPass') }}" required autocomplete="new-password">
+                                @if(session()->get('passError'))
                                 <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
+                                    <strong>{{ session()->get('passError') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group input-group col-12 row">
+                            <label class="col-3">Nouveau mot de passe</label>
+                            <div class="col-9">
+                                <input id="passwd" type="password" class="form-control @error('passwd') is-invalid @enderror"
+                                       name="passwd" value="{{ old('passwd') }}" required autocomplete="new-password">
+                                @error('passwd')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>

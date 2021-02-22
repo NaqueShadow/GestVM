@@ -14,16 +14,13 @@
     <title>{{ config('app.name') }} | Responsable de pool</title>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{asset('bootstrap-4.5.2/css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{asset('bootstrap-4.5.2/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('bootstrap-4.5.2/css/bootstrap-select.min.css')}}">
-
-    <script src="{{ asset('js/accordion.js') }}"></script>
 
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/simple-sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style-responsive.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/accordion.css') }}" rel="stylesheet">
     <link href="{{ asset('lib/chosen/chosen.css') }}" rel="stylesheet">
 </head>
 
@@ -51,7 +48,7 @@
                         <div class="mt-2 mr-2 text-primary" style="font-size: 1.5em;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="indianred" class="bi bi-bell-fill" viewBox="0 0 16 16">
                                 <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
-                            </svg>{{\App\Models\Mission::new()}}
+                            </svg>{{\App\Models\Mission::new() + \App\Models\Attribution::new()}}
                         </div>
                         <div class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle h5 text-success" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -62,17 +59,25 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item text-info" href="{{ route('agentMiss.index') }}">
+                                <a class="dropdown-item text-info text-center" href="{{ route('agentMiss.index') }}">
                                     {{ __('Demandeur') }}
                                 </a>
                                 @include('include.role')
-
-                                <a class="dropdown-item text-danger" href="{{ route('logout') }}"
+                                <hr class="mt-1">
+                                <a class="dropdown-item text-danger text-center" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
-                                    {{ __('Se deconnecter') }}
+                                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
+                                        <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+                                    </svg>
+                                    {{ __('Se déconnecter') }}
                                 </a>
-                                <a class="dropdown-item text-warning" data-toggle="modal" data-target="#passwd">
+                                <a class="dropdown-item text-warning text-center" data-toggle="modal" data-target="#passwd">
+                                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8zm4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5z"/>
+                                        <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                                    </svg>
                                     {{ __('Mot de passe') }}
                                 </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -83,7 +88,6 @@
                     </ul>
                 </div>
             </header>
-            <!--header end-->
 
             <!--sidebar start-->
             <aside class="">
@@ -96,14 +100,14 @@
                                     <path fill-rule="evenodd" d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
                                     <path fill-rule="evenodd" d="M9.5 1h-3a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
                                 </svg>
-                                Affectations
+                                Affectations <span class="text-danger">{{\App\Models\Attribution::new()}}</span>
                             </a>
                             <a href="{{route('respPool.requetes')}}" id="demandes" class="list-group-item list-group-item-action h5 text-success" >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="indianred" class="bi bi-chat-text" viewBox="0 0 16 16">
                                     <path d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z"/>
                                     <path d="M4 5.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8zm0 2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
                                 </svg>
-                                Demandes <span class="text-primary">({{\App\Models\Mission::new()}})</span>
+                                Demandes <span class="text-danger">{{\App\Models\Mission::new()}}</span>
                             </a>
                             <a href="{{route('respPool.vehicules')}}" id="vehicules" class="list-group-item list-group-item-action h5 text-success">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="indianred" class="bi bi-truck" viewBox="0 0 16 16">
@@ -129,13 +133,13 @@
                     <!-- sidebar menu end-->
                 </div>
             </aside>
-            <!--sidebar end-->
 
             <!--main content start-->
             <section id="main-content" style="background-color: white;">
                 <section class="wrapper">
                     <div class="">
                         <div class="ml-2 vh-100">
+                            @include('include.passInfo')
                             @yield('content')
                         </div>
                         @include('include.password')

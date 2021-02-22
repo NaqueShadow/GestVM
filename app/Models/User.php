@@ -72,7 +72,12 @@ class User extends Authenticatable
 
     public function pool()
     {
-        return $this->belongsTo('App\Models\Pool', 'idPool', 'id');
+        return $this->belongsToMany('App\Models\Pool', 'pool_users', 'idUser', 'idPool');
+    }
+
+    public function pools()
+    {
+        return $this->belongsToMany('App\Models\Pool', 'pool_users', 'idUser', 'idPool');
     }
 
     public function validation()

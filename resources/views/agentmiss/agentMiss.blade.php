@@ -41,6 +41,15 @@
 
         <div class="card-body h-100" style="color: #284563; overflow: auto;">
 
+            @if( session()->get('info') )
+                <div class="alert alert-success text-center text-success alert-dismissible fade show" role="alert">
+                    {{ session()->get('info') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
+
             <table class="table table-striped table-hover">
                 <thead>
                     <tr class="table-success">

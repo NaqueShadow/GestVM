@@ -66,6 +66,25 @@
             </div>
 
             <div class="form-group input-group col-12 row">
+                <label class="col-3">Service/Entité</label>
+                <div class="col-9">
+                    <select name="idEntite" id="idEntite" class="selectpicker form-control @error('idEntite') is-invalid @enderror" @include('include.selectOption')>
+                        <option value="">...</option>
+                        @foreach($entites as $entite)
+                            <option value="{{$entite->id}}" {{$entite->id == old('idEntite')?'selected':($entite->id == $agent->idEntite?'selected':'')}}>
+                                {{$entite->designation}}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('idEntite')
+                    <div class="invalide-feedBack() text-danger">
+                        {{ 'Poste invalide' }}
+                    </div>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="form-group input-group col-12 row">
                 <label class="col-3">Catégorie</label>
                 <div class="col-9">
                     <select name="idCateg" id="idCateg" required class="form-control @error('idCateg') is-invalid @enderror">

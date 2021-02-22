@@ -21,7 +21,7 @@ class CreateAttributionsTable extends Migration
             $table->string('idChauf');
             $table->string('idVehicule');
             $table->unsignedBigInteger('idMission');
-            $table->unsignedBigInteger('idEntite');
+            $table->unsignedBigInteger('idEntite')->nullable();
 
             $table->unique(['idVehicule','idMission']);
             $table->foreign('idVehicule')->references('code')->on('vehicules')->cascadeOnDelete();

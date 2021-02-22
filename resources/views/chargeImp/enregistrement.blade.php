@@ -43,7 +43,7 @@
                 <thead>
                 <tr class="table-success">
                     <th>#</th>
-                    <th scope="col">DATE</th>
+                    <th scope="col">SORTIE</th>
                     <th scope="col">UTILISATEUR</th>
                     <th scope="col">CHAUFFEUR</th>
                     <th scope="col" colspan="3">CONSOMMATION</th>
@@ -57,8 +57,8 @@
                 @foreach( $attributions as $attribution )
                     <tr>
                         <td>{{ ++$i }}</td>
-                        <td>{{ $attribution->mission->dateDepart->format('d/m') }} - {{ $attribution->mission->dateRetour->format('d/m/Y') }}</td>
-                        <th>{{ $attribution->entite->designation }}</th>
+                        <td>{{ $attribution->mission->dateDepart->format('d/m/Y') }}</td>
+                        <th>{{ $attribution->mission->idEntite ? $attribution->mission->entite->designation:'' }}</th>
                         <td>{{ $attribution->chauffeur->nom }} {{ $attribution->chauffeur->prenom }}</td>
                         @if(isset($attribution->ressource->id))
                             <td title="volume de carburant">{{ $attribution->ressource->carburant }} L</td>

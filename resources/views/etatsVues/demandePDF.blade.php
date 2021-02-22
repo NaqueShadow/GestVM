@@ -16,6 +16,14 @@
         <div class=" mt-3">
             <table class="w-100">
                 <tr>
+                    <td class="font-weight-bold w-25">Code activité :</td> <td class="">{{ $mission->idActivite ? $mission->activite->code:'-' }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class=" mt-3">
+            <table class="w-100">
+                <tr>
                     <td class="font-weight-bold w-25">Trajet :</td> <td class="">{{ $mission->villeDep->nom }} - {{ $mission->villeDesti->nom }}</td>
                 </tr>
             </table>
@@ -105,10 +113,21 @@
             <table class="w-100">
                 <tr>
                     <td class="font-weight-bold w-50"></td>
-                    <td class="text-black-50">Demandeur : {{ $mission->dmdeur->agent->nom }} {{ $mission->dmdeur->agent->prenom }}</td>
+                    <td class="text-black-50 text-right">{{ $mission->dmdeur->agent->nom }} {{ $mission->dmdeur->agent->prenom }},</td>
                 </tr>
             </table>
         </div>
+
+        @if($mission->idEntite)
+            <div class=" mt-3">
+                <table class="w-100">
+                    <tr>
+                        <td class="font-weight-bold w-50"></td>
+                        <td class="text-right">{{ $mission->entite->designation }}</td>
+                    </tr>
+                </table>
+            </div>
+        @endif
     </div>
 
 @endsection

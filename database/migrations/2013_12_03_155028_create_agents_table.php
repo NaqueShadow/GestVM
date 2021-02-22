@@ -21,9 +21,11 @@ class CreateAgentsTable extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('poste');
             $table->char('idCateg')->nullable();
+            $table->unsignedBigInteger('idEntite')->nullable();
             $table->timestamps();
 
-            $table->foreign('idCateg')->references('categorie')->on('categories');
+            $table->foreign('idCateg')->references('categorie')->on('categories')->nullOnDelete();
+            $table->foreign('idEntite')->references('id')->on('entites')->nullOnDelete();
         });
     }
 

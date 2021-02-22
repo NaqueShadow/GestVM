@@ -20,6 +20,6 @@ class ChefGarageMiddleware
             if ($role->id == 2) {
                 return $next($request);
             }
-        return redirect()->route('agentMiss.index');
+        return redirect()->back();
     }
 }

@@ -45,8 +45,12 @@ class ChefGarageController extends Controller
                 ->orderBy('created_at', 'DESC')
                 ->get();
 
-        if ( $filtre['periode'] != 'tous' )
-            $interventions = $interventions->where('created_at', $p, $filtre['date']); //->format('Y-m-d')
+        if ( $filtre['periode'] == 'avant' )
+            $interventions = $interventions->where('created_at', '<', $filtre['date']); //->format('Y-m-d')
+        if ( $filtre['periode'] == 'apres' )
+            $interventions = $interventions->where('created_at', '>', $filtre['date']); //->format('Y-m-d')
+        if ( $filtre['periode'] == 'le' )
+            $interventions = $interventions->where('created_at', $filtre['date']); //->format('Y-m-d')
 
         return view('chefGarage/chefGarage', compact('interventions', 'vehicules', 'filtre'));
     }
@@ -74,66 +78,14 @@ class ChefGarageController extends Controller
         $text = $request->text;
         $vehicules = Vehicule::where('code', 'like', '%'.$request->text.'%')
             ->orWhere('modele', 'like', '%'.$request->text.'%')
+            ->orWhereHas('chauffeur', function ($query) use($request) {
+                $query->where('nom', 'like', '%'.$request->text.'%')
+                    ->orWhere('prenom', 'like', '%'.$request->text.'%');
+            })
             ->with('chauffeur')
             ->get();
 
         return view('chefGarage/vehicule', compact('vehicules', 'text'));
     }
 
-
-    public function create()
-    {
-        //
-    }
-
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

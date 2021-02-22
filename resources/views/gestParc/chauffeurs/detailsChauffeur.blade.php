@@ -1,4 +1,4 @@
-@extends('layouts.agentMiss')
+@extends('layouts.gestParc')
 
 @section('content')
 

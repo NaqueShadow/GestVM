@@ -8,7 +8,7 @@ use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class AgentImport implements ToCollection, WithHeadingRow
+class AgentImport implements ToCollection
 {
     use Importable;
 
@@ -16,7 +16,11 @@ class AgentImport implements ToCollection, WithHeadingRow
     {
         foreach ($rows as $row)
         {
-            if ($row[0] != null)
+            $v = Agent::where('matricule', $row[0])
+                ->orWhere('email', $row[5],)
+                ->orWhere('telephone', $row[6],)->get();
+
+            if ($row[0] != null && $v == null)
                 Agent::create([
                     'matricule'     => $row[0],
                     'nom'           => $row[1],

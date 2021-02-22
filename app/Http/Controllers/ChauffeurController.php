@@ -9,19 +9,6 @@ use Illuminate\Http\Request;
 
 class ChauffeurController extends Controller
 {
-
-    public function index()
-    {
-        //
-    }
-
-
-    public function create()
-    {
-        //
-    }
-
-
     public function store(Request $request)
     {
         if ($request->form == 1)
@@ -41,7 +28,6 @@ class ChauffeurController extends Controller
 
         return redirect()->route('gestParc.indexChauffeurs')->with('info', $request->nom.' '.$request->prenom.' enregistré avec succès');
     }
-
 
     public function show(Chauffeur $chauffeur)
     {

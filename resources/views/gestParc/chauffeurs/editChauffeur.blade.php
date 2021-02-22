@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.gestParc')
 
 @section('content')
 
@@ -25,7 +25,7 @@
                                 <div class="form-group input-group col-12 row">
                                     <label class="col-3">Matricule</label>
                                     <div class="col-9">
-                                        <input type="text" name="matricule" id="matricule"
+                                        <input type="text" name="matricule" readonly id="matricule"
                                                value="{{ old('matricule') ?? $chauffeur->matricule }}" required
                                                placeholder="..." value="{{ old('matricule') }}"
                                                class="form-control @error('matricule') is-invalid @enderror">

@@ -20,6 +20,6 @@ class RespPoolMiddleware
             if ($role->id == 4) {
                 return $next($request);
             }
-        return redirect()->route('agentMiss.index');
+        return redirect()->back();
     }
 }

@@ -62,7 +62,7 @@
                         <td> {{strlen($mission->objet) < 26 ?$mission->objet:substr($mission->objet,0,25).'...'}} </td>
                         <td> {{$mission->dateDepart->format('d-m-Y')}} </td>
                         <td> {{$mission->villeDesti->nom}} </td>
-                        <td class="text-primary"> {{$mission->validation}} </td>
+                        <td class="{{$mission->validation=='Validée'?'text-primary':'text-danger'}}"> {{$mission->validation}} </td>
                         <td>
                             <div class="dropdown">
                                 <button title="exporter" class="btn btn-link text-primary pt-0 pb-0 dropdown-toggle" data-toggle="dropdown" >

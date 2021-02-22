@@ -24,6 +24,7 @@ class Attr_email extends Mailable
         $this->attr = $attribution;
     }
 
+
     /**
      * Build the message.
      *
@@ -31,6 +32,7 @@ class Attr_email extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.attribution_email');
+        return $this->markdown('emails.attribution_email')
+            ->subject('Affectation de véhicule pour la mission '. $this->attr->mission->objet);
     }
 }

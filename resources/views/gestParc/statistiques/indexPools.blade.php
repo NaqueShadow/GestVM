@@ -11,7 +11,10 @@
         <div class="card-header bg-light pt-0 pb-0">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link text-info h5" href="{{ route('stat.index') }}">Utilisateurs</a>
+                    <a class="nav-link text-info h5" href="{{ route('stat.index') }}">Entités</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-info h5" href="{{ route('stat.indexActivite') }}">Activités</a>
                 </li>
                 <li class="nav-item bg-white">
                     <a class="nav-link text-success h5 active" href="{{ route('stat.indexPool') }}">Pools</a>

@@ -51,7 +51,7 @@
                     <th scope="col">#</th>
                     <th scope="col">MATR</th>
                     <th scope="col">AGENT</th>
-                    <th scope="col">POSTE</th>
+                    <th scope="col">ENTITE</th>
                     <th scope="col">CONTACT</th>
                     <th scope="col">EMAIL</th>
                     <th scope="col"></th>
@@ -66,7 +66,7 @@
                         <td>{{ ++$i }}</td>
                         <th>{{ $ag->matricule }}</th>
                         <th>{{ $ag->nom }} {{ $ag->prenom }}</th>
-                        <td>{{ $ag->poste }}</td>
+                        <td title="{{ $ag->idEntite?$ag->entite->designation:'' }}">{{ $ag->idEntite?$ag->entite->abbreviation:'--' }}</td>
                         <td>{{ $ag->telephone }}</td>
                         <td>{{ $ag->email }}</td>
                         <td>
@@ -101,7 +101,6 @@
             </table>
         </div>
     </div>
-
 
 <div>
     <div class="modal fade" id="fenetre" tabindex="-1" aria-labelledby="fenetre" aria-hidden="true">

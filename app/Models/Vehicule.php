@@ -32,7 +32,7 @@ class Vehicule extends Model
 
     public function scopeDuPool ($query) {
 
-        return $query->where('idPool', auth()->user()->idPool )->get();
+        return $query->whereIn('idPool', auth()->user()->pools )->get();
     }
 
     public function scopeDispo ($query) {
@@ -40,9 +40,9 @@ class Vehicule extends Model
         return $query->where('statut', 1 )->get();
     }
 
-    public function scopeNbrMiss($query) {
+    public function scopeNbrMiss($query, $rp) {
 
-        return $query->where('idPool', auth()->user()->idPool )
+        return $query->whereIn('idPool', $rp )
             ->withCount(['attributions'
             => function ($query) {
                     $a = Date::now()->firstOfMonth();
@@ -51,31 +51,33 @@ class Vehicule extends Model
                 }]);
     }
 
-    public function scopeSelection($query) {
+    public function scopeSelection($query, $tab) {
 
-        return $query->where('idPool', auth()->user()->idPool )
-            ->where(function ($query){
-                $query->whereDoesntHave('interventions', function ($query) {
-                    $query->whereBetween('debut', session('tab' ))
-                        ->orWhereBetween('finPrev', session('tab' ));
+        return $query->where(function ($query) use ($tab){
+                $query->whereDoesntHave('interventions', function ($query) use ($tab) {
+                    $query->whereBetween('debut', $tab)
+                        ->orWhereBetween('finPrev', $tab);
                 })
-                    ->orWhereHas('interventions', function ($query) {
-                        $query->whereBetween('debut', session('tab' ))
-                            ->orWhereBetween('finPrev', session('tab' ))
-                            ->where('statut', 0);
+                    ->orWhereHas('interventions', function ($query) use ($tab) {
+                        $query->where('statut', 0)
+                         ->where(function ($query) use ($tab) {
+                             $query->whereBetween('debut', $tab)
+                                ->orWhereBetween('finPrev', $tab);
+                         });
                     });
-            })->where(function ($query){
-                $query->whereDoesntHave('attributions', function ($query) {
-                    $query->whereHas('mission', function ($query) {
-                        $query->whereBetween('dateDepart', session('tab' ))
-                            ->orWhereBetween('dateRetour', session('tab' ));
+            })->where(function ($query) use ($tab) {
+                $query->whereDoesntHave('attributions', function ($query) use ($tab) {
+                    $query->whereHas('mission', function ($query) use ($tab) {
+                        $query->whereBetween('dateDepart', $tab)
+                            ->orWhereBetween('dateRetour', $tab);
                     });
                 })
-                    ->orWhereHas('attributions', function ($query) {
-                        $query->whereHas('mission', function ($query) {
-                            $query->whereBetween('dateDepart', session('tab' ))
-                                ->orWhereBetween('dateRetour', session('tab' ));
-                        })->where('statut', 0);
+                    ->orWhereHas('attributions', function ($query) use ($tab) {
+                        $query->where('statut', 0)
+                        ->whereHas('mission', function ($query) use ($tab) {
+                            $query->whereBetween('dateDepart', $tab)
+                            ->orWhereBetween('dateRetour', $tab);
+                        });
                     });
             });
     }
